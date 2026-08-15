@@ -1,0 +1,90 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="C9B9C552-853D-9ACE-FE44-0135425D4111" name="clinica">
+<createdBy>lulz_user</createdBy>
+<createdTime>2026-05-09 19:02:11 UTC</createdTime>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="8A359156-F116-F7E0-556C-14ED21E19FD3" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id_clinica" id="7663179A-3092-6689-AF5D-B75274119D11">
+<createdBy>lulz_user</createdBy>
+<createdTime>2026-05-09 19:02:16 UTC</createdTime>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="8A359156-F116-F7E0-556C-14ED21E19FD3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nome" id="09637B2A-CA0D-1493-6084-EB8B9C089B84">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-05-10 02:08:01 UTC</createdTime>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="8A359156-F116-F7E0-556C-14ED21E19FD3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_telefone" id="4E6DDE53-8020-B273-297E-7CB7D831BFCF">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-05-14 16:51:25 UTC</createdTime>
+<generatorID>7F50F6E5-A63F-AF01-B6F9-21EDA8A5F272</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="8A359156-F116-F7E0-556C-14ED21E19FD3" value="true"/>
+</engineerTo>
+<referedAttribute>004AC3E6-9863-9E96-0F2F-5969E31E9D07</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_endereco" id="D2095501-C7E9-1349-85F3-B8610238B16D">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-05-21 14:13:56 UTC</createdTime>
+<generatorID>DBA8F7E9-AC21-9686-A0D7-FFF1ECD17BC6</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="8A359156-F116-F7E0-556C-14ED21E19FD3" value="true"/>
+</engineerTo>
+<referedAttribute>8D0D09AC-9460-ABE1-1E50-9FE7F521CBF8</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="BD0B8918-6728-C7AF-25D9-6AE6A1EB1F81" name="clinica PK">
+<createdBy>lulz_user</createdBy>
+<createdTime>2026-05-09 19:02:25 UTC</createdTime>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="8A359156-F116-F7E0-556C-14ED21E19FD3" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<newElementsIDs>7663179A-3092-6689-AF5D-B75274119D11</newElementsIDs>
+<usedAttributes>
+<attributeRef>7663179A-3092-6689-AF5D-B75274119D11</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

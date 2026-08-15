@@ -1,0 +1,116 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="C1E07CC8-B783-025F-C048-54089CBCEDCB" name="veterinario">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-05-21 14:02:04 UTC</createdTime>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="D1858235-BC12-2586-FA46-B67B19390F53" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id_veterinario" id="A70E3F6A-625A-4AE8-C0F6-20886E05126E">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-05-21 14:02:25 UTC</createdTime>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="D1858235-BC12-2586-FA46-B67B19390F53" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nome" id="48EB0113-084E-67FF-BD2C-9C5EDC566F1E">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-05-21 14:03:01 UTC</createdTime>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="D1858235-BC12-2586-FA46-B67B19390F53" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="email" id="AEF3566B-A08B-354A-3759-FE4A3CD9F0E8">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-05-21 14:03:29 UTC</createdTime>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="D1858235-BC12-2586-FA46-B67B19390F53" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="senha" id="A6D48563-C74D-1B36-734F-B710E88EEA29">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-05-21 14:03:46 UTC</createdTime>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="D1858235-BC12-2586-FA46-B67B19390F53" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_telefone" id="85B665C8-BFC7-A504-3BC2-D645152FE36F">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-05-21 14:04:33 UTC</createdTime>
+<generatorID>4E44099A-1710-578D-EEA1-064FAA37BC7A</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="D1858235-BC12-2586-FA46-B67B19390F53" value="true"/>
+</engineerTo>
+<referedAttribute>004AC3E6-9863-9E96-0F2F-5969E31E9D07</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_clinica" id="CC2D3D0C-9EC3-5F03-D058-C2B80B6D7EEF">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-05-21 14:39:41 UTC</createdTime>
+<generatorID>7D450393-F3F4-F5FF-BA76-B60D9FE2121A</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="D1858235-BC12-2586-FA46-B67B19390F53" value="true"/>
+</engineerTo>
+<referedAttribute>7663179A-3092-6689-AF5D-B75274119D11</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="D074F813-038B-0854-1F78-F673A9351B87" name="veterinario PK">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-05-21 14:03:00 UTC</createdTime>
+<ownerDesignName>challenge</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="D1858235-BC12-2586-FA46-B67B19390F53" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>A70E3F6A-625A-4AE8-C0F6-20886E05126E</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
