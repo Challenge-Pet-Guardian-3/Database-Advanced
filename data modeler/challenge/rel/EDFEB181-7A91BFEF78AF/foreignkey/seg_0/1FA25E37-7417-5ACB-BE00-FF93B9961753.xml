@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="1FA25E37-7417-5ACB-BE00-FF93B9961753" containerWithKeyObject="5C98B05E-18F5-60F0-313C-4F7F535ED0AC" localFKIndex="07B97220-2207-B65F-2EF8-FCE7DB8BA9CC" name="atendimento_status_FK">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-21 10:43:50 UTC</createdTime>
+<generatorID>2EED9171-8068-0041-7A8E-1C9BCFF5C323</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<referredTableLongName>status</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>88D3AA29-B1C5-7B3C-48E6-1A27ECAE1F24</referredTableID>
+<keyObject>2238AA0F-9A9C-DDEC-EDEF-0BFA6A1E5C9B</keyObject>
+<referredKeyID>2238AA0F-9A9C-DDEC-EDEF-0BFA6A1E5C9B</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id_status</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

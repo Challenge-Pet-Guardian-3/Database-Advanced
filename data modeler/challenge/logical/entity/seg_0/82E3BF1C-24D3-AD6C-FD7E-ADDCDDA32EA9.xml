@@ -117,7 +117,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="id_pet" id="E294EB84-3C39-609A-1193-BD79C8AE1228">
 <createdBy>Enzo</createdBy>

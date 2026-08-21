@@ -1,0 +1,50 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="2954B5A7-96EE-A976-E9CA-795EB7AB1883" name="raca">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-21 10:43:50 UTC</createdTime>
+<generatorID>41E46DCE-3F90-3860-5C64-0E4C31DEC6E3</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_raca" id="341AB3A8-F0C5-B89A-29B5-56967617008A">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-21 10:43:50 UTC</createdTime>
+<generatorID>1140B66B-585F-B6B9-1F84-B64902BF5EA4</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nome_raca" id="5BE9CCBE-A196-54F3-769C-FF83D12FB9FE">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-21 10:43:50 UTC</createdTime>
+<generatorID>8378BF7B-D1B8-A6DD-1202-AAA316D66B8E</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="2B8B4DC2-F073-EF56-F1C2-27410B338625" name="raca_PK">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-21 10:43:50 UTC</createdTime>
+<generatorID>B4A25EA9-61B8-A6F7-3F87-09058FF77FA7</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="341AB3A8-F0C5-B89A-29B5-56967617008A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

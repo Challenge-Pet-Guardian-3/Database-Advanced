@@ -110,7 +110,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,3,</ownDataTypeParameters>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="id_veterinario" id="353944BD-CAC7-132E-D472-B6E07AA25DD6">
 <createdBy>Enzo</createdBy>
