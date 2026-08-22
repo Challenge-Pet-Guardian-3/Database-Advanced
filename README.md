@@ -1,57 +1,19 @@
-# Database-Advanced
+# Database-Advanced — 🐾 PetGuardian
+> **Mastering Relational and Non-Relational Database (Oracle PL/SQL)**
+> 
+> Engenharia de Banco de Dados Relacional em 3FN, Procedures com Subtotais Manuais, Serialização JSON Customizada e Auditoria DML sob a **Arquitetura Pet-Centric** (Challenge Clyvo 2026 — 2TDSPG).
+
+---
 
 ## 👥 Integrantes
 
-<table>
-<tr>
-<th>Nome</th>
-<th>RM</th>
-<th>Turma</th>
-<th>GitHub</th>
-<th>LinkedIn</th>
-</tr>
-
-<tr>
-<td>Enzo Okuizumi</td>
-<td>561432</td>
-<td>2TDSPG</td>
-<td><a href="https://github.com/EnzoOkuizumiFiap">EnzoOkuizumiFiap</a></td>
-<td><a href="https://www.linkedin.com/in/enzo-okuizumi-b60292256/">Enzo Okuizumi</a></td>
-</tr>
-
-<tr>
-<td>Lucas Barros Gouveia</td>
-<td>566422</td>
-<td>2TDSPG</td>
-<td><a href="https://github.com/LuzBGouveia">LuzBGouveia</a></td>
-<td><a href="https://www.linkedin.com/in/lucas-barros-gouveia-09b147355/">Lucas Barros Gouveia</a></td>
-</tr>
-
-<tr>
-<td>Milton Marcelino</td>
-<td>564836</td>
-<td>2TDSPG</td>
-<td><a href="https://github.com/MiltonMarcelino">MiltonMarcelino</a></td>
-<td><a href="http://linkedin.com/in/milton-marcelino-250298142">Milton Marcelino</a></td>
-</tr>
-
-<tr>
-<td>Luna de Carvalho Guimarães</td>
-<td>562290</td>
-<td>2TDSPG</td>
-<td><a href="https://github.com/lunaguima">lunaguima</a></td>
-<td><a href="https://www.linkedin.com/in/luna-m-guimar%C3%A3es-1850ab173/">Luna M. Guimarães</a></td>
-</tr>
-
-<tr>
-<td>Gustavo Okada</td>
-<td>563428</td>
-<td>2TDSPG</td>
-<td><a href="https://github.com/Gdev3356">GustavoOkada7268</a></td>
-<td><a href="https://www.linkedin.com/in/gustavo-okada-53a3b8359/">Gustavo Okada</a></td>
-</tr>
-
-</table>
+| Nome | RM | Turma | GitHub | LinkedIn |
+| :--- | :---: | :---: | :--- | :--- |
+| **Enzo Okuizumi** | **561432** | 2TDSPG | [EnzoOkuizumiFiap](https://github.com/EnzoOkuizumiFiap) | [Enzo Okuizumi](https://www.linkedin.com/in/enzo-okuizumi-b60292256/) |
+| **Gustavo Okada** | **563428** | 2TDSPG | [Gdev3356](https://github.com/Gdev3356) | [Gustavo Okada](https://www.linkedin.com/in/gustavo-okada-53a3b8359/) |
+| **Lucas Barros Gouveia** | **566422** | 2TDSPG | [LuzBGouveia](https://github.com/LuzBGouveia) | [Lucas Barros Gouveia](https://www.linkedin.com/in/lucas-barros-gouveia-09b147355/) |
+| **Luna de Carvalho Guimarães** | **562290** | 2TDSPG | [lunaguima](https://github.com/lunaguima) | [Luna M. Guimarães](https://www.linkedin.com/in/luna-m-guimar%C3%A3es-1850ab173/) |
+| **Milton Marcelino** | **564836** | 2TDSPG | [MiltonMarcelino](https://github.com/MiltonMarcelino) | [Milton Marcelino](http://linkedin.com/in/milton-marcelino-250298142) |
 
 ---
 
