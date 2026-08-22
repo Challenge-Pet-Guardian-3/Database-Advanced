@@ -1,6 +1,9 @@
 # 📋 Backlog Master Azure Boards — Sprint 3: Database Advanced
 > **Projeto:** Pet Guardian (Challenge Clyvo 2026 - 2º Semestre)  
 > **Disciplina:** Mastering Relational and Non-Relational Database (FIAP - 2TDSPG)  
+> **Epic Principal:** `[EPIC] Sprint 3 - Database Advanced: Engenharia PL/SQL Avançada, Auditoria DML e Serialização JSON Pet-Centric`  
+> **Start Date:** `2026-08-23`  
+> **Target Date:** `2026-08-26`  
 > **Referência Oficial:** Manual do Challenge 2026 — Páginas 23 a 30  
 > **Diretrizes da Mentoria Clyvo:** Arquitetura Pet-Centric (Score no Pet, histórico clínico/vacinas, rotina familiar, módulos de treinamento e clínicas 24h)  
 > **Formato:** Scrum / Azure DevOps (Azure Boards)  
@@ -90,7 +93,15 @@ Com base nas especificações das páginas 23 a 30 do manual oficial e no modelo
 
 ---
 
-### 🔹 [PBI-01] Auditoria de Arquivos e Limpeza dos Scripts Legados da Sprint 1
+### 🗄️ FEATURE 01: Refatoração da Base de Dados Pet-Centric, Auditoria DML e Higienização de Arquivos
+* **Work Item Type:** `Feature`
+* **Parent Epic:** `[EPIC-03] Sprint 3 - Database Advanced: Engenharia PL/SQL Avançada, Auditoria DML e Serialização JSON Pet-Centric`
+* **Tags:** `Database`
+* **Start Date:** `2026-08-23`
+* **Target Date:** `2026-08-24`
+* **Descrição:** Refatoração do modelo relacional Oracle em 3FN para a arquitetura Pet-Centric, estruturação de tabelas de auditoria DML e limpeza de scripts obsoletos.
+
+#### 🔹 [PBI-01] Auditoria de Arquivos e Limpeza dos Scripts Legados da Sprint 1
 * **Work Item Type:** `Product Backlog Item`
 * **Parent Feature:** `[FEAT-01] Refatoração da Base de Dados Pet-Centric, Auditoria DML e Higienização de Arquivos`
 * **State:** `New`
@@ -170,7 +181,15 @@ Com base nas especificações das páginas 23 a 30 do manual oficial e no modelo
 
 ---
 
-### 🔹 [PBI-04] Função 1 - Serializador Relacional de Ficha do Pet para JSON Manual com 3 Exceções
+### ⚡ FEATURE 02: Funções PL/SQL e Serialização Customizada sem Built-ins
+* **Work Item Type:** `Feature`
+* **Parent Epic:** `[EPIC-03] Sprint 3 - Database Advanced: Engenharia PL/SQL Avançada, Auditoria DML e Serialização JSON Pet-Centric`
+* **Tags:** `Database`
+* **Start Date:** `2026-08-24`
+* **Target Date:** `2026-08-25`
+* **Descrição:** Implementação de funções PL/SQL determinísticas com serialização JSON manual sem funções built-in e cálculo do Score de Bem-Estar do Pet.
+
+#### 🔹 [PBI-04] Função 1 - Serializador Relacional de Ficha do Pet para JSON Manual com 3 Exceções
 * **Work Item Type:** `Product Backlog Item`
 * **Parent Feature:** `[FEAT-02] Funções PL/SQL e Serialização Customizada sem Built-ins`
 * **State:** `New`
@@ -199,7 +218,7 @@ Com base nas especificações das páginas 23 a 30 do manual oficial e no modelo
 
 ---
 
-### 🔹 [PBI-05] Função 2 - Cálculo do Score de Bem-Estar e Nível do Pet com 3 Exceções
+#### 🔹 [PBI-05] Função 2 - Cálculo do Score de Bem-Estar e Nível do Pet com 3 Exceções
 * **Work Item Type:** `Product Backlog Item`
 * **Parent Feature:** `[FEAT-02] Funções PL/SQL e Serialização Customizada sem Built-ins`
 * **State:** `New`
@@ -227,7 +246,15 @@ Com base nas especificações das páginas 23 a 30 do manual oficial e no modelo
 
 ---
 
-### 🔹 [PBI-06] Procedimento 1 - Consulta Multitabelas (Prontuário Pet) e Exportação JSON com 3 Exceções
+### 📊 FEATURE 03: Procedimentos PL/SQL e Relatórios com Subtotais Manuais
+* **Work Item Type:** `Feature`
+* **Parent Epic:** `[EPIC-03] Sprint 3 - Database Advanced: Engenharia PL/SQL Avançada, Auditoria DML e Serialização JSON Pet-Centric`
+* **Tags:** `Database`
+* **Start Date:** `2026-08-24`
+* **Target Date:** `2026-08-25`
+* **Descrição:** Procedimentos para consultas analíticas multitabelas com exportação JSON e relatórios de métricas por categoria com somatórios manuais sem ROLLUP/CUBE.
+
+#### 🔹 [PBI-06] Procedimento 1 - Consulta Multitabelas (Prontuário Pet) e Exportação JSON com 3 Exceções
 * **Work Item Type:** `Product Backlog Item`
 * **Parent Feature:** `[FEAT-03] Procedimentos PL/SQL e Relatórios com Subtotais Manuais`
 * **State:** `New`
@@ -260,7 +287,7 @@ Com base nas especificações das páginas 23 a 30 do manual oficial e no modelo
 
 ---
 
-### 🔹 [PBI-07] Procedimento 2 - Relatório de Pontos de Bem-Estar por Categoria sem ROLLUP com 3 Exceções
+#### 🔹 [PBI-07] Procedimento 2 - Relatório de Pontos de Bem-Estar por Categoria sem ROLLUP com 3 Exceções
 * **Work Item Type:** `Product Backlog Item`
 * **Parent Feature:** `[FEAT-03] Procedimentos PL/SQL e Relatórios com Subtotais Manuais`
 * **State:** `New`
@@ -296,7 +323,15 @@ Com base nas especificações das páginas 23 a 30 do manual oficial e no modelo
 
 ---
 
-### 🔹 [PBI-08] Trigger DML Multi-Operação (:OLD e :NEW) em Registros Clínicos e de Pontuação
+### 🛡️ FEATURE 04: Trigger de Auditoria DML e Rastreabilidade Transacional
+* **Work Item Type:** `Feature`
+* **Parent Epic:** `[EPIC-03] Sprint 3 - Database Advanced: Engenharia PL/SQL Avançada, Auditoria DML e Serialização JSON Pet-Centric`
+* **Tags:** `Database`
+* **Start Date:** `2026-08-25`
+* **Target Date:** `2026-08-26`
+* **Descrição:** Criação de trigger DML multi-operação para auditoria de mutações clínicas e pontuações do Pet capturando valores anteriores e novos.
+
+#### 🔹 [PBI-08] Trigger DML Multi-Operação (:OLD e :NEW) em Registros Clínicos e de Pontuação
 * **Work Item Type:** `Product Backlog Item`
 * **Parent Feature:** `[FEAT-04] Trigger de Auditoria DML e Rastreabilidade Transacional`
 * **State:** `New`
@@ -328,7 +363,15 @@ Com base nas especificações das páginas 23 a 30 do manual oficial e no modelo
 
 ---
 
-### 🔹 [PBI-09] Roteiro de Testes e Evidências de Disparo de Exceções Tratadas
+### 📑 FEATURE 05: Bateria de Testes, Consolidação SQL e Documentação Técnica PDF
+* **Work Item Type:** `Feature`
+* **Parent Epic:** `[EPIC-03] Sprint 3 - Database Advanced: Engenharia PL/SQL Avançada, Auditoria DML e Serialização JSON Pet-Centric`
+* **Tags:** `Database`
+* **Start Date:** `2026-08-25`
+* **Target Date:** `2026-08-26`
+* **Descrição:** Bateria de validação de casos de teste e disparos de exceções tratadas, consolidação do script SQL mestre e elaboração do relatório técnico PDF.
+
+#### 🔹 [PBI-09] Roteiro de Testes e Evidências de Disparo de Exceções Tratadas
 * **Work Item Type:** `Product Backlog Item`
 * **Parent Feature:** `[FEAT-05] Bateria de Testes, Consolidação SQL e Documentação Técnica PDF`
 * **State:** `New`
