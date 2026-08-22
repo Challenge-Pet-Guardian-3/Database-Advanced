@@ -2,22 +2,23 @@
 > **Projeto:** Pet Guardian (Challenge Clyvo 2026 - 2º Semestre)  
 > **Disciplina:** Mastering Relational and Non-Relational Database (FIAP - 2TDSPG)  
 > **Referência Oficial:** Manual do Challenge 2026 — Páginas 23 a 30  
+> **Diretrizes da Mentoria Clyvo:** Arquitetura Pet-Centric (Score no Pet, histórico clínico/vacinas, rotina familiar, módulos de treinamento e clínicas 24h)  
 > **Formato:** Scrum / Azure DevOps (Azure Boards)  
 
 ---
 
 ## 🎯 1. Diagnóstico dos Requisitos da Sprint 3 (Páginas 23 a 30)
 
-Com base nas especificações das páginas 23 a 30 do manual oficial, a Sprint 3 exige a evolução da base de dados relacional (Oracle) com foco em **lógica procedural avançada, tratamento rigoroso de exceções, auditoria DML e manipulação manual de dados**:
+Com base nas especificações das páginas 23 a 30 do manual oficial e no modelo Pet-Centric da Mentoria Clyvo, a Sprint 3 exige a evolução da base de dados relacional (Oracle) com foco em **lógica procedural avançada, tratamento rigoroso de exceções, auditoria DML e manipulação manual de dados**:
 
-| Componente | Requisito Oficial | Pontuação | Regras Críticas / Anti-Padrões |
+| Componente | Requisito Oficial & Aplicação Pet-Centric | Pontuação | Regras Críticas / Anti-Padrões |
 | :--- | :--- | :---: | :--- |
-| **Procedimento 1** | JOIN entre 2+ tabelas + exibição em JSON (string) via Função 1 | **30 pts** (dividido c/ Proc 2) | Mínimo 5 registros válidos por tabela; Tratar **no mínimo 3 exceções distintas** (`EXCEPTION WHEN`). |
-| **Procedimento 2** | Tabela de fatos com 2 colunas categóricas e 1 numérica. Subtotal por categoria + Total Geral no formato tabular especificado | *(incluso acima)* | **PROIBIDO** uso de `ROLLUP`, `CUBE`, `GROUPING SETS`, `GROUPING`. Somatório 100% manual via PL/SQL. Tratar **3 exceções distintas**. |
-| **Função 1** | Recebe dados relacionais e retorna string JSON formatada manualmente | **30 pts** (dividido c/ Func 2) | **PROIBIDO** funções built-in (`TO_JSON`, `JSON_OBJECT`, `JSON_VALUE`, etc. Desconto de -10 pts por ocorrência!). Tratar **3 exceções distintas**. |
-| **Função 2** | Substitui processo lógico de negócio (validação de regras, cálculo de pontuação/descontos, etc.) | *(incluso acima)* | Regra alinhada ao domínio PetGuardian. Tratar **no mínimo 3 exceções distintas**. |
-| **Trigger DML** | Trigger de auditoria DML (`AFTER INSERT OR UPDATE OR DELETE`) | **30 pts** | Gravar em tabela de auditoria: Usuário, Tipo de Operação, Data/Hora, Valores Anteriores (`:OLD`) e Valores Novos (`:NEW`). |
-| **Documentação & Entregáveis** | Arquivo PDF (`2TDSPG_2026_Proj_BD.pdf`) e Arquivo SQL (`2TDSPG_2026_CodigoSql_PetGuardian.sql`) | **10 pts** | Capa c/ integrantes em ordem alfabética; Prints de execução com sucesso E de **erros tratados**; Código 100% comentado. |
+| **Procedimento 1** | JOIN entre 3+ tabelas (`PET`, `HISTORICO_CONSULTA`, `CLINICA`, `TREINAMENTO_PET`) + exibição em JSON (string) via Função 1 | **30 pts** (dividido c/ Proc 2) | Mínimo 5 registros válidos por tabela; Tratar **no mínimo 3 exceções distintas** (`EXCEPTION WHEN`). |
+| **Procedimento 2** | Tabela de fatos com 2 categorias (`CATEGORIA_CUIDADO` e `PET`) e 1 métrica numérica (`PONTOS_BEM_ESTAR`). Subtotal manual por categoria + Total Geral no formato tabular | *(incluso acima)* | **PROIBIDO** uso de `ROLLUP`, `CUBE`, `GROUPING SETS`, `GROUPING`. Somatório 100% manual via PL/SQL. Tratar **3 exceções distintas**. |
+| **Função 1** | `FN_FORMATAR_JSON_FICHA_PET`: Recebe dados do Pet/Histórico e retorna string JSON formatada manualmente | **30 pts** (dividido c/ Func 2) | **PROIBIDO** funções built-in (`TO_JSON`, `JSON_OBJECT`, `JSON_VALUE`, etc. Desconto de -10 pts por ocorrência!). Tratar **3 exceções distintas**. |
+| **Função 2** | `FN_CALCULAR_SCORE_BEM_ESTAR_PET`: Calcula o Score de Bem-Estar e Nível do Pet com base nos treinos e cuidados cumpridos | *(incluso acima)* | Regra alinhada ao domínio Pet-Centric. Tratar **no mínimo 3 exceções distintas**. |
+| **Trigger DML** | Trigger de auditoria DML (`AFTER INSERT OR UPDATE OR DELETE`) em tabelas de mutação clínica/pontuação (`PET` e `HISTORICO_CONSULTA`) | **30 pts** | Gravar em `TAB_AUDITORIA_DML`: Usuário, Tipo de Operação, Data/Hora, Valores Anteriores (`:OLD`) e Valores Novos (`:NEW`). |
+| **Documentação & Entregáveis** | Arquivo PDF (`2TDSPG_2026_Proj_BD.pdf`) e Arquivo SQL (`2TDSPG_2026_CodigoSql_PetGuardian.sql`) | **10 pts** | Capa c/ integrantes em **ordem alfabética**; Prints de execução com sucesso E de **erros tratados**; Código 100% comentado. |
 
 ---
 
@@ -26,61 +27,61 @@ Com base nas especificações das páginas 23 a 30 do manual oficial, a Sprint 3
 ### ❌ Arquivos Obsoletos da Sprint 1 a serem Removidos / Substituídos
 | Arquivo Atual | Motivo da Remoção / Ação |
 | :--- | :--- |
-| `06_consulta_valor_anterior_proximo.sql` | **APAGAR:** Script com funções analíticas `LAG` e `LEAD`, requisito exclusivo da Sprint 1 que não faz parte do escopo avaliativo da Sprint 3. |
-| `05_consultas_joins.sql` | **APAGAR / SUBSTITUIR:** Consultas soltas de joins da Sprint 1. O Procedimento 1 da Sprint 3 agora encapsula a lógica de JOIN com saída JSON. |
-| `07_relatorios_cursors.sql` | **APAGAR / SUBSTITUIR:** Relatórios em blocos anônimos da Sprint 1 serão substituídos pelos novos Procedimentos e Funções estruturados. |
-| `challenge_clyvo_completo.sql` | **SUBSTITUIR:** Script unificado antigo da Sprint 1. Será substituído pelo script consolidado oficial da Sprint 3 (`2TDSPG_2026_CodigoSql_PetGuardian.sql`). |
+| `06_consulta_valor_anterior_proximo.sql` | **APAGAR:** Script com funções analíticas `LAG` e `LEAD` exclusivo da Sprint 1. |
+| `05_consultas_joins.sql` | **APAGAR / SUBSTITUIR:** O Procedimento 1 da Sprint 3 encapsula a lógica de JOIN com saída JSON. |
+| `07_relatorios_cursors.sql` | **APAGAR / SUBSTITUIR:** Substituído pelos novos Procedimentos e Funções estruturados. |
+| `challenge_clyvo_completo.sql` | **SUBSTITUIR:** Substituído pelo script consolidado oficial da Sprint 3 (`2TDSPG_2026_CodigoSql_PetGuardian.sql`). |
 
 ---
 
 ### 🔄 Arquivos a Manter e Refatorar
 | Arquivo | Ação de Refatoração |
 | :--- | :--- |
-| `01_ddl_tabelas.sql` | **MANTER E REVISAR:** Manter as 16 tabelas de negócio do PetGuardian em 3FN, garantindo integridade referencial, constraints e índices. |
-| `02_ddl_logs.sql` | **REFATORAR E EXPANDIR:** Renomear/expandir para incluir a nova tabela `TAB_AUDITORIA_DML` (para a Trigger de auditoria) além de manter a tabela `LOG_ERROS` para registro de exceções. |
-| `03_procedures_carga.sql` | **REVISAR:** Garantir que todas as tabelas recebam no mínimo **5 registros válidos e consistentes** para permitir os cálculos de subtotal e total geral. |
+| `01_ddl_tabelas.sql` | **REFATORAR (Pet-Centric):** Estruturar tabelas `PET` (com `PONTOS_BEM_ESTAR`, `PESO_ATUAL`), `HISTORICO_PESO`, `HISTORICO_CONSULTA`, `VACINA`, `CLINICA` (com `FLG_24HRS`, `FLG_PRONTO_SOCORRO`), `TREINAMENTO_PET`, `TAREFA_ROTINA` em 3FN. |
+| `02_ddl_logs.sql` | **EXPANDIR:** Incluir tabela `TAB_AUDITORIA_DML` e manter `LOG_ERROS`. |
+| `03_procedures_carga.sql` | **REVISAR:** Garantir no mínimo **5 registros válidos e consistentes** por tabela com dados de treinos, clínicas 24h e rotinas. |
 | `04_blocos_anonimos_insercao.sql` | **MANTER:** Bloco de execução da carga de dados via procedures. |
-| `run_all.sql` | **ATUALIZAR:** Orquestrador mestre atualizado para rodar todos os novos scripts da Sprint 3 na ordem correta de dependências. |
-| `README.md` | **ATUALIZAR:** Documentar os novos requisitos da Sprint 3, instruções de execução e links atualizados. |
+| `run_all.sql` | **ATUALIZAR:** Orquestrador mestre atualizado para rodar todos os novos scripts da Sprint 3. |
+| `README.md` | **ATUALIZAR:** Documentar os novos requisitos da Sprint 3 e tabela de integrantes em ordem alfabética. |
 
 ---
 
 ### ✨ Novos Arquivos a Criar na Sprint 3
 | Novo Arquivo | Finalidade |
 | :--- | :--- |
-| `05_funcoes_plsql.sql` | Implementação da **Função 1** (JSON manual) e **Função 2** (regra de negócio), ambas com 3 tratamentos de exceção. |
-| `06_procedimentos_plsql.sql` | Implementação do **Procedimento 1** (JOIN + JSON) e **Procedimento 2** (Matriz de Subtotal/Total sem ROLLUP), ambos com 3 tratamentos de exceção. |
-| `07_trigger_auditoria.sql` | Implementação do DDL da tabela de auditoria e da **Trigger DML** (`AFTER INSERT OR UPDATE OR DELETE`). |
-| `08_testes_validacao_excecoes.sql` | Scripts de teste para demonstrar casos felizes e disparar intencionalmente as exceções tratadas (geração de prints para o PDF). |
-| `2TDSPG_2026_CodigoSql_PetGuardian.sql` | Script consolidado oficial contendo DDL, Cargas, Funções, Procedures e Triggers em arquivo único para entrega. |
-| `docs/2TDSPG_2026_Proj_BD.pdf` | Documento PDF final com capa em ordem alfabética, prints das execuções, prints de todas as exceções tratadas e código comentado. |
+| `05_funcoes_plsql.sql` | Implementação da **Função 1** (`FN_FORMATAR_JSON_FICHA_PET`) e **Função 2** (`FN_CALCULAR_SCORE_BEM_ESTAR_PET`), ambas com 3 tratamentos de exceção. |
+| `06_procedimentos_plsql.sql` | Implementação do **Procedimento 1** (`PRC_CONSULTA_PRONTUARIO_PET_JSON`) e **Procedimento 2** (`PRC_RELATORIO_PONTOS_BEM_ESTAR_CATEGORIA` sem ROLLUP), ambos com 3 tratamentos de exceção. |
+| `07_trigger_auditoria.sql` | Implementação da **Trigger DML** (`AFTER INSERT OR UPDATE OR DELETE`) com captura de `:OLD` e `:NEW`. |
+| `08_testes_validacao_excecoes.sql` | Scripts de teste para demonstrar casos felizes e disparar intencionalmente as exceções tratadas (para os prints do PDF). |
+| `2TDSPG_2026_CodigoSql_PetGuardian.sql` | Script consolidado oficial contendo DDL, Cargas, Funções, Procedures e Triggers em arquivo único. |
+| `docs/2TDSPG_2026_Proj_BD.pdf` | Documento PDF final com capa em ordem alfabética, prints das execuções e de todas as exceções tratadas. |
 
 ---
 
 ## 👑 3. Estrutura do Backlog no Azure Boards (Scrum)
 
-```
-[EPIC-03] Sprint 3 - Database Advanced: Engenharia PL/SQL Avançada, Auditoria DML e Serialização JSON
+```text
+[EPIC-03] Sprint 3 - Database Advanced: Engenharia PL/SQL Avançada, Auditoria DML e Serialização JSON Pet-Centric
 │
-├── [FEAT-01] Refatoração da Base de Dados, Auditoria DML e Higienização de Arquivos
-│   ├── [PBI-01] Auditoria de Arquivos e Limpeza dos Scripts Legados da Sprint 1
-│   ├── [PBI-02] DDL das Tabelas de Negócio e Estruturação da Tabela de Auditoria DML
-│   └── [PBI-03] Carga de Dados Consistentes (Mínimo 5 Registros por Tabela)
+├── [FEAT-01] Refatoração da Base de Dados Pet-Centric, Auditoria DML e Higienização de Arquivos
+│   ├── [PBI-01] Auditoria de Arquivos e Limpeza dos Scripts Legados da Sprint 1 (2 pts)
+│   ├── [PBI-02] DDL das Tabelas Pet-Centric e Estruturação da Tabela de Auditoria DML (3 pts)
+│   └── [PBI-03] Carga de Dados Consistentes (Mínimo 5 Registros por Tabela) (3 pts)
 │
 ├── [FEAT-02] Funções PL/SQL e Serialização Customizada sem Built-ins
-│   ├── [PBI-04] Função 1 - Serializador Relacional para JSON Manual com 3 Exceções
-│   └── [PBI-05] Função 2 - Cálculo de Regra de Negócio (Gamificação/Descontos) com 3 Exceções
+│   ├── [PBI-04] Função 1 - Serializador Relacional de Ficha do Pet para JSON Manual com 3 Exceções (5 pts)
+│   └── [PBI-05] Função 2 - Cálculo do Score de Bem-Estar e Nível do Pet com 3 Exceções (3 pts)
 │
 ├── [FEAT-03] Procedimentos PL/SQL e Relatórios com Subtotais Manuais
-│   ├── [PBI-06] Procedimento 1 - Consulta Multitabelas (JOIN) e Exportação JSON com 3 Exceções
-│   └── [PBI-07] Procedimento 2 - Relatório Tabular com Subtotal e Total Geral sem ROLLUP com 3 Exceções
+│   ├── [PBI-06] Procedimento 1 - Consulta Multitabelas (Prontuário Pet) e Exportação JSON com 3 Exceções (5 pts)
+│   └── [PBI-07] Procedimento 2 - Relatório de Pontos de Bem-Estar por Categoria sem ROLLUP com 3 Exceções (8 pts)
 │
 ├── [FEAT-04] Trigger de Auditoria DML e Rastreabilidade Transacional
-│   └── [PBI-08] Trigger DML Multi-Operação (INSERT, UPDATE, DELETE) com Captura de :OLD e :NEW
+│   └── [PBI-08] Trigger DML Multi-Operação (:OLD e :NEW) em Registros Clínicos e de Pontuação (5 pts)
 │
 └── [FEAT-05] Bateria de Testes, Consolidação SQL e Documentação Técnica PDF
-    ├── [PBI-09] Roteiro de Testes e Evidências de Disparo de Exceções Tratadas
-    └── [PBI-10] Consolidação do Script Mestre SQL e Relatório Técnico PDF (2TDSPG_2026_Proj_BD.pdf)
+    ├── [PBI-09] Roteiro de Testes e Evidências de Disparo de Exceções Tratadas (3 pts)
+    └── [PBI-10] Consolidação do Script Mestre SQL e Relatório Técnico PDF (2TDSPG_2026_Proj_BD.pdf) (3 pts)
 ```
 
 ---
@@ -91,7 +92,7 @@ Com base nas especificações das páginas 23 a 30 do manual oficial, a Sprint 3
 
 ### 🔹 [PBI-01] Auditoria de Arquivos e Limpeza dos Scripts Legados da Sprint 1
 * **Work Item Type:** `Product Backlog Item`
-* **Parent Feature:** `[FEAT-01] Refatoração da Base de Dados, Auditoria DML e Higienização de Arquivos`
+* **Parent Feature:** `[FEAT-01] Refatoração da Base de Dados Pet-Centric, Auditoria DML e Higienização de Arquivos`
 * **State:** `New`
 * **Priority:** `1 - Critical`
 * **Effort (Story Points):** `2`
@@ -116,44 +117,37 @@ Com base nas especificações das páginas 23 a 30 do manual oficial, a Sprint 3
 
 ---
 
-### 🔹 [PBI-02] DDL das Tabelas de Negócio e Estruturação da Tabela de Auditoria DML
+### 🔹 [PBI-02] DDL das Tabelas Pet-Centric e Estruturação da Tabela de Auditoria DML
 * **Work Item Type:** `Product Backlog Item`
-* **Parent Feature:** `[FEAT-01] Refatoração da Base de Dados, Auditoria DML e Higienização de Arquivos`
+* **Parent Feature:** `[FEAT-01] Refatoração da Base de Dados Pet-Centric, Auditoria DML e Higienização de Arquivos`
 * **State:** `New`
 * **Priority:** `1 - Critical`
 * **Effort (Story Points):** `3`
-* **Tags:** `Database-Advanced`, `Oracle-SQL`, `DDL`, `Sprint3`
+* **Tags:** `Database-Advanced`, `Oracle-SQL`, `DDL`, `PetCentric`, `Sprint3`
 
 #### Descrição (História de Usuário)
 > **Como** arquiteto de dados,  
-> **Eu quero** manter o modelo 3FN do PetGuardian e criar a tabela de auditoria DML (`TAB_AUDITORIA_DML`) com campos específicos,  
-> **Para que** o banco esteja preparado para persistir as entidades de negócio e auditar todas as mutações de dados da aplicação.
+> **Eu quero** estruturar o modelo relacional 3FN com tabelas Pet-Centric (`PET`, `HISTORICO_PESO`, `HISTORICO_CONSULTA`, `VACINA`, `CLINICA` 24h, `TREINAMENTO_PET`, `TAREFA_ROTINA`) e a tabela `TAB_AUDITORIA_DML`,  
+> **Para que** o banco atenda perfeitamente à visão da Mentoria Clyvo e esteja preparado para auditoria DML.
 
 #### Critérios de Aceite (Acceptance Criteria)
-- [ ] Manutenção de todas as tabelas do PetGuardian (`USUARIO`, `VETERINARIO`, `CLINICA`, `PET`, `RACA`, `ATENDIMENTO`, `TAREFA`, etc.) em conformidade com a 3FN.
-- [ ] Criação da tabela `TAB_AUDITORIA_DML` contendo obrigatoriamente:
-  - `ID_AUDITORIA NUMBER` (PK com sequence/identity)
-  - `NOME_USUARIO VARCHAR2(100)` (usuário da sessão Oracle)
-  - `TIPO_OPERACAO VARCHAR2(10)` (`INSERT`, `UPDATE`, `DELETE`)
-  - `DATA_HORA_OPERACAO TIMESTAMP`
-  - `VALORES_ANTERIORES VARCHAR2(4000)` (valores `:OLD`)
-  - `VALORES_NOVOS VARCHAR2(4000)` (valores `:NEW`)
-- [ ] Manutenção da tabela `LOG_ERROS` para registro de exceções tratadas nas procedures e funções.
-- [ ] Script `01_ddl_tabelas.sql` e `02_ddl_logs.sql` revisados e executando sem erros.
+- [ ] Tabela `PET` contendo `PONTOS_BEM_ESTAR NUMBER`, `NIVEL_SAUDE VARCHAR2(20)`, `PESO_ATUAL NUMBER(5,2)`.
+- [ ] Tabelas `HISTORICO_PESO`, `HISTORICO_CONSULTA`, `VACINA` vinculadas a `ID_PET`.
+- [ ] Tabela `CLINICA` contendo `FLG_24HRS CHAR(1)` e `FLG_PRONTO_SOCORRO CHAR(1)`.
+- [ ] Tabela `TREINAMENTO_PET` para registro de módulos de treino cumpridos.
+- [ ] Tabela `TAB_AUDITORIA_DML` contendo obrigatoriamente: `ID_AUDITORIA`, `NOME_USUARIO`, `TIPO_OPERACAO`, `DATA_HORA_OPERACAO`, `VALORES_ANTERIORES` (`:OLD`), `VALORES_NOVOS` (`:NEW`).
+- [ ] Tabela `LOG_ERROS` para registro de exceções capturadas.
 
 #### Tarefas Técnicas (Child Tasks)
-* **Task 2.1:** Revisar DDL das tabelas de negócio e integridade referencial (PKs, FKs, Checks). *(Estimativa: 2h)*
-  * *Descrição:* Garantir que todas as tabelas atendam à 3FN e possuam tipos adequados (`NUMBER`, `VARCHAR2`, `TIMESTAMP`).
-* **Task 2.2:** Implementar o DDL da tabela `TAB_AUDITORIA_DML` e sequence associada. *(Estimativa: 1h)*
-  * *Descrição:* Criar a estrutura física de auditoria DML com todas as colunas exigidas pela página 28 do manual.
-* **Task 2.3:** Integrar tabela de auditoria e tabela de logs no script DDL inicial. *(Estimativa: 1h)*
-  * *Descrição:* Testar a criação completa das tabelas em ordem estrita de dependência no Oracle SQL Developer.
+* **Task 2.1:** Revisar DDL das tabelas Pet-Centric em 3FN e constraints de integridade. *(Estimativa: 2h)*
+* **Task 2.2:** Criar DDL da tabela `TAB_AUDITORIA_DML` e sequence associada. *(Estimativa: 1h)*
+* **Task 2.3:** Integrar tabelas de auditoria e logs no script `01_ddl_tabelas.sql` e `02_ddl_logs.sql`. *(Estimativa: 1h)*
 
 ---
 
 ### 🔹 [PBI-03] Carga de Dados Consistentes (Mínimo 5 Registros por Tabela)
 * **Work Item Type:** `Product Backlog Item`
-* **Parent Feature:** `[FEAT-01] Refatoração da Base de Dados, Auditoria DML e Higienização de Arquivos`
+* **Parent Feature:** `[FEAT-01] Refatoração da Base de Dados Pet-Centric, Auditoria DML e Higienização de Arquivos`
 * **State:** `New`
 * **Priority:** `1 - Critical`
 * **Effort (Story Points):** `3`
@@ -161,90 +155,79 @@ Com base nas especificações das páginas 23 a 30 do manual oficial, a Sprint 3
 
 #### Descrição (História de Usuário)
 > **Como** analista de dados,  
-> **Eu quero** popular o banco com no mínimo 5 registros válidos e contextuais em cada tabela,  
+> **Eu quero** popular todas as tabelas com no mínimo 5 registros válidos e contextuais,  
 > **Para que** todas as rotinas analíticas, agregações e conversões JSON possuam massa de dados suficiente para validação sem penalidades.
 
 #### Critérios de Aceite (Acceptance Criteria)
-- [ ] **Todas** as tabelas do sistema populadas com no mínimo 5 registros válidos (regra estrita da pág. 24, 26, 29, 30 — infração acarreta -5 pts por tabela).
-- [ ] Dados de `ATENDIMENTO` e `TAREFA` distribuídos entre diferentes veterinários, clínicas e tipos de atendimento para viabilizar agrupamento e subtotais no Procedimento 2.
-- [ ] Valores numéricos (`VALOR` em atendimentos e `PONTOS_TAREFA`) representativos para testes de somatório manual.
+- [ ] **Todas** as tabelas do sistema populadas com no mínimo 5 registros válidos (regra estrita da pág. 24, 26, 29 — infração acarreta -5 pts por tabela).
+- [ ] Dados de `PET`, `TREINAMENTO_PET`, `TAREFA_ROTINA` e `HISTORICO_CONSULTA` distribuídos para viabilizar os cálculos de subtotal e total geral do Procedimento 2.
 - [ ] Scripts `03_procedures_carga.sql` e `04_blocos_anonimos_insercao.sql` devidamente validados.
 
 #### Tarefas Técnicas (Child Tasks)
-* **Task 3.1:** Elaborar massa de dados contextualizada para pets, tutores, veterinários e clínicas. *(Estimativa: 2h)*
-  * *Descrição:* Criar 5+ registros consistentes para as tabelas dimensionais e associativas (`ESTADO`, `CIDADE`, `BAIRRO`, `ENDERECO`, `TELEFONE`, `USUARIO`, `VETERINARIO`, `CLINICA`, `RACA`, `PET`, `USUARIO_PET`, `USUARIO_ENDERECO`, `STATUS`, `TIPO_ATEND`).
-* **Task 3.2:** Gerar dados transacionais para a tabela de fatos `ATENDIMENTO` e `TAREFA`. *(Estimativa: 2h)*
-  * *Descrição:* Criar 10+ atendimentos cobrindo diferentes veterinários e tipos de atendimento para demonstrar o Procedimento 2 com subtotais ricos.
-* **Task 3.3:** Validar contagem e integridade dos registros via queries de conferência. *(Estimativa: 1h)*
-  * *Descrição:* Executar `SELECT COUNT(*)` em todas as tabelas para garantir cumprimento do critério de avaliação.
+* **Task 3.1:** Elaborar massa de dados para pets, treinos, clínicas 24h e tutores. *(Estimativa: 2h)*
+* **Task 3.2:** Gerar dados transacionais de consultas e tarefas de rotina. *(Estimativa: 2h)*
+* **Task 3.3:** Validar `SELECT COUNT(*)` em todas as tabelas garantindo 5+ registros. *(Estimativa: 1h)*
 
 ---
 
-### 🔹 [PBI-04] Função 1 - Serializador Relacional para JSON Manual com 3 Exceções
+### 🔹 [PBI-04] Função 1 - Serializador Relacional de Ficha do Pet para JSON Manual com 3 Exceções
 * **Work Item Type:** `Product Backlog Item`
 * **Parent Feature:** `[FEAT-02] Funções PL/SQL e Serialização Customizada sem Built-ins`
 * **State:** `New`
 * **Priority:** `1 - Critical`
 * **Effort (Story Points):** `5`
-* **Tags:** `Database-Advanced`, `PLSQL`, `Functions`, `JSON`, `Sprint3`
+* **Tags:** `Database-Advanced`, `PLSQL`, `Functions`, `JSON`, `PetCentric`, `Sprint3`
 
 #### Descrição (História de Usuário)
 > **Como** desenvolvedor backend de banco de dados,  
-> **Eu quero** criar uma função PL/SQL (`FN_FORMATAR_JSON_PET` ou `FN_SERIALIZAR_ATENDIMENTO_JSON`) que transforme registros relacionais em strings JSON de forma 100% manual,  
-> **Para que** os dados sejam exportados para integração sem o uso de funções built-in do Oracle, atendendo estritamente ao manual da Sprint 3.
+> **Eu quero** criar a função PL/SQL `FN_FORMATAR_JSON_FICHA_PET` que serialize a ficha completa do pet, histórico de saúde e pontuação em string JSON 100% manual,  
+> **Para que** os dados sejam exportados sem o uso de funções built-in do Oracle, atendendo estritamente ao manual da Sprint 3.
 
 #### Critérios de Aceite (Acceptance Criteria)
-- [ ] A função recebe atributos/identificadores e retorna um `CLOB` ou `VARCHAR2` formatado no padrão JSON (ex: `{"id": 1, "nome": "Rex", ...}`).
-- [ ] **ZERO uso de funções automáticas/built-in** (`TO_JSON`, `JSON_OBJECT`, `JSON_VALUE`, `JSON_QUERY`, `JSON_ARRAY`, etc. - penalidade de -10 pts evitada).
-- [ ] Tratamento explícito de **no mínimo 3 exceções distintas** com blocos `EXCEPTION WHEN`:
-  - 1. Exceção de registro não encontrado (`NO_DATA_FOUND` ou personalizada para ID inválido/nulo).
-  - 2. Exceção de dados inconsistentes / violação de formato (ex: `VALUE_ERROR` ou validação de string nula).
-  - 3. Exceção genérica / inesperada (`WHEN OTHERS` com gravação na tabela `LOG_ERROS`).
-- [ ] Código amplamente comentado explicando cada etapa da concatenação de strings e escape de caracteres.
+- [ ] Função recebe `p_id_pet` e retorna um `CLOB` / `VARCHAR2` formatado em JSON (`{"id": 1, "nome": "Rex", "score": 850, "vacinas": [...], "consultas": [...]}`).
+- [ ] **ZERO uso de funções automáticas/built-in** (`TO_JSON`, `JSON_OBJECT`, `JSON_VALUE`, `JSON_QUERY` - penalidade de -10 pts evitada).
+- [ ] Tratamento explícito de **no mínimo 3 exceções distintas**:
+  - 1. `NO_DATA_FOUND` (Pet inexistente ou ID inválido).
+  - 2. `VALUE_ERROR` (Erro de conversão ou parâmetro nulo).
+  - 3. `WHEN OTHERS` com gravação na tabela `LOG_ERROS`.
+- [ ] Código amplamente comentado explicando a concatenação manual.
 
 #### Tarefas Técnicas (Child Tasks)
-* **Task 4.1:** Desenvolver o algoritmo de concatenação e escape de JSON manual em PL/SQL. *(Estimativa: 2h)*
-  * *Descrição:* Criar a lógica de montagem de chaves e valores `{"chave": "valor"}` utilizando operadores de concatenação `||` e tratamento de tipos (números, strings, timestamps).
-* **Task 4.2:** Implementar os 3 tratamentos de exceção específicos na função. *(Estimativa: 2h)*
-  * *Descrição:* Adicionar validações de parâmetros, tratamento de `NO_DATA_FOUND`, `VALUE_ERROR` e `WHEN OTHERS` com log.
-* **Task 4.3:** Criar bloco de teste unitário para validar JSON gerado e casos de erro. *(Estimativa: 1h)*
-  * *Descrição:* Testar a função passando IDs válidos, IDs inexistentes e parâmetros nulos para validar o retorno e as exceções.
+* **Task 4.1:** Desenvolver algoritmo de concatenação de JSON manual em PL/SQL com escape de caracteres. *(Estimativa: 2h)*
+* **Task 4.2:** Implementar os 3 blocos de `EXCEPTION WHEN` e log de erros. *(Estimativa: 2h)*
+* **Task 4.3:** Criar bloco de teste unitário com IDs válidos e inválidos. *(Estimativa: 1h)*
 
 ---
 
-### 🔹 [PBI-05] Função 2 - Cálculo de Regra de Negócio com 3 Exceções
+### 🔹 [PBI-05] Função 2 - Cálculo do Score de Bem-Estar e Nível do Pet com 3 Exceções
 * **Work Item Type:** `Product Backlog Item`
 * **Parent Feature:** `[FEAT-02] Funções PL/SQL e Serialização Customizada sem Built-ins`
 * **State:** `New`
 * **Priority:** `2 - High`
 * **Effort (Story Points):** `3`
-* **Tags:** `Database-Advanced`, `PLSQL`, `Functions`, `BusinessRules`, `Sprint3`
+* **Tags:** `Database-Advanced`, `PLSQL`, `Functions`, `Gamification`, `ScorePet`, `Sprint3`
 
 #### Descrição (História de Usuário)
 > **Como** analista de regras de negócio da Pet Guardian,  
-> **Eu quero** criar uma função PL/SQL (`FN_CALCULAR_PONTOS_GAMIFICACAO` ou `FN_CALCULAR_DESCONTO_ATENDIMENTO`) que substitua e centralize um processo lógico do sistema,  
-> **Para que** regras de gamificação/cálculos financeiros sejam processados de forma atômica e segura no banco de dados.
+> **Eu quero** criar a função PL/SQL `FN_CALCULAR_SCORE_BEM_ESTAR_PET` que calcule a pontuação ponderada do pet com base em treinos concluídos, tarefas cumpridas e vacinas em dia,  
+> **Para que** a evolução de saúde do animal seja processada de forma atômica e segura diretamente no banco de dados.
 
 #### Critérios de Aceite (Acceptance Criteria)
-- [ ] Implementação de lógica de negócio real: cálculo dinâmico de pontuação de tarefas por porte do pet / prioridade, ou cálculo de desconto progressivo por quantidade de atendimentos no histórico.
-- [ ] Retorno com tipagem consistente (`NUMBER` ou `VARCHAR2`).
+- [ ] Cálculo da pontuação com fórmula ponderada (Tarefas Diárias: peso 1x, Treinamentos: peso 2x, Vacinas Atualizadas: bônus fixo).
+- [ ] Retorno do score numérico e classificação de nível (`FILHOTE_SAUDAVEL`, `JOVEM_ATIVO`, `MESTRE_DO_BEM_ESTAR`).
 - [ ] Tratamento explícito de **no mínimo 3 exceções distintas**:
-  - 1. Parâmetro nulo ou valor negativo (`e_valor_invalido EXCEPTION` / `PRAGMA EXCEPTION_INIT`).
-  - 2. Violação de limite de negócio (ex: pet não encontrado ou desconto superior ao teto permitido).
-  - 3. Tratamento de erro geral (`WHEN OTHERS` com log de auditoria).
-- [ ] Código modular e de fácil reutilização pela aplicação (.NET / Java / Mobile).
+  - 1. Parâmetro nulo ou pet inexistente (`e_pet_invalido EXCEPTION`).
+  - 2. Inconsistência de datas no histórico de vacinação.
+  - 3. `WHEN OTHERS` com registro em `LOG_ERROS`.
 
 #### Tarefas Técnicas (Child Tasks)
-* **Task 5.1:** Definir a especificação matemática e lógica da regra de negócio da função. *(Estimativa: 1h)*
-  * *Descrição:* Mapear regras de pontuação de cuidados do pet com base em porte, tipo de tarefa e prazo cumprido.
-* **Task 5.2:** Escrever o código PL/SQL da função com cálculo e validações de negócio. *(Estimativa: 2h)*
-  * *Descrição:* Implementar a função garantindo cálculos precisos com arredondamento e verificações de integridade.
-* **Task 5.3:** Implementar as 3 exceções e testes unitários de casos de borda. *(Estimativa: 1h)*
-  * *Descrição:* Testar entradas válidas, entradas zeradas/negativas e limites estourados.
+* **Task 5.1:** Definir a fórmula matemática de cálculo do Score de Bem-Estar do Pet. *(Estimativa: 1h)*
+* **Task 5.2:** Escrever código PL/SQL da função com agregação de tarefas e treinos. *(Estimativa: 2h)*
+* **Task 5.3:** Implementar as 3 exceções e testes de casos de borda. *(Estimativa: 1h)*
 
 ---
 
-### 🔹 [PBI-06] Procedimento 1 - Consulta Multitabelas (JOIN) e Exportação JSON com 3 Exceções
+### 🔹 [PBI-06] Procedimento 1 - Consulta Multitabelas (Prontuário Pet) e Exportação JSON com 3 Exceções
 * **Work Item Type:** `Product Backlog Item`
 * **Parent Feature:** `[FEAT-03] Procedimentos PL/SQL e Relatórios com Subtotais Manuais`
 * **State:** `New`
@@ -253,18 +236,18 @@ Com base nas especificações das páginas 23 a 30 do manual oficial, a Sprint 3
 * **Tags:** `Database-Advanced`, `PLSQL`, `Procedures`, `JOIN`, `JSON`, `Sprint3`
 
 #### Descrição (História de Usuário)
-> **Como** desenvolvedor de integrações do sistema,  
-> **Eu quero** criar uma procedure PL/SQL (`PRC_EXPORTAR_ATENDIMENTOS_JSON`) que realize JOIN entre múltiplas tabelas e utilize a Função 1 para exibir os dados no formato JSON via `DBMS_OUTPUT`,  
-> **Para que** possamos disponibilizar um payload estruturado para alimentar outros serviços ou o MongoDB sem depender de funções built-in.
+> **Como** desenvolvedor de integrações,  
+> **Eu quero** criar a procedure PL/SQL `PRC_CONSULTA_PRONTUARIO_PET_JSON` que realize JOIN entre `PET`, `HISTORICO_CONSULTA`, `CLINICA` e `TREINAMENTO_PET` e utilize a Função 1 para exibir o prontuário via `DBMS_OUTPUT`,  
+> **Para que** possamos disponibilizar um payload estruturado para alimentar outros serviços sem depender de funções automáticas.
 
 #### Critérios de Aceite (Acceptance Criteria)
-- [ ] Realização de `JOIN` entre 3 ou mais tabelas relacionais do PetGuardian (ex: `ATENDIMENTO`, `PET`, `VETERINARIO`, `TIPO_ATEND`, `CLINICA`).
-- [ ] Utilização obrigatória da **Função 1** para a formatação de cada linha em JSON.
-- [ ] Exibição completa da string JSON estruturada no console (`DBMS_OUTPUT.PUT_LINE`).
+- [ ] Realização de `JOIN` entre 4 tabelas relacionais (`PET`, `HISTORICO_CONSULTA`, `CLINICA`, `TREINAMENTO_PET`).
+- [ ] Utilização obrigatória da **Função 1** (`FN_FORMATAR_JSON_FICHA_PET`) para formatar cada linha em JSON.
+- [ ] Exibição no console (`DBMS_OUTPUT.PUT_LINE`).
 - [ ] Tratamento explícito de **no mínimo 3 exceções distintas**:
-  - 1. Nenhum registro encontrado para o filtro informado (`NO_DATA_FOUND` / cursor vazio).
-  - 2. Erro de buffer ou overflow de saída (`e_buffer_overflow` ou `VALUE_ERROR`).
-  - 3. Exceção não mapeada (`WHEN OTHERS` com gravação na tabela `LOG_ERROS`).
+  - 1. Nenhum registro encontrado para o filtro (`NO_DATA_FOUND`).
+  - 2. Erro de estouro de buffer (`VALUE_ERROR` / buffer overflow).
+  - 3. `WHEN OTHERS` com gravação na tabela `LOG_ERROS`.
 - [ ] Mínimo de 5 registros retornados e exibidos na demonstração.
 
 #### Tarefas Técnicas (Child Tasks)
@@ -277,32 +260,31 @@ Com base nas especificações das páginas 23 a 30 do manual oficial, a Sprint 3
 
 ---
 
-### 🔹 [PBI-07] Procedimento 2 - Relatório Tabular com Subtotal e Total Geral sem ROLLUP com 3 Exceções
+### 🔹 [PBI-07] Procedimento 2 - Relatório de Pontos de Bem-Estar por Categoria sem ROLLUP com 3 Exceções
 * **Work Item Type:** `Product Backlog Item`
 * **Parent Feature:** `[FEAT-03] Procedimentos PL/SQL e Relatórios com Subtotais Manuais`
 * **State:** `New`
 * **Priority:** `1 - Critical`
 * **Effort (Story Points):** `8`
-* **Tags:** `Database-Advanced`, `PLSQL`, `Procedures`, `Aggregation`, `Sprint3`
+* **Tags:** `Database-Advanced`, `PLSQL`, `Procedures`, `Aggregation`, `Subtotal`, `Sprint3`
 
 #### Descrição (História de Usuário)
-> **Como** gestor da clínica veterinária,  
-> **Eu quero** um procedimento PL/SQL (`PRC_RELATORIO_FINANCEIRO_ATENDIMENTOS`) que calcule e exiba valores agrupados por duas categorias, com linhas de "Sub Total" por categoria e "Total Geral" ao final,  
-> **Para que** eu tenha um relatório financeiro analítico detalhado sem depender de funções automáticas do Oracle.
+> **Como** gestor do bem-estar animal,  
+> **Eu quero** a procedure PL/SQL `PRC_RELATORIO_PONTOS_BEM_ESTAR_CATEGORIA` que calcule e exiba pontos agrupados por Categoria de Cuidado (`Treinamento`, `Alimentacao`, `Saude/Vacina`) e Pet, com linhas de "Sub Total" por categoria e "Total Geral" ao final,  
+> **Para que** eu tenha um relatório analítico detalhado sem depender de funções automáticas (`ROLLUP`/`CUBE`) do Oracle.
 
 #### Critérios de Aceite (Acceptance Criteria)
-- [ ] Utilização de tabela de fatos do projeto (`ATENDIMENTO`) com 2 categorias (ex: `VETERINARIO` e `TIPO_ATEND`) e 1 métrica numérica (`VALOR`).
+- [ ] Tabela de fatos com 2 categorias (`CATEGORIA_CUIDADO` e `NOME_PET`) e 1 métrica numérica (`PONTOS_BEM_ESTAR`).
 - [ ] Cálculo 100% manual em PL/SQL de:
-  1. Soma detalhada por combinação de (Categoria 1, Categoria 2);
-  2. Linha de **Sub Total** para cada quebra da Categoria 1 (com colunas de agrupamento ausentes/nulas);
-  3. Linha de **Total Geral** ao final de todo o processamento.
-- [ ] **PROIBIDO** o uso de `ROLLUP`, `CUBE`, `GROUPING SETS`, `GROUPING` ou cláusulas semelhantes (regra estrita da pág. 25).
+  1. Soma detalhada por combinação (Categoria, Pet);
+  2. Linha de **Sub Total** para cada quebra de Categoria de Cuidado;
+  3. Linha de **Total Geral** ao final de todo o relatório.
+- [ ] **PROIBIDO** o uso de `ROLLUP`, `CUBE`, `GROUPING SETS`, `GROUPING` (regra estrita da pág. 25).
 - [ ] Formatação visual da saída idêntica ao padrão da página 26 do manual (alinhamento de colunas, cabeçalho e tracejados).
-- [ ] Mínimo de 5 linhas detalhadas na massa de dados para evidenciar a quebra de subtotais.
 - [ ] Tratamento explícito de **no mínimo 3 exceções distintas**:
-  - 1. Ausência de movimentação financeira no período (`NO_DATA_FOUND` / cursor vazio).
+  - 1. Ausência de registros no período (`NO_DATA_FOUND`).
   - 2. Inconsistência de valor numérico nulo/negativo (`e_valor_invalido`).
-  - 3. Exceção geral (`WHEN OTHERS` com persistência em `LOG_ERROS`).
+  - 3. `WHEN OTHERS` com persistência em `LOG_ERROS`.
 
 #### Tarefas Técnicas (Child Tasks)
 * **Task 7.1:** Desenvolver algoritmo de controle de quebra (Control Break) manual em PL/SQL. *(Estimativa: 3h)*
@@ -314,7 +296,7 @@ Com base nas especificações das páginas 23 a 30 do manual oficial, a Sprint 3
 
 ---
 
-### 🔹 [PBI-08] Trigger DML Multi-Operação com Captura de :OLD e :NEW
+### 🔹 [PBI-08] Trigger DML Multi-Operação (:OLD e :NEW) em Registros Clínicos e de Pontuação
 * **Work Item Type:** `Product Backlog Item`
 * **Parent Feature:** `[FEAT-04] Trigger de Auditoria DML e Rastreabilidade Transacional`
 * **State:** `New`
@@ -324,11 +306,11 @@ Com base nas especificações das páginas 23 a 30 do manual oficial, a Sprint 3
 
 #### Descrição (História de Usuário)
 > **Como** oficial de segurança e compliance,  
-> **Eu quero** criar uma trigger DML (`TRG_AUDITORIA_ATENDIMENTO_DML`) acionada após `INSERT`, `UPDATE` ou `DELETE` na tabela transacional `ATENDIMENTO`,  
-> **Para que** todas as alterações cadastrais e financeiras sejam gravadas automaticamente na tabela de auditoria com seus valores anteriores e novos.
+> **Eu quero** criar a trigger DML `TRG_AUDITORIA_PET_DML` acionada após `INSERT`, `UPDATE` ou `DELETE` nas tabelas `PET` e `HISTORICO_CONSULTA`,  
+> **Para que** todas as alterações clínicas e de pontuação do animal sejam gravadas na tabela `TAB_AUDITORIA_DML` com valores antigos e novos.
 
 #### Critérios de Aceite (Acceptance Criteria)
-- [ ] Trigger criada com a especificação `AFTER INSERT OR UPDATE OR DELETE ON ATENDIMENTO FOR EACH ROW`.
+- [ ] Trigger criada com `AFTER INSERT OR UPDATE OR DELETE ON PET FOR EACH ROW`.
 - [ ] Identificação dinâmica da operação (`INSERTING`, `UPDATING`, `DELETING`).
 - [ ] Persistência de:
   - `USER` (usuário de sessão Oracle)
@@ -340,12 +322,9 @@ Com base nas especificações das páginas 23 a 30 do manual oficial, a Sprint 3
 - [ ] Comentários no código explicando a finalidade e funcionamento da trigger.
 
 #### Tarefas Técnicas (Child Tasks)
-* **Task 8.1:** Escrever o código da trigger com condicionais `IF INSERTING`, `IF UPDATING`, `IF DELETING`. *(Estimativa: 2h)*
-  * *Descrição:* Capturar os atributos relevantes da tabela `ATENDIMENTO` (ID, Data, Valor, Status, Pet, Veterinário) concatenando valores `:OLD` e `:NEW`.
-* **Task 8.2:** Criar script de testes DML (Insert, Update e Delete de registros de teste). *(Estimativa: 1h)*
-  * *Descrição:* Executar operações de DML para disparar a trigger e comprovar a inserção de registros na tabela `TAB_AUDITORIA_DML`.
+* **Task 8.1:** Escrever código da trigger com condicionais `IF INSERTING`, `IF UPDATING`, `IF DELETING`. *(Estimativa: 2h)*
+* **Task 8.2:** Criar script de teste DML (Insert, Update e Delete de registros de teste). *(Estimativa: 1h)*
 * **Task 8.3:** Validar integridade dos logs gerados através de consultas de auditoria. *(Estimativa: 1h)*
-  * *Descrição:* Realizar `SELECT * FROM TAB_AUDITORIA_DML ORDER BY DATA_HORA_OPERACAO DESC` para evidenciar o funcionamento.
 
 ---
 
@@ -398,8 +377,8 @@ Com base nas especificações das páginas 23 a 30 do manual oficial, a Sprint 3
 
 #### Critérios de Aceite (Acceptance Criteria)
 - [ ] **Arquivo SQL Consolidado:** `2TDSPG_2026_CodigoSql_PetGuardian.sql`
-  - Contém todo o DDL (tabelas e auditoria), DML de carga (mínimo 5 por tabela), Funções 1 e 2, Procedimentos 1 e 2, Trigger DML e chamadas de teste.
-  - Código 100% comentado indicando a finalidade de cada bloco.
+  - Contém todo o DDL Pet-Centric, DML de carga (mínimo 5 por tabela), Funções 1 e 2, Procedimentos 1 e 2, Trigger DML e chamadas de teste.
+  - Código 100% comentado.
 - [ ] **Arquivo PDF Oficial:** `docs/2TDSPG_2026_Proj_BD.pdf`
   - Capa contendo nomes e RMs em **ordem alfabética**:
     1. Enzo Okuizumi — RM 561432
@@ -427,15 +406,15 @@ Com base nas especificações das páginas 23 a 30 do manual oficial, a Sprint 3
 | ID | Título do PBI | Feature Pai | Story Points | Prioridade | Horas Estimadas |
 | :--- | :--- | :--- | :---: | :---: | :---: |
 | **PBI-01** | Auditoria de Arquivos e Remoção de Scripts Legados | `[FEAT-01]` Refatoração Base | 2 pts | 1 - Critical | 2h |
-| **PBI-02** | DDL das Tabelas e Tabela de Auditoria DML | `[FEAT-01]` Refatoração Base | 3 pts | 1 - Critical | 4h |
+| **PBI-02** | DDL Pet-Centric e Tabela de Auditoria DML | `[FEAT-01]` Refatoração Base | 3 pts | 1 - Critical | 4h |
 | **PBI-03** | Carga de Dados Consistentes (Mín. 5 registros) | `[FEAT-01]` Refatoração Base | 3 pts | 1 - Critical | 5h |
-| **PBI-04** | Função 1 - Serializador JSON Manual c/ 3 Exceções | `[FEAT-02]` Funções PL/SQL | 5 pts | 1 - Critical | 5h |
-| **PBI-05** | Função 2 - Lógica de Negócio (Gamificação) c/ 3 Exceções | `[FEAT-02]` Funções PL/SQL | 3 pts | 2 - High | 4h |
-| **PBI-06** | Procedimento 1 - JOIN e Exportação JSON c/ 3 Exceções | `[FEAT-03]` Procedimentos PL/SQL | 5 pts | 1 - Critical | 5h |
-| **PBI-07** | Procedimento 2 - Relatório Subtotal/Total sem ROLLUP c/ 3 Exceções | `[FEAT-03]` Procedimentos PL/SQL | 8 pts | 1 - Critical | 7h |
-| **PBI-08** | Trigger DML de Auditoria (:OLD e :NEW) | `[FEAT-04]` Trigger Auditoria | 5 pts | 1 - Critical | 4h |
-| **PBI-09** | Bateria de Testes e Evidências de Exceções | `[FEAT-05]` Validação & Docs | 3 pts | 2 - High | 5h |
-| **PBI-10** | Consolidação SQL e Relatório Técnico PDF | `[FEAT-05]` Validação & Docs | 3 pts | 1 - Critical | 6h |
+| **PBI-04** | Função 1 - Serializador JSON Ficha Pet c/ 3 Exceções | `[FEAT-02]` Funções PL/SQL | 5 pts | 1 - Critical | 5h |
+| **PBI-05** | Função 2 - Score de Bem-Estar do Pet c/ 3 Exceções | `[FEAT-02]` Funções PL/SQL | 3 pts | 2 - High | 4h |
+| **PBI-06** | Procedimento 1 - JOIN Prontuário e Exportação JSON c/ 3 Exceções | `[FEAT-03]` Procedimentos PL/SQL | 5 pts | 1 - Critical | 5h |
+| **PBI-07** | Procedimento 2 - Relatório Pontos Bem-Estar sem ROLLUP c/ 3 Exceções | `[FEAT-03]` Procedimentos PL/SQL | 8 pts | 1 - Critical | 7h |
+| **PBI-08** | Trigger DML de Auditoria (:OLD e :NEW) em Registros Clínicos | `[FEAT-04]` Trigger Auditoria | 5 pts | 1 - Critical | 4h |
+| **PBI-09** | Bateria de Testes e Evidências de Exceções Tratadas | `[FEAT-05]` Validação & Docs | 3 pts | 2 - High | 5h |
+| **PBI-10** | Consolidação SQL e Relatório Técnico PDF c/ Capa Alfabética | `[FEAT-05]` Validação & Docs | 3 pts | 1 - Critical | 6h |
 | **TOTAL** | **10 PBIs / 26 Child Tasks** | **5 Features / 1 Epic** | **40 pts** | — | **47h** |
 
 ---
@@ -450,19 +429,18 @@ Com base nas especificações das páginas 23 a 30 do manual oficial, a Sprint 3
 | **Uso de `ROLLUP`, `CUBE`, `GROUPING SETS`** | **Desconsideração da questão** | PBI-07 implementa quebra de subtotal e total geral com variáveis acumuladoras manuais. |
 | **Tabelas com menos de 5 registros** | **-5 pts** por tabela | PBI-03 garante 5+ registros válidos em todas as tabelas do catálogo. |
 | **Trigger incompleta ou não gravando auditoria** | **-10 pts** | PBI-08 cobre `INSERT`, `UPDATE` e `DELETE` com gravação de `:OLD` e `:NEW`. |
-| **Desorganização ou ausência de comentários** | **-5 pts** | PBI-10 padroniza cabeçalhos descritivos em todos os blocos de código. |
 | **Nomes dos integrantes fora de ordem alfabética** | **Perda de pontuação** | Capa do PDF e README estruturados em ordem alfabética estrita (Enzo, Gustavo, Lucas, Luna, Milton). |
 
 ---
 
 ## 🚀 7. Ordem Recomendada de Implementação dos Arquivos
 
-1. `01_ddl_tabelas.sql` — Criação das tabelas de negócio e constraints.
+1. `01_ddl_tabelas.sql` — Criação das tabelas de negócio Pet-Centric e constraints.
 2. `02_ddl_auditoria_e_logs.sql` — Criação de `TAB_AUDITORIA_DML`, `LOG_ERROS` e sequences.
 3. `03_procedures_carga.sql` — Procedures parametrizadas de carga.
 4. `04_blocos_anonimos_insercao.sql` — Execução da carga mínima de 5 registros por tabela.
-5. `05_funcoes_plsql.sql` — Compilação da Função 1 (JSON manual) e Função 2 (Regra de negócio).
-6. `06_procedimentos_plsql.sql` — Compilação do Procedimento 1 (JOIN + JSON) e Procedimento 2 (Subtotal/Total manual).
+5. `05_funcoes_plsql.sql` — Compilação da Função 1 (`FN_FORMATAR_JSON_FICHA_PET`) e Função 2 (`FN_CALCULAR_SCORE_BEM_ESTAR_PET`).
+6. `06_procedimentos_plsql.sql` — Compilação do Procedimento 1 (`PRC_CONSULTA_PRONTUARIO_PET_JSON`) e Procedimento 2 (`PRC_RELATORIO_PONTOS_BEM_ESTAR_CATEGORIA`).
 7. `07_trigger_auditoria.sql` — Compilação da Trigger de auditoria DML.
 8. `08_testes_validacao_excecoes.sql` — Execução dos testes de caso de uso e disparo de exceções tratadas.
 9. `2TDSPG_2026_CodigoSql_PetGuardian.sql` — Script consolidado para entrega.
