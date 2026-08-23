@@ -1,0 +1,64 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="22E68A94-190A-647C-2BC5-12AA07115BAB" name="historico">
+<createdBy>lulz_user</createdBy>
+<createdTime>2026-08-23 19:46:44 UTC</createdTime>
+<ownerDesignName>datamodeler</ownerDesignName>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id_hist" id="A8FC375C-4560-3828-FF34-5C683539CAEC">
+<createdBy>lulz_user</createdBy>
+<createdTime>2026-08-23 19:51:14 UTC</createdTime>
+<ownerDesignName>datamodeler</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<ownDataTypeParameters>,5,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="vacin" id="94D6004F-16DF-9F8F-7EA1-4366992E61CD">
+<createdBy>lulz_user</createdBy>
+<createdTime>2026-08-23 19:51:28 UTC</createdTime>
+<ownerDesignName>datamodeler</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="consult" id="5D7D5F7D-184E-AAB7-AFBF-445A445AFE69">
+<createdBy>lulz_user</createdBy>
+<createdTime>2026-08-23 19:51:39 UTC</createdTime>
+<ownerDesignName>datamodeler</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="exam" id="9C4CEC09-2733-36AF-48F5-F7BDCB9B5311">
+<createdBy>lulz_user</createdBy>
+<createdTime>2026-08-23 19:51:53 UTC</createdTime>
+<ownerDesignName>datamodeler</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="8A112F7A-2887-E021-1E8D-ADC3AFCE1C94" name="historico PK">
+<createdBy>lulz_user</createdBy>
+<createdTime>2026-08-23 19:51:23 UTC</createdTime>
+<ownerDesignName>datamodeler</ownerDesignName>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>A8FC375C-4560-3828-FF34-5C683539CAEC</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

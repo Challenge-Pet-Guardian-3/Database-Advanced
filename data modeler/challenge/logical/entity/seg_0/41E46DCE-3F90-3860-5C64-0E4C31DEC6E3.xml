@@ -2,10 +2,7 @@
 <Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="41E46DCE-3F90-3860-5C64-0E4C31DEC6E3" name="raca">
 <createdBy>Enzo</createdBy>
 <createdTime>2026-05-14 14:04:15 UTC</createdTime>
-<ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="BC59906A-C655-9079-5EF6-9F8ACA274C23" value="true"/>
-</engineerTo>
+<ownerDesignName>datamodeler</ownerDesignName>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
 <fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
@@ -18,10 +15,7 @@
 <Attribute name="id_raca" id="1140B66B-585F-B6B9-1F84-B64902BF5EA4">
 <createdBy>Enzo</createdBy>
 <createdTime>2026-05-14 14:04:19 UTC</createdTime>
-<ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="BC59906A-C655-9079-5EF6-9F8ACA274C23" value="true"/>
-</engineerTo>
+<ownerDesignName>datamodeler</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -31,25 +25,30 @@
 <Attribute name="nome_raca" id="8378BF7B-D1B8-A6DD-1202-AAA316D66B8E">
 <createdBy>Enzo</createdBy>
 <createdTime>2026-05-14 14:04:34 UTC</createdTime>
-<ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="BC59906A-C655-9079-5EF6-9F8ACA274C23" value="true"/>
-</engineerTo>
+<ownerDesignName>datamodeler</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>30</dataTypeSize>
 <ownDataTypeParameters>30,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="peso_raca" id="8E8F6E02-CEC1-2683-1D0E-F22FBCBAA31F">
+<createdBy>lulz_user</createdBy>
+<createdTime>2026-08-23 17:28:05 UTC</createdTime>
+<ownerDesignName>datamodeler</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
+</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="B4A25EA9-61B8-A6F7-3F87-09058FF77FA7" name="raca PK">
 <createdBy>Enzo</createdBy>
 <createdTime>2026-05-14 14:04:42 UTC</createdTime>
-<ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="BC59906A-C655-9079-5EF6-9F8ACA274C23" value="true"/>
-</engineerTo>
+<ownerDesignName>datamodeler</ownerDesignName>
 <pk>true</pk>
 <usedAttributes>
 <attributeRef>1140B66B-585F-B6B9-1F84-B64902BF5EA4</attributeRef>

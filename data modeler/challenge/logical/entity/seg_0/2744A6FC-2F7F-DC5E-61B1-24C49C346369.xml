@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="561C45D3-EB36-3BBD-55F3-3E77F3DF7BF1" name="usuario">
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="2744A6FC-2F7F-DC5E-61B1-24C49C346369" name="modul">
 <createdBy>lulz_user</createdBy>
-<createdTime>2026-05-05 20:49:34 UTC</createdTime>
+<createdTime>2026-08-23 19:17:53 UTC</createdTime>
 <ownerDesignName>datamodeler</ownerDesignName>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -12,29 +12,19 @@
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
-<Attribute name="id_usuario" id="06CB55AC-72C0-906B-C777-AA2E0DCAA90F">
+<Attribute name="id_modul" id="FAA6561A-81FB-6019-6B97-3768DDCEEBD2">
 <createdBy>lulz_user</createdBy>
-<createdTime>2026-05-05 20:50:27 UTC</createdTime>
+<createdTime>2026-08-23 19:18:02 UTC</createdTime>
 <ownerDesignName>datamodeler</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,3,</ownDataTypeParameters>
+<dataTypePrecision>5</dataTypePrecision>
+<ownDataTypeParameters>,5,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="nome" id="EE5EC0D1-52C6-895C-996C-B344BC22676C">
+<Attribute name="nome" id="F0FC1381-F167-9AF1-429B-D3A2BF0F439C">
 <createdBy>lulz_user</createdBy>
-<createdTime>2026-05-05 20:51:03 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>100</dataTypeSize>
-<ownDataTypeParameters>100,,</ownDataTypeParameters>
-</Attribute>
-<Attribute name="email" id="28AC41DB-4AA0-CBD2-73A3-7729A6F12ACE">
-<createdBy>Enzo</createdBy>
-<createdTime>2026-05-10 02:06:25 UTC</createdTime>
+<createdTime>2026-08-23 19:19:01 UTC</createdTime>
 <ownerDesignName>datamodeler</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -42,38 +32,48 @@
 <dataTypeSize>50</dataTypeSize>
 <ownDataTypeParameters>50,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="senha" id="FA5AEBBD-AC1D-D9BE-6DF1-E342F8E57BE1">
+<Attribute name="tempo_concl" id="BB78BFBB-AA15-FD11-8F98-EEF3A4328DCC">
 <createdBy>lulz_user</createdBy>
-<createdTime>2026-05-05 20:51:17 UTC</createdTime>
+<createdTime>2026-08-23 19:18:07 UTC</createdTime>
 <ownerDesignName>datamodeler</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>20</dataTypeSize>
-<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="id_telefone" id="CFCCA036-3368-057D-13E4-A5E4F284F441">
-<createdBy>Enzo</createdBy>
-<createdTime>2026-05-14 16:51:25 UTC</createdTime>
-<generatorID>27EB7224-58A2-CD90-A7C4-2969E91E3195</generatorID>
+<Attribute name="descricao" id="AD2184C8-0E52-29D5-AF24-123389364A63">
+<createdBy>lulz_user</createdBy>
+<createdTime>2026-08-23 19:18:36 UTC</createdTime>
 <ownerDesignName>datamodeler</ownerDesignName>
-<referedAttribute>004AC3E6-9863-9E96-0F2F-5969E31E9D07</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_trilha" id="B363D5F9-7500-4848-19A7-DE419392442C">
+<createdBy>lulz_user</createdBy>
+<createdTime>2026-08-23 19:26:00 UTC</createdTime>
+<generatorID>CB59D537-8BE2-8115-0200-09977F63F70D</generatorID>
+<ownerDesignName>datamodeler</ownerDesignName>
+<referedAttribute>CFE55A02-92B7-3BE2-37AC-59DE1AE79DD3</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,3,</ownDataTypeParameters>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
-<identifier id="07BC289B-E856-9BE0-F91F-11B9DE3EEC6C" name="usuario PK">
+<identifier id="AAB19CE7-06A2-728A-9B4D-B83D7761EACE" name="trilha PK">
 <createdBy>lulz_user</createdBy>
-<createdTime>2026-05-05 20:50:54 UTC</createdTime>
+<createdTime>2026-08-23 19:18:06 UTC</createdTime>
 <ownerDesignName>datamodeler</ownerDesignName>
 <pk>true</pk>
-<newElementsIDs>06CB55AC-72C0-906B-C777-AA2E0DCAA90F</newElementsIDs>
 <usedAttributes>
-<attributeRef>06CB55AC-72C0-906B-C777-AA2E0DCAA90F</attributeRef>
+<attributeRef>FAA6561A-81FB-6019-6B97-3768DDCEEBD2</attributeRef>
+<attributeRef>B363D5F9-7500-4848-19A7-DE419392442C</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>

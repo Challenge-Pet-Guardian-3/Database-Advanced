@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="561C45D3-EB36-3BBD-55F3-3E77F3DF7BF1" name="usuario">
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="298855A5-B48E-E0C6-3460-70AB8EEFBF4C" name="trilha">
 <createdBy>lulz_user</createdBy>
-<createdTime>2026-05-05 20:49:34 UTC</createdTime>
+<createdTime>2026-08-23 19:22:39 UTC</createdTime>
 <ownerDesignName>datamodeler</ownerDesignName>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -12,9 +12,9 @@
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
-<Attribute name="id_usuario" id="06CB55AC-72C0-906B-C777-AA2E0DCAA90F">
+<Attribute name="id_trilha" id="CFE55A02-92B7-3BE2-37AC-59DE1AE79DD3">
 <createdBy>lulz_user</createdBy>
-<createdTime>2026-05-05 20:50:27 UTC</createdTime>
+<createdTime>2026-08-23 19:22:55 UTC</createdTime>
 <ownerDesignName>datamodeler</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -22,19 +22,9 @@
 <dataTypePrecision>3</dataTypePrecision>
 <ownDataTypeParameters>,3,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="nome" id="EE5EC0D1-52C6-895C-996C-B344BC22676C">
+<Attribute name="nome" id="A7849670-EDF3-6F4B-6C14-41A80B78B5F3">
 <createdBy>lulz_user</createdBy>
-<createdTime>2026-05-05 20:51:03 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>100</dataTypeSize>
-<ownDataTypeParameters>100,,</ownDataTypeParameters>
-</Attribute>
-<Attribute name="email" id="28AC41DB-4AA0-CBD2-73A3-7729A6F12ACE">
-<createdBy>Enzo</createdBy>
-<createdTime>2026-05-10 02:06:25 UTC</createdTime>
+<createdTime>2026-08-23 19:23:18 UTC</createdTime>
 <ownerDesignName>datamodeler</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -42,38 +32,37 @@
 <dataTypeSize>50</dataTypeSize>
 <ownDataTypeParameters>50,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="senha" id="FA5AEBBD-AC1D-D9BE-6DF1-E342F8E57BE1">
+<Attribute name="descricao" id="DECFDA9E-C07F-9DB9-FCDA-9C951093D7F3">
 <createdBy>lulz_user</createdBy>
-<createdTime>2026-05-05 20:51:17 UTC</createdTime>
+<createdTime>2026-08-23 19:23:28 UTC</createdTime>
 <ownerDesignName>datamodeler</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>20</dataTypeSize>
-<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>100</dataTypePrecision>
+<ownDataTypeParameters>,100,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="id_telefone" id="CFCCA036-3368-057D-13E4-A5E4F284F441">
-<createdBy>Enzo</createdBy>
-<createdTime>2026-05-14 16:51:25 UTC</createdTime>
-<generatorID>27EB7224-58A2-CD90-A7C4-2969E91E3195</generatorID>
+<Attribute name="id_pet" id="A3B330DB-ECA5-8132-9FAB-C0CC31D236BC">
+<createdBy>lulz_user</createdBy>
+<createdTime>2026-08-23 19:29:22 UTC</createdTime>
+<generatorID>C8E95729-F908-C2FA-44C6-8BC6B9FEC5C4</generatorID>
 <ownerDesignName>datamodeler</ownerDesignName>
-<referedAttribute>004AC3E6-9863-9E96-0F2F-5969E31E9D07</referedAttribute>
+<referedAttribute>6AAB1D2F-33F4-43DD-62EE-5683C1379D2D</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,3,</ownDataTypeParameters>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
-<identifier id="07BC289B-E856-9BE0-F91F-11B9DE3EEC6C" name="usuario PK">
+<identifier id="946C8B4E-34EF-E004-CFA3-A49F97453FC1" name="trilha PK">
 <createdBy>lulz_user</createdBy>
-<createdTime>2026-05-05 20:50:54 UTC</createdTime>
+<createdTime>2026-08-23 19:23:05 UTC</createdTime>
 <ownerDesignName>datamodeler</ownerDesignName>
 <pk>true</pk>
-<newElementsIDs>06CB55AC-72C0-906B-C777-AA2E0DCAA90F</newElementsIDs>
 <usedAttributes>
-<attributeRef>06CB55AC-72C0-906B-C777-AA2E0DCAA90F</attributeRef>
+<attributeRef>CFE55A02-92B7-3BE2-37AC-59DE1AE79DD3</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>

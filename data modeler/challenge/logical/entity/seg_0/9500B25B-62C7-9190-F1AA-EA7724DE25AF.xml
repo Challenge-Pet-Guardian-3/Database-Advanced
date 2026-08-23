@@ -2,10 +2,7 @@
 <Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="9500B25B-62C7-9190-F1AA-EA7724DE25AF" name="pet">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-05-05 20:53:14 UTC</createdTime>
-<ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="BC59906A-C655-9079-5EF6-9F8ACA274C23" value="true"/>
-</engineerTo>
+<ownerDesignName>datamodeler</ownerDesignName>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
 <fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
@@ -18,10 +15,7 @@
 <Attribute name="id_pet" id="6AAB1D2F-33F4-43DD-62EE-5683C1379D2D">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-05-05 20:53:18 UTC</createdTime>
-<ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="BC59906A-C655-9079-5EF6-9F8ACA274C23" value="true"/>
-</engineerTo>
+<ownerDesignName>datamodeler</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -31,10 +25,7 @@
 <Attribute name="nome" id="B0F93F6C-9DF0-2240-3826-F4CE9C5DF26B">
 <createdBy>Enzo</createdBy>
 <createdTime>2026-05-10 02:01:52 UTC</createdTime>
-<ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="BC59906A-C655-9079-5EF6-9F8ACA274C23" value="true"/>
-</engineerTo>
+<ownerDesignName>datamodeler</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -44,10 +35,7 @@
 <Attribute name="idade" id="A98ADC20-7EC2-11ED-C34A-6A39DB94AD99">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-05-05 20:55:48 UTC</createdTime>
-<ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="BC59906A-C655-9079-5EF6-9F8ACA274C23" value="true"/>
-</engineerTo>
+<ownerDesignName>datamodeler</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -57,10 +45,7 @@
 <Attribute name="sexo" id="7E2F5D62-1382-6A43-F8B4-FDBBF4A76A98">
 <createdBy>Enzo</createdBy>
 <createdTime>2026-05-14 14:31:56 UTC</createdTime>
-<ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="BC59906A-C655-9079-5EF6-9F8ACA274C23" value="true"/>
-</engineerTo>
+<ownerDesignName>datamodeler</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -74,10 +59,7 @@
 <Attribute name="porte" id="04846015-2C23-97B3-B215-51DA96DE79C0">
 <createdBy>Enzo</createdBy>
 <createdTime>2026-05-14 14:32:18 UTC</createdTime>
-<ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="BC59906A-C655-9079-5EF6-9F8ACA274C23" value="true"/>
-</engineerTo>
+<ownerDesignName>datamodeler</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -92,10 +74,7 @@
 <Attribute name="castrado" id="06F684F4-1E24-D581-4D42-711222E62BB1">
 <createdBy>Enzo</createdBy>
 <createdTime>2026-05-10 02:03:30 UTC</createdTime>
-<ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="BC59906A-C655-9079-5EF6-9F8ACA274C23" value="true"/>
-</engineerTo>
+<ownerDesignName>datamodeler</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT006</logicalDatatype>
@@ -106,10 +85,7 @@
 <createdBy>Enzo</createdBy>
 <createdTime>2026-05-24 21:50:27 UTC</createdTime>
 <generatorID>FC9F0C60-0641-BAA8-33DA-AF8E759775F2</generatorID>
-<ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="BC59906A-C655-9079-5EF6-9F8ACA274C23" value="true"/>
-</engineerTo>
+<ownerDesignName>datamodeler</ownerDesignName>
 <referedAttribute>1140B66B-585F-B6B9-1F84-B64902BF5EA4</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -117,15 +93,22 @@
 <dataTypePrecision>3</dataTypePrecision>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="pontos" id="F0FE7E3D-12E6-9ADB-B360-5A5D1D022CC0">
+<createdBy>lulz_user</createdBy>
+<createdTime>2026-08-23 18:57:17 UTC</createdTime>
+<ownerDesignName>datamodeler</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<ownDataTypeParameters>,5,</ownDataTypeParameters>
+</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="B7056AD4-0EA0-30CE-80AF-9B7C0DBB874A" name="pet PK">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-05-05 20:53:26 UTC</createdTime>
-<ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="BC59906A-C655-9079-5EF6-9F8ACA274C23" value="true"/>
-</engineerTo>
+<ownerDesignName>datamodeler</ownerDesignName>
 <pk>true</pk>
 <newElementsIDs>6AAB1D2F-33F4-43DD-62EE-5683C1379D2D,FC9F0C60-0641-BAA8-33DA-AF8E759775F2</newElementsIDs>
 <usedAttributes>
