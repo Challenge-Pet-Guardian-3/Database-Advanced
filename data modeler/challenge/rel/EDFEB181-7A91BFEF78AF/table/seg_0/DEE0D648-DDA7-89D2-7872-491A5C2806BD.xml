@@ -138,22 +138,6 @@
 <colAssociation fkAssociation="E3FDF0B2-DE7B-FC1A-2343-CBB35D891ACE" referredColumn="4487188A-0E1F-EFE9-2F14-9DA7C9491C86"/>
 </associations>
 </Column>
-<Column name="veterinario_id_veterinario" id="8A31ADF6-1FEB-1C79-3AFD-614967B5B014">
-<createdBy>Enzo</createdBy>
-<createdTime>2026-08-21 10:43:50 UTC</createdTime>
-<generatorID>AABA8FC7-39DE-4F1B-90D4-89BC39E6BD8E</generatorID>
-<ownerDesignName>challenge</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="6E3CBEE1-8B2E-FE6F-3535-B10D4252066D" referredColumn="49F85C31-56E6-617C-FB30-FB2379951BFD"/>
-</associations>
-</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="98440420-6597-55AA-5FB7-20AC8CC08CB2" name="tarefa_PK">
@@ -210,17 +194,6 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="4115794A-C435-F014-EFBA-D974D3DF5AED"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="CC3379F6-45B7-4954-7F7A-125F5A36A730" name="tarefa_veterinario_FK">
-<createdBy>Enzo</createdBy>
-<createdTime>2026-08-21 10:43:50 UTC</createdTime>
-<generatorID>F18C8C86-4611-CA7C-D5C8-56261CB80D12</generatorID>
-<ownerDesignName>challenge</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="8A31ADF6-1FEB-1C79-3AFD-614967B5B014"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

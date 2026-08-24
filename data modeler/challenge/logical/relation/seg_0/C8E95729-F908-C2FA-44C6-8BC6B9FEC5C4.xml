@@ -2,7 +2,7 @@
 <Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Relation_35" directorySegmentName="seg_0" id="C8E95729-F908-C2FA-44C6-8BC6B9FEC5C4">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:29:22 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
 <sourcePk>B7056AD4-0EA0-30CE-80AF-9B7C0DBB874A</sourcePk>
 <identifying>true</identifying>
 <optionalSource>true</optionalSource>

@@ -2,7 +2,7 @@
 <Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="298855A5-B48E-E0C6-3460-70AB8EEFBF4C" name="trilha">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:22:39 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
 <fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
@@ -15,7 +15,7 @@
 <Attribute name="id_trilha" id="CFE55A02-92B7-3BE2-37AC-59DE1AE79DD3">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:22:55 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -25,7 +25,7 @@
 <Attribute name="nome" id="A7849670-EDF3-6F4B-6C14-41A80B78B5F3">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:23:18 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -35,7 +35,7 @@
 <Attribute name="descricao" id="DECFDA9E-C07F-9DB9-FCDA-9C951093D7F3">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:23:28 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -46,7 +46,7 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:29:22 UTC</createdTime>
 <generatorID>C8E95729-F908-C2FA-44C6-8BC6B9FEC5C4</generatorID>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
 <referedAttribute>6AAB1D2F-33F4-43DD-62EE-5683C1379D2D</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -59,7 +59,7 @@
 <identifier id="946C8B4E-34EF-E004-CFA3-A49F97453FC1" name="trilha PK">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:23:05 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
 <pk>true</pk>
 <usedAttributes>
 <attributeRef>CFE55A02-92B7-3BE2-37AC-59DE1AE79DD3</attributeRef>

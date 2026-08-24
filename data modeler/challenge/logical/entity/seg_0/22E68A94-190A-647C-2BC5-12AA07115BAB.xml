@@ -2,7 +2,7 @@
 <Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="22E68A94-190A-647C-2BC5-12AA07115BAB" name="historico">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:46:44 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
 <fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
@@ -15,38 +15,50 @@
 <Attribute name="id_hist" id="A8FC375C-4560-3828-FF34-5C683539CAEC">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:51:14 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>5</dataTypePrecision>
 <ownDataTypeParameters>,5,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="vacin" id="94D6004F-16DF-9F8F-7EA1-4366992E61CD">
+<Attribute name="ult_vacin" id="94D6004F-16DF-9F8F-7EA1-4366992E61CD">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:51:28 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT008</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="consult" id="5D7D5F7D-184E-AAB7-AFBF-445A445AFE69">
+<Attribute name="ult_consult" id="5D7D5F7D-184E-AAB7-AFBF-445A445AFE69">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:51:39 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT008</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="exam" id="9C4CEC09-2733-36AF-48F5-F7BDCB9B5311">
+<Attribute name="ult_exam" id="9C4CEC09-2733-36AF-48F5-F7BDCB9B5311">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:51:53 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_pet" id="44206B9A-A8F2-E3BA-1D6C-C1D39409F52D">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-24 20:06:12 UTC</createdTime>
+<generatorID>1795C799-5885-82DD-4FF7-5600B8C0835C</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<referedAttribute>6AAB1D2F-33F4-43DD-62EE-5683C1379D2D</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
@@ -54,7 +66,7 @@
 <identifier id="8A112F7A-2887-E021-1E8D-ADC3AFCE1C94" name="historico PK">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:51:23 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
 <pk>true</pk>
 <usedAttributes>
 <attributeRef>A8FC375C-4560-3828-FF34-5C683539CAEC</attributeRef>

@@ -17,8 +17,7 @@ CREATE TABLE atendimento
      valor                      NUMBER (10,2)  NOT NULL , 
      pet_id_pet                 NUMBER (3)  NOT NULL , 
      status_id_status           NUMBER (3)  NOT NULL , 
-     tipo_atend_id_tipo_atend   NUMBER (3)  NOT NULL , 
-     veterinario_id_veterinario NUMBER (3)  NOT NULL 
+     tipo_atend_id_tipo_atend   NUMBER (3)  NOT NULL
     ) 
 ;
 
@@ -153,8 +152,7 @@ CREATE TABLE tarefa
      conclusao                  TIMESTAMP , 
      usuario_id_usuario         NUMBER (3) , 
      pet_id_pet                 NUMBER (3)  NOT NULL , 
-     status_id_status           NUMBER (3)  NOT NULL , 
-     veterinario_id_veterinario NUMBER (3)  NOT NULL 
+     status_id_status           NUMBER (3)  NOT NULL
     ) 
 ;
 CREATE UNIQUE INDEX tarefa__IDX ON tarefa 
@@ -278,16 +276,6 @@ ALTER TABLE atendimento
     ) 
 ;
 
-ALTER TABLE atendimento 
-    ADD CONSTRAINT atendimento_veterinario_FK FOREIGN KEY 
-    ( 
-     veterinario_id_veterinario
-    ) 
-    REFERENCES veterinario 
-    ( 
-     id_veterinario
-    ) 
-;
 
 ALTER TABLE bairro 
     ADD CONSTRAINT bairro_cidade_FK FOREIGN KEY 
@@ -388,16 +376,6 @@ ALTER TABLE tarefa
     ) 
 ;
 
-ALTER TABLE tarefa 
-    ADD CONSTRAINT tarefa_veterinario_FK FOREIGN KEY 
-    ( 
-     veterinario_id_veterinario
-    ) 
-    REFERENCES veterinario 
-    ( 
-     id_veterinario
-    ) 
-;
 
 ALTER TABLE usuario_endereco 
     ADD CONSTRAINT usuario_endereco_endereco_FK FOREIGN KEY 
@@ -454,27 +432,6 @@ ALTER TABLE usuario
     ) 
 ;
 
-ALTER TABLE veterinario 
-    ADD CONSTRAINT veterinario_clinica_FK FOREIGN KEY 
-    ( 
-     clinica_id_clinica
-    ) 
-    REFERENCES clinica 
-    ( 
-     id_clinica
-    ) 
-;
-
-ALTER TABLE veterinario 
-    ADD CONSTRAINT veterinario_telefone_FK FOREIGN KEY 
-    ( 
-     telefone_id_telefone
-    ) 
-    REFERENCES telefone 
-    ( 
-     id_telefone
-    ) 
-;
 
 
 

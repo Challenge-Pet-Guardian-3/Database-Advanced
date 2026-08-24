@@ -1,8 +1,11 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="F45E59BD-8CD1-BEAF-0EE8-ABA35172CF99" name="rec">
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="F45E59BD-8CD1-BEAF-0EE8-ABA35172CF99" name="recorrente">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 18:35:48 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="446943E3-19F3-2ED2-D35F-1A30AC0F6C33" value="true"/>
+</engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
 <fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
@@ -12,10 +15,13 @@
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
-<Attribute name="id_rec" id="098C011F-A8C2-AC4C-F11E-AE9142623420">
+<Attribute name="id_recorrente" id="098C011F-A8C2-AC4C-F11E-AE9142623420">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 18:35:52 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="446943E3-19F3-2ED2-D35F-1A30AC0F6C33" value="true"/>
+</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -25,7 +31,10 @@
 <Attribute name="hora_inicio" id="4B977775-ADB5-5FCD-7256-C03DE3E91A51">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 18:36:04 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="446943E3-19F3-2ED2-D35F-1A30AC0F6C33" value="true"/>
+</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT014</logicalDatatype>
@@ -34,7 +43,10 @@
 <Attribute name="hora_fim" id="D3DEAF66-8700-EE7B-4002-7E418F5F76BD">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 18:36:20 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="446943E3-19F3-2ED2-D35F-1A30AC0F6C33" value="true"/>
+</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT014</logicalDatatype>
@@ -43,19 +55,37 @@
 <Attribute name="dias" id="5198AEF8-31CB-AB03-2B13-7982C0E0ADF0">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 18:36:30 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="446943E3-19F3-2ED2-D35F-1A30AC0F6C33" value="true"/>
+</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>50</dataTypeSize>
 <ownDataTypeParameters>50,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="eh_recorrente" id="E56791C2-C5F3-825F-4050-8F10629C1D39">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-24 20:04:02 UTC</createdTime>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="446943E3-19F3-2ED2-D35F-1A30AC0F6C33" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="F9AA317A-AB38-6571-A92A-E2E838AEE984" name="rec PK">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 18:36:01 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="446943E3-19F3-2ED2-D35F-1A30AC0F6C33" value="true"/>
+</engineerTo>
 <pk>true</pk>
 <usedAttributes>
 <attributeRef>098C011F-A8C2-AC4C-F11E-AE9142623420</attributeRef>

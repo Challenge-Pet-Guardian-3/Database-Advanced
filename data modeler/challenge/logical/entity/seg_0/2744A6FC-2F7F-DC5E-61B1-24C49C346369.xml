@@ -1,8 +1,11 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="2744A6FC-2F7F-DC5E-61B1-24C49C346369" name="modul">
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="2744A6FC-2F7F-DC5E-61B1-24C49C346369" name="modulo">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:17:53 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="FF8F2394-B7C1-D61D-3976-C174B320E842" value="true"/>
+</engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
 <fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
@@ -12,10 +15,13 @@
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
-<Attribute name="id_modul" id="FAA6561A-81FB-6019-6B97-3768DDCEEBD2">
+<Attribute name="id_modulo" id="FAA6561A-81FB-6019-6B97-3768DDCEEBD2">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:18:02 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="FF8F2394-B7C1-D61D-3976-C174B320E842" value="true"/>
+</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -25,17 +31,23 @@
 <Attribute name="nome" id="F0FC1381-F167-9AF1-429B-D3A2BF0F439C">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:19:01 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="FF8F2394-B7C1-D61D-3976-C174B320E842" value="true"/>
+</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>50</dataTypeSize>
 <ownDataTypeParameters>50,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="tempo_concl" id="BB78BFBB-AA15-FD11-8F98-EEF3A4328DCC">
+<Attribute name="tempo_conclusao" id="BB78BFBB-AA15-FD11-8F98-EEF3A4328DCC">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:18:07 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="FF8F2394-B7C1-D61D-3976-C174B320E842" value="true"/>
+</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -45,7 +57,10 @@
 <Attribute name="descricao" id="AD2184C8-0E52-29D5-AF24-123389364A63">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:18:36 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="FF8F2394-B7C1-D61D-3976-C174B320E842" value="true"/>
+</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -56,7 +71,10 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:26:00 UTC</createdTime>
 <generatorID>CB59D537-8BE2-8115-0200-09977F63F70D</generatorID>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="FF8F2394-B7C1-D61D-3976-C174B320E842" value="true"/>
+</engineerTo>
 <referedAttribute>CFE55A02-92B7-3BE2-37AC-59DE1AE79DD3</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -69,11 +87,13 @@
 <identifier id="AAB19CE7-06A2-728A-9B4D-B83D7761EACE" name="trilha PK">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:18:06 UTC</createdTime>
-<ownerDesignName>datamodeler</ownerDesignName>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="FF8F2394-B7C1-D61D-3976-C174B320E842" value="true"/>
+</engineerTo>
 <pk>true</pk>
 <usedAttributes>
 <attributeRef>FAA6561A-81FB-6019-6B97-3768DDCEEBD2</attributeRef>
-<attributeRef>B363D5F9-7500-4848-19A7-DE419392442C</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>
