@@ -3,9 +3,6 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 18:35:48 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="446943E3-19F3-2ED2-D35F-1A30AC0F6C33" value="true"/>
-</engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
 <fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
@@ -19,9 +16,6 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 18:35:52 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="446943E3-19F3-2ED2-D35F-1A30AC0F6C33" value="true"/>
-</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -32,9 +26,6 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 18:36:04 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="446943E3-19F3-2ED2-D35F-1A30AC0F6C33" value="true"/>
-</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT014</logicalDatatype>
@@ -44,9 +35,6 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 18:36:20 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="446943E3-19F3-2ED2-D35F-1A30AC0F6C33" value="true"/>
-</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT014</logicalDatatype>
@@ -56,26 +44,11 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 18:36:30 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="446943E3-19F3-2ED2-D35F-1A30AC0F6C33" value="true"/>
-</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>50</dataTypeSize>
 <ownDataTypeParameters>50,,</ownDataTypeParameters>
-</Attribute>
-<Attribute name="eh_recorrente" id="E56791C2-C5F3-825F-4050-8F10629C1D39">
-<createdBy>Enzo</createdBy>
-<createdTime>2026-08-24 20:04:02 UTC</createdTime>
-<ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="446943E3-19F3-2ED2-D35F-1A30AC0F6C33" value="true"/>
-</engineerTo>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT006</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
@@ -83,9 +56,6 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 18:36:01 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="446943E3-19F3-2ED2-D35F-1A30AC0F6C33" value="true"/>
-</engineerTo>
 <pk>true</pk>
 <usedAttributes>
 <attributeRef>098C011F-A8C2-AC4C-F11E-AE9142623420</attributeRef>

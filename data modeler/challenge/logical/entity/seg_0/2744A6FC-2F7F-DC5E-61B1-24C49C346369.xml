@@ -3,9 +3,6 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:17:53 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="FF8F2394-B7C1-D61D-3976-C174B320E842" value="true"/>
-</engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
 <fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
@@ -19,9 +16,6 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:18:02 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="FF8F2394-B7C1-D61D-3976-C174B320E842" value="true"/>
-</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -32,9 +26,6 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:19:01 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="FF8F2394-B7C1-D61D-3976-C174B320E842" value="true"/>
-</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -45,9 +36,6 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:18:07 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="FF8F2394-B7C1-D61D-3976-C174B320E842" value="true"/>
-</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -58,24 +46,18 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:18:36 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="FF8F2394-B7C1-D61D-3976-C174B320E842" value="true"/>
-</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>100</dataTypeSize>
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="id_trilha" id="B363D5F9-7500-4848-19A7-DE419392442C">
-<createdBy>lulz_user</createdBy>
-<createdTime>2026-08-23 19:26:00 UTC</createdTime>
-<generatorID>CB59D537-8BE2-8115-0200-09977F63F70D</generatorID>
+<Attribute name="id_pet" id="376429D7-C9F3-4842-7F7A-D24CBA916124">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-26 13:39:35 UTC</createdTime>
+<generatorID>E02DF639-A3ED-C492-2B0F-036AF0F1ED5C</generatorID>
 <ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="FF8F2394-B7C1-D61D-3976-C174B320E842" value="true"/>
-</engineerTo>
-<referedAttribute>CFE55A02-92B7-3BE2-37AC-59DE1AE79DD3</referedAttribute>
+<referedAttribute>6AAB1D2F-33F4-43DD-62EE-5683C1379D2D</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -88,9 +70,6 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:18:06 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="FF8F2394-B7C1-D61D-3976-C174B320E842" value="true"/>
-</engineerTo>
 <pk>true</pk>
 <usedAttributes>
 <attributeRef>FAA6561A-81FB-6019-6B97-3768DDCEEBD2</attributeRef>

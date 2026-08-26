@@ -1,0 +1,72 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E672CC40-82D8-0D67-A912-DBFDE33FC3FF" name="recorrente">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-26 17:23:15 UTC</createdTime>
+<generatorID>F45E59BD-8CD1-BEAF-0EE8-ABA35172CF99</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_recorrente" id="F4FF86C9-4D54-76CB-F296-27BD92822A2E">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-26 17:23:15 UTC</createdTime>
+<generatorID>098C011F-A8C2-AC4C-F11E-AE9142623420</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="hora_inicio" id="CDE66487-C9AE-2814-0269-09ABF09D596F">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-26 17:23:15 UTC</createdTime>
+<generatorID>4B977775-ADB5-5FCD-7256-C03DE3E91A51</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT014</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="hora_fim" id="F91126E1-8A89-287B-0BEC-D8833B801655">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-26 17:23:15 UTC</createdTime>
+<generatorID>D3DEAF66-8700-EE7B-4002-7E418F5F76BD</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT014</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="dias" id="C3ED2A94-9224-8836-EB4B-0C22B5ACBA2E">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-26 17:23:15 UTC</createdTime>
+<generatorID>5198AEF8-31CB-AB03-2B13-7982C0E0ADF0</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="82955DA1-CC71-0C87-4B34-FD0758DB08CB" name="recorrente_PK">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-26 17:23:15 UTC</createdTime>
+<generatorID>F9AA317A-AB38-6571-A92A-E2E838AEE984</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F4FF86C9-4D54-76CB-F296-27BD92822A2E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
