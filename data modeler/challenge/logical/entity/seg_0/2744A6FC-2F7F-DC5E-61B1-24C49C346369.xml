@@ -3,6 +3,9 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:17:53 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="79779239-359F-5F8B-381B-C43BB1AC853E" value="true"/>
+</engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
 <fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
@@ -16,6 +19,9 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:18:02 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="79779239-359F-5F8B-381B-C43BB1AC853E" value="true"/>
+</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
@@ -26,6 +32,9 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:19:01 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="79779239-359F-5F8B-381B-C43BB1AC853E" value="true"/>
+</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -36,6 +45,9 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:18:07 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="79779239-359F-5F8B-381B-C43BB1AC853E" value="true"/>
+</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -46,6 +58,9 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:18:36 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="79779239-359F-5F8B-381B-C43BB1AC853E" value="true"/>
+</engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -57,6 +72,9 @@
 <createdTime>2026-08-26 13:39:35 UTC</createdTime>
 <generatorID>E02DF639-A3ED-C492-2B0F-036AF0F1ED5C</generatorID>
 <ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="79779239-359F-5F8B-381B-C43BB1AC853E" value="true"/>
+</engineerTo>
 <referedAttribute>6AAB1D2F-33F4-43DD-62EE-5683C1379D2D</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -70,6 +88,9 @@
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:18:06 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="79779239-359F-5F8B-381B-C43BB1AC853E" value="true"/>
+</engineerTo>
 <pk>true</pk>
 <usedAttributes>
 <attributeRef>FAA6561A-81FB-6019-6B97-3768DDCEEBD2</attributeRef>
