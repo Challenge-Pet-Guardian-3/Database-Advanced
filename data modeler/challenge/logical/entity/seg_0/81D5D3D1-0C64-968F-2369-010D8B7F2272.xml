@@ -54,7 +54,7 @@
 <dataTypeSize>100</dataTypeSize>
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="pontos" id="74E9ABB1-F0AC-87C6-EC56-B3A9F708790D">
+<Attribute name="pontos_aula" id="74E9ABB1-F0AC-87C6-EC56-B3A9F708790D">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:21:04 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>

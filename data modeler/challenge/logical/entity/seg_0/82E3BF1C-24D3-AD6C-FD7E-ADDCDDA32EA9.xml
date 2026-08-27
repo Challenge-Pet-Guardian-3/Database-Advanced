@@ -91,7 +91,7 @@
 <logicalDatatype>LOGDT015</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="conclusao_user" id="1A8813B1-4558-9318-8B63-31128A97D912">
+<Attribute name="conclusao" id="1A8813B1-4558-9318-8B63-31128A97D912">
 <createdBy>Enzo</createdBy>
 <createdTime>2026-05-17 23:40:17 UTC</createdTime>
 <ownerDesignName>challenge</ownerDesignName>
@@ -117,7 +117,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="id_pet" id="E294EB84-3C39-609A-1193-BD79C8AE1228">
 <createdBy>Enzo</createdBy>

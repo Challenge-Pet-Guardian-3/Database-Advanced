@@ -67,15 +67,15 @@
 <dataTypeSize>100</dataTypeSize>
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="id_pet" id="376429D7-C9F3-4842-7F7A-D24CBA916124">
+<Attribute name="id_trilha" id="A65F654C-8B1B-9FAD-4CAD-BCAF088352E8">
 <createdBy>Enzo</createdBy>
-<createdTime>2026-08-26 13:39:35 UTC</createdTime>
-<generatorID>E02DF639-A3ED-C492-2B0F-036AF0F1ED5C</generatorID>
+<createdTime>2026-08-27 18:08:21 UTC</createdTime>
+<generatorID>88186376-E017-FBC7-2C01-DD9623B3C808</generatorID>
 <ownerDesignName>challenge</ownerDesignName>
 <engineerTo>
 <item key="79779239-359F-5F8B-381B-C43BB1AC853E" value="true"/>
 </engineerTo>
-<referedAttribute>6AAB1D2F-33F4-43DD-62EE-5683C1379D2D</referedAttribute>
+<referedAttribute>DABD9CDB-70A9-B2C8-D70A-5BEA9B48DD42</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>

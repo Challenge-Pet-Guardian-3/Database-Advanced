@@ -10,7 +10,7 @@
 <keyObject>06750314-BE87-0E2B-ACAE-7720A58737D6</keyObject>
 <referredKeyID>06750314-BE87-0E2B-ACAE-7720A58737D6</referredKeyID>
 <mandatory>true</mandatory>
-<refColNames>id_pet,raca_id_raca</refColNames>
+<refColNames>id_pet</refColNames>
 <transferable>true</transferable>
 <rely>false</rely>
 <columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
