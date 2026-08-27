@@ -117,7 +117,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,3,</ownDataTypeParameters>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="id_pet" id="E294EB84-3C39-609A-1193-BD79C8AE1228">
 <createdBy>Enzo</createdBy>
@@ -143,21 +143,6 @@
 <item key="79779239-359F-5F8B-381B-C43BB1AC853E" value="true"/>
 </engineerTo>
 <referedAttribute>733F42C1-9D56-CB00-FC7C-1BBFED52BFB5</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,3,</ownDataTypeParameters>
-</Attribute>
-<Attribute name="id_recorrente" id="5973CDED-778F-42BA-50BF-B1B20D7E0664">
-<createdBy>lulz_user</createdBy>
-<createdTime>2026-08-23 18:41:55 UTC</createdTime>
-<generatorID>58EFF654-F3F3-82EA-8075-190BA970F9EB</generatorID>
-<ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="79779239-359F-5F8B-381B-C43BB1AC853E" value="true"/>
-</engineerTo>
-<referedAttribute>098C011F-A8C2-AC4C-F11E-AE9142623420</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>

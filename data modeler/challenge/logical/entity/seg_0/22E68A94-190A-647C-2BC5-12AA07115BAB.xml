@@ -53,19 +53,6 @@
 <logicalDatatype>LOGDT015</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="descricao_hist" id="FFE5A85D-D323-33EE-00BC-2D3CD48FFFB4">
-<createdBy>Enzo</createdBy>
-<createdTime>2026-08-26 18:05:14 UTC</createdTime>
-<ownerDesignName>challenge</ownerDesignName>
-<engineerTo>
-<item key="79779239-359F-5F8B-381B-C43BB1AC853E" value="true"/>
-</engineerTo>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>200</dataTypeSize>
-<ownDataTypeParameters>200,,</ownDataTypeParameters>
-</Attribute>
 <Attribute name="id_pet" id="4DE98551-E7D6-1117-D215-FFC70E886CEB">
 <createdBy>Enzo</createdBy>
 <createdTime>2026-08-26 18:06:16 UTC</createdTime>
