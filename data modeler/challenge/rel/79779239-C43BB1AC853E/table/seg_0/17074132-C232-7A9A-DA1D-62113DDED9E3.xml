@@ -1,0 +1,132 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="17074132-C232-7A9A-DA1D-62113DDED9E3" name="pet">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:35 UTC</createdTime>
+<generatorID>9500B25B-62C7-9190-F1AA-EA7724DE25AF</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_pet" id="FBCA0D24-E188-4E13-9B64-10BC10BF7E30">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:35 UTC</createdTime>
+<generatorID>6AAB1D2F-33F4-43DD-62EE-5683C1379D2D</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nome" id="50680626-D6A5-2C7B-C8AC-D2F053D318D2">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:35 UTC</createdTime>
+<generatorID>B0F93F6C-9DF0-2240-3826-F4CE9C5DF26B</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="data_nasc" id="6C034380-FE09-E782-1CF8-6F4949665262">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:35 UTC</createdTime>
+<generatorID>A98ADC20-7EC2-11ED-C34A-6A39DB94AD99</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="sexo" id="5A245273-6C68-AA4A-6D07-52E19864656A">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:35 UTC</createdTime>
+<generatorID>7E2F5D62-1382-6A43-F8B4-FDBBF4A76A98</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<listOfValues>
+<valueDef value="F" description=""/>
+<valueDef value="M" description=""/>
+</listOfValues>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="porte" id="074C3080-9AD3-904D-77C4-5F73FB9B60CA">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:35 UTC</createdTime>
+<generatorID>04846015-2C23-97B3-B215-51DA96DE79C0</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<listOfValues>
+<valueDef value="GRANDE" description=""/>
+<valueDef value="MEDIO" description=""/>
+<valueDef value="PEQUENO" description=""/>
+</listOfValues>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="castrado" id="5DFD65A6-0815-5C29-D983-5C074E0B447E">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:35 UTC</createdTime>
+<generatorID>06F684F4-1E24-D581-4D42-711222E62BB1</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="raca_id_raca" id="B9FB1C43-F6E6-F291-4897-797D6FBD4C99">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:35 UTC</createdTime>
+<generatorID>C719B9E0-74D0-2D0A-8DE5-6C931AB465F7</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1961B117-D94D-DEBC-740F-5652380A1ABC" referredColumn="70F0B1E2-CD45-21B9-45C9-F3A564C6464B"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C33056A8-1DAB-546F-804C-8AFF81112613" name="pet_PK">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:35 UTC</createdTime>
+<generatorID>B7056AD4-0EA0-30CE-80AF-9B7C0DBB874A</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FBCA0D24-E188-4E13-9B64-10BC10BF7E30"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="ABC36FC1-C1F3-357F-DDBE-A1EB946DF8F5" name="pet_raca_FK">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:36 UTC</createdTime>
+<generatorID>1D6F1BCD-BEC3-D87D-FD52-FBB9704ED876</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B9FB1C43-F6E6-F291-4897-797D6FBD4C99"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

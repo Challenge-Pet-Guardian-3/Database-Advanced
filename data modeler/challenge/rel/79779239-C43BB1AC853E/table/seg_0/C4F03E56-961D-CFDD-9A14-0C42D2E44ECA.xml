@@ -78,7 +78,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="conclusao_user" id="8903C172-F023-F79A-C083-A8B442EAF33E">
+<Column name="conclusao" id="8903C172-F023-F79A-C083-A8B442EAF33E">
 <createdBy>Enzo</createdBy>
 <createdTime>2026-08-26 17:23:15 UTC</createdTime>
 <generatorID>1A8813B1-4558-9318-8B63-31128A97D912</generatorID>
@@ -99,7 +99,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
@@ -115,11 +115,11 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="51D0603E-902A-6804-8EC6-47DE978D1FC3" referredColumn="D85401A9-1E7E-C7BC-C54D-4C8AE3707F79"/>
+<colAssociation fkAssociation="5E09F7F4-669E-71FC-3233-981888FF0B06" referredColumn="FBCA0D24-E188-4E13-9B64-10BC10BF7E30"/>
 </associations>
 </Column>
 <Column name="status_id_status" id="ADBEBF9E-E6F9-2100-5509-9553D8EBB32B">
@@ -131,7 +131,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
@@ -147,7 +147,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
@@ -166,6 +166,7 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="41EAB87C-D775-0E1E-0C20-8C5201CBE5F1"/>
+<colUsage columnID="4AE9ADB7-0B88-2084-6DA2-1DC8B9C6BD04"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="B709BCE1-03AA-1C9A-0A6A-EB02F34E0880" name="tarefa__IDX">
@@ -188,17 +189,6 @@
 <relationGeneratorID>33ABF98F-9748-0D5A-F782-E7D14CAAB4B4</relationGeneratorID>
 <indexColumnUsage>
 <colUsage columnID="681CE633-1D85-6EF3-9BB4-9B5E1FD4C930"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="833A0D2E-DD63-42EB-F2A5-2564298FE0DA" name="tarefa_pet_FK">
-<createdBy>Enzo</createdBy>
-<createdTime>2026-08-26 17:23:15 UTC</createdTime>
-<generatorID>E6637EA1-411C-D61D-DB79-B4B3A612EA8E</generatorID>
-<ownerDesignName>challenge</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="4AE9ADB7-0B88-2084-6DA2-1DC8B9C6BD04"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="BA482CE1-9E68-7CE3-AB00-571F90F4F6F9" name="tarefa_recorrente_FK">
@@ -232,6 +222,17 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="ADBEBF9E-E6F9-2100-5509-9553D8EBB32B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3E61C6AB-A50F-C6FD-A710-62A6886966D2" name="tarefa_pet_FKv2">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:36 UTC</createdTime>
+<generatorID>E6637EA1-411C-D61D-DB79-B4B3A612EA8E</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4AE9ADB7-0B88-2084-6DA2-1DC8B9C6BD04"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

@@ -65,11 +65,27 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
 <colAssociation fkAssociation="68652812-22C1-31A2-4A12-BABB27EACC15" referredColumn="D85401A9-1E7E-C7BC-C54D-4C8AE3707F79"/>
+</associations>
+</Column>
+<Column name="trilha_id_trilha" id="4374E204-6FCB-3FED-A871-7941281600B0">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:35 UTC</createdTime>
+<generatorID>A65F654C-8B1B-9FAD-4CAD-BCAF088352E8</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6DE55D0F-1BCE-5756-099F-61A0E027853D" referredColumn="5069DC8E-05CC-18A1-EA9F-DCC1BF16BD59"/>
 </associations>
 </Column>
 </columns>
@@ -84,6 +100,7 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="92EF6D30-BB75-F0A5-326D-5B9ACA6E69CD"/>
+<colUsage columnID="4374E204-6FCB-3FED-A871-7941281600B0"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="F34252F0-E8EC-E3DB-5577-24248DAC6F12" name="modulo_pet_FK">
@@ -95,6 +112,17 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="6A913674-F378-3CDC-F403-236DD7A2D66E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="2C8EA41E-5D4B-85F7-9BA3-2D56B88171D1" name="modulo_trilha_FK">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:36 UTC</createdTime>
+<generatorID>88186376-E017-FBC7-2C01-DD9623B3C808</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4374E204-6FCB-3FED-A871-7941281600B0"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

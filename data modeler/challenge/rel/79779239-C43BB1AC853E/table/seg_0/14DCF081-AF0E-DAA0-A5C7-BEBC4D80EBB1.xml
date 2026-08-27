@@ -44,7 +44,7 @@
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="pontos" id="DA520D94-16F2-AD94-0F61-CA06E16972E8">
+<Column name="pontos_aula" id="DA520D94-16F2-AD94-0F61-CA06E16972E8">
 <createdBy>Enzo</createdBy>
 <createdTime>2026-08-26 17:23:15 UTC</createdTime>
 <generatorID>74E9ABB1-F0AC-87C6-EC56-B3A9F708790D</generatorID>
@@ -77,11 +77,26 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>5</dataTypePrecision>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>,5,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
 <colAssociation fkAssociation="681257A8-3A3F-90A8-493A-F5CBE8D68723" referredColumn="92EF6D30-BB75-F0A5-326D-5B9ACA6E69CD"/>
+</associations>
+</Column>
+<Column name="modulo_trilha_id_trilha" id="41639B00-B131-8221-7220-5A51E90B4E0C">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:36 UTC</createdTime>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="681257A8-3A3F-90A8-493A-F5CBE8D68723" referredColumn="4374E204-6FCB-3FED-A871-7941281600B0"/>
 </associations>
 </Column>
 </columns>
@@ -96,6 +111,7 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="E016B79E-34AD-58C0-A862-B17708D66D1A"/>
+<colUsage columnID="8F17FE25-32EC-47B3-8D89-07B1EB23B6B5"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="2FABA180-8F9D-B147-A0FF-4EA2032091B7" name="aula_modulo_FK">
@@ -107,6 +123,7 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="8F17FE25-32EC-47B3-8D89-07B1EB23B6B5"/>
+<colUsage columnID="41639B00-B131-8221-7220-5A51E90B4E0C"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

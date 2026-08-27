@@ -17,7 +17,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
@@ -33,11 +33,11 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="1899F533-4220-012C-35B7-564BD0682B47" referredColumn="D85401A9-1E7E-C7BC-C54D-4C8AE3707F79"/>
+<colAssociation fkAssociation="44089369-34A9-D4FE-3E32-BFE4A85307FF" referredColumn="FBCA0D24-E188-4E13-9B64-10BC10BF7E30"/>
 </associations>
 </Column>
 <Column name="respon_princ" id="8952960E-23F7-797E-58B4-B5A5578AEE0E">
@@ -78,9 +78,9 @@
 <colUsage columnID="46B68F06-7904-E3A0-B766-8EDCDE57BF43"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="62CAEBBD-D942-FF4E-5E24-CC5856B26015" name="usuario_pet_pet_FK">
+<ind_PK_UK id="64CDBEAE-3B78-43DE-D213-BB3D74765866" name="usuario_pet_pet_FKv2">
 <createdBy>Enzo</createdBy>
-<createdTime>2026-08-26 17:23:15 UTC</createdTime>
+<createdTime>2026-08-27 18:57:36 UTC</createdTime>
 <generatorID>52538248-6169-63F5-3D64-40D3901029FB</generatorID>
 <ownerDesignName>challenge</ownerDesignName>
 <indexState>Foreign Key</indexState>

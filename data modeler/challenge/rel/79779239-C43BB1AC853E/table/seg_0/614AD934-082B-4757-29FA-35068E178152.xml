@@ -16,8 +16,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>5</dataTypePrecision>
-<ownDataTypeParameters>,5,</ownDataTypeParameters>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="ult_vacin" id="FDA83A63-E6B2-E0D3-D195-B7D7E558F156">
@@ -62,11 +62,50 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>3</dataTypePrecision>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>,3,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
 <colAssociation fkAssociation="CD6A84FC-A2F5-9DF8-AC15-5521BEC6233C" referredColumn="D85401A9-1E7E-C7BC-C54D-4C8AE3707F79"/>
+</associations>
+</Column>
+<Column name="tipo_hist" id="BA37DD1D-FE18-E876-40F1-2A48BFFC2D97">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:35 UTC</createdTime>
+<generatorID>5F95F88D-C826-1B0B-7841-78D560D26241</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="data_hist" id="E7C0CC44-C6BC-9886-F4BD-98C6F88C3FBE">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:35 UTC</createdTime>
+<generatorID>568060A7-D272-4C0C-DCCC-2727A249C418</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pet_id_pet2" id="8BF36F2B-7510-E65A-6449-EC26EC396453">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:35 UTC</createdTime>
+<generatorID>4DE98551-E7D6-1117-D215-FFC70E886CEB</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="474C083D-14A0-D59D-8E63-CD8392C2003C" referredColumn="FBCA0D24-E188-4E13-9B64-10BC10BF7E30"/>
 </associations>
 </Column>
 </columns>
@@ -81,6 +120,7 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="020A8CA3-0905-20C0-FA4D-18890E46FB91"/>
+<colUsage columnID="8BF36F2B-7510-E65A-6449-EC26EC396453"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="A7A53CAC-EE28-535C-1CBF-7D53F07A231E" name="historico__IDX">
@@ -103,6 +143,17 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="E2E9B225-CD1B-A74D-5DDF-928D818ADB5D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1C7FE21E-D3E0-D151-92DF-E21876D7429F" name="historico_pet_FKv2">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-27 18:57:36 UTC</createdTime>
+<generatorID>5B13DC24-AB79-1278-AD93-AEC671810126</generatorID>
+<ownerDesignName>challenge</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8BF36F2B-7510-E65A-6449-EC26EC396453"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
