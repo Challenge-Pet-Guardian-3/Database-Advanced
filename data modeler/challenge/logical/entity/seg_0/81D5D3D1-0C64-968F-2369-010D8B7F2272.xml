@@ -93,6 +93,18 @@
 <dataTypeSize>1000</dataTypeSize>
 <ownDataTypeParameters>1000,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="concluida" id="E0EB22C1-641E-EFA1-2D17-97347FE2343E">
+<createdBy>Enzo</createdBy>
+<createdTime>2026-08-29 14:50:24 UTC</createdTime>
+<ownerDesignName>challenge</ownerDesignName>
+<engineerTo>
+<item key="5AEC283D-3CB8-5B50-7573-6EA3D515760A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 <Attribute name="id_modulo" id="47598FD7-9CDE-9BB4-FB06-DFD17F7643A9">
 <createdBy>lulz_user</createdBy>
 <createdTime>2026-08-23 19:26:03 UTC</createdTime>
