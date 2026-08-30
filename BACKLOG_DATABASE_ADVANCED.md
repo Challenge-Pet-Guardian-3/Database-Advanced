@@ -94,7 +94,7 @@
 | **[FEATURE 04] Trigger Auditoria** | **PBI-08** | Trigger DML de Auditoria (:OLD e :NEW) em Registros Clínicos | 3 pts | 1 - Critical | 4.0h |
 | **[FEATURE 05] Validação & Docs** | **PBI-09** | Bateria de Testes e Evidências de Exceções Tratadas | 1 pts | 2 - High | 5.0h |
 | | **PBI-10** | Consolidação SQL e Relatório Técnico PDF c/ Capa Alfabética | 2 pts | 1 - Critical | 6.0h |
-| **TOTAL CONSOLIDADO** | **5 Features** | **10 PBIs / 26 Child Tasks Técnicas** | **20 pts** | — | **47.0h** |
+| **TOTAL CONSOLIDADO** | **5 Features** | **10 PBIs / 29 Child Tasks Técnicas** | **20 pts** | — | **47.0h** |
 
 ---
 
@@ -488,15 +488,3 @@
   * *Descrição:* Montar o PDF contendo a capa alfabética, descrição das rotinas e prints.
 * **Task 10.3:** [TASK-29] Atualizar `README.md` com guia de execução, badges e tabela de integrantes. *(Activity: Documentation, Est: 1.0h)*
   * *Descrição:* Atualizar a documentação do repositório GitHub com a visão da Sprint 3.
-
----
-
-## 👥 5. Integrantes do Grupo e Responsabilidades (Ordem Alfabética Estrita)
-
-| Integrante | RM | Turma | Responsabilidade Principal na Sprint 3 |
-| :--- | :---: | :---: | :--- |
-| **Enzo Okuizumi** | **561432** | 2TDSPG | Mobile Development (React Native), Integração TanStack Query & Coordenação Geral |
-| **Gustavo Okada** | **563428** | 2TDSPG | Java Advanced (Spring Security JWT, Flyway e SOLID) & .NET Observabilidade |
-| **Lucas Barros Gouveia** | **566422** | 2TDSPG | Database Advanced (PL/SQL, Funções, Procedures e Triggers DML) |
-| **Luna de Carvalho Guimarães** | **562290** | 2TDSPG | Disruptive Architectures (FastAPI, IA Generativa, RAG e Chat) & Compliance |
-| **Milton Marcelino** | **564836** | 2TDSPG | DevOps Tools & Cloud Computing (Azure CLI, ACR, ACI e Containers) |
