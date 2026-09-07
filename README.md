@@ -1,7 +1,6 @@
 # Database-Advanced — 🐾 PetGuardian
-> **Mastering Relational and Non-Relational Database (Oracle PL/SQL)**
-> 
-> Engenharia de Banco de Dados Relacional em 3FN, Procedures com Subtotais Manuais, Serialização JSON Customizada e Auditoria DML sob a **Arquitetura Pet-Centric** (Challenge Clyvo 2026 — 2TDSPG).
+> **Mastering Relational and Non-Relational Database (Oracle PL/SQL)**  
+> Engenharia de Banco de Dados Relacional em 3FN, Programação Procedural Avançada (Subtotais Manuais sem ROLLUP, Serialização JSON Customizada sem Built-ins, Auditoria DML :OLD/:NEW e Tratamento Rigoroso de Exceções) - Challenge Clyvo 2026 — 2TDSPG.
 
 ---
 
@@ -17,350 +16,317 @@
 
 ---
 
-## Repositório Github e Documentação Banco de dados
+## 🔗 Links Oficiais de Entrega
 
-[Repositório Github](https://github.com/Challenge-Pet-Guardian-3/Database-Advanced)
+* **Repositório GitHub:** [https://github.com/Challenge-Pet-Guardian-3/Database-Advanced](https://github.com/Challenge-Pet-Guardian-3/Database-Advanced)
+* **Documentação Técnica PDF:** [`2TDSPG_2026_Proj_BD.pdf`](./docs/2TDSPG_2026_Proj_BD.pdf)
+* **Script SQL:** [`2TDSPG_2026_CodigoSql_PetGuardian.sql`](./2TDSPG_2026_CodigoSql_PetGuardian.sql)
 
-[Documentação Banco de dados](/docs/Documentação%20Database%20Advanced%20-%20Pet%20Guardian.pdf)
+---
 
-[Vídeo Youtube](https://youtu.be/fm-ParvR44M?si=wi_zEbA3xwttCwfi)
+## Modelagem Lógica e Relacional do Banco de Dados
 
+### Modelo Lógico
+![Modelo Lógico](docs/Logical.png)
 
-### 🗄️ Modelagem Lógica e Relacional do Banco de Dados
-
-![Modelo Lógica](docs/Logical.png)
-
-
+### Modelo Relacional (Físico)
 ![Modelo Relacional](docs/Relational.png)
 
 ---
 
-## Ordem Recomendada de Execução
-Para garantir a integridade referencial (chaves estrangeiras) e a criação bem-sucedida de todas as dependências, os arquivos devem ser executados exatamente na seguinte ordem:
+## Contexto da Solução: 
 
-1. `01_ddl_tabelas.sql` — Criação de todas as tabelas, índices e constraints de chave primária e estrangeira.
-2. `02_ddl_logs.sql` — Criação da estrutura de logs para auditoria de erros (tabela `log_erros`, sequence e trigger).
-3. `03_procedures_carga.sql` — Criação das sequences de chaves primárias e das procedures de carga parametrizadas por tabela (incluindo o gravador de logs autônomo).
-4. `04_blocos_anonimos_insercao.sql` — Execução de blocos anônimos para inserção da carga de dados de exemplo utilizando as procedures de carga.
-5. `05_consultas_joins.sql` — Consultas de testes que comprovam o funcionamento de agrupamento (GROUP BY) e ordenação (ORDER BY) em múltiplas tabelas unidas (JOINs).
-6. `06_consulta_valor_anterior_proximo.sql` — Bloco anônimo contendo o relatório utilizando as funções analíticas `LAG` e `LEAD`.
-7. `07_relatorios_cursors.sql` — Execução dos 4 relatórios baseados em cursores explícitos e lógica de tomada de decisão.
+Seguindo as diretrizes estratégicas da **Mentoria Clyvo 2026**, o ecossistema foi completamente refatorado:
 
----
-
-## Modelo Descritivo
-
-### 1. Introdução
-Apresentando o **Modelo Descritivo** do banco de dados relacional da plataforma **PetGuardian**, desenvolvido para o banco de dados Oracle. O objetivo deste modelo é documentar a estrutura física de armazenamento, detalhando as tabelas, tipos de dados, chaves primárias (PK), chaves estrangeiras (FK), restrições (constraints) e a finalidade de cada tabela no contexto do sistema.
-
-O modelo está em conformidade com a **3ª Forma Normal (3FN)**, garantindo integridade de dados e eliminando redundâncias.
+1. **Descontinuação do Modelo Clínico Legado:** Foram removidas as entidades legadas de atendimento clínico (`veterinario`, `clinica`, `atendimento`, `tipo_atend`), que desviavam o foco da governança de rotina familiar do animal.
+2. **O Animal no Centro do Domínio (`PET`):** O pet passa a ser a entidade principal do sistema. Todo o histórico de saúde, tarefas e pontuação converge para o indivíduo animal.
+3. **Care Circle Familiar (`USUARIO_PET`):** Suporte à cotutela em relacionamento N:M entre usuários e pets, permitindo múltiplos cuidadores com a identificação clara do responsável principal (`respon_princ`).
+4. **Gamificação da Rotina e Cuidado Preventivo (`TAREFA` e `STATUS`):** Tarefas com ciclo de vida auditável (`PENDENTE`, `CONCLUIDO`, `EXPIRADO`) e acúmulo de pontos de bem-estar.
+5. **Gamificação Educativa (`TRILHA`, `MODULO`, `AULA`):** Módulos temáticos de adestramento e boas práticas vinculados ao perfil do pet, com concessão de pontuação educacional.
+6. **Localização e Comunicação Segura (`ENDERECO`, `BAIRRO`, `CIDADE`, `ESTADO`, `TELEFONE`):** Normalização completa de contatos e endereços do tutor com integração declarativa de CEP.
 
 ---
 
-### 2. Dicionário de Dados (Catálogo de Tabelas)
+## Dicionário de Dados Oficial (16 Tabelas + Tabela de Auditoria)
 
-### 2.1. Tabela: USUARIO
-Armazena as informações dos responsáveis e usuários principais da plataforma Pet Guardian.
+### 1. Tabela: `USUARIO`
+Armazena os tutores, cuidadores e administradores da plataforma.
 
 | Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
-| :--- | :--- | :--- | :--- | :--- |
+| :--- | :--- | :---: | :---: | :--- |
 | `id_usuario` | `NUMBER(3)` | Não | PK | Identificador único do usuário. |
 | `nome` | `VARCHAR2(100)` | Não | - | Nome completo do usuário. |
-| `email` | `VARCHAR2(50)` | Não | - | E-mail de login (único no sistema). |
-| `senha` | `VARCHAR2(20)` | Não | - | Senha do usuário. |
-| `telefone_id_telefone` | `NUMBER(3)` | Sim | FK | Referência para a tabela `telefone` (Unique Index). |
-
-* **Relacionamentos:**
-  * Um Usuário possui um Telefone (1:1 com `telefone`).
-  * Um Usuário possui um ou mais Endereços (N:M com `endereco` via `usuario_endereco`).
-  * Um Usuário possui um ou mais Pets cadastrados (N:M com `pet` via `usuario_pet`).
-  * Um Usuário pode realizar ou registrar Conclusão de Tarefas (1:N com `tarefa`).
+| `email` | `VARCHAR2(50)` | Não | UN | E-mail corporativo/pessoal único no sistema. |
+| `senha` | `VARCHAR2(60)` | Não | - | Hash criptográfico da senha (Ou senha de acesso do usuário). |
+| `role` | `VARCHAR2(10)` | Não | CK | Perfil de acesso: `'ADMIN'`, `'COMUM'` ou `'PREMIUM'`. |
+| `telefone_id_telefone` | `NUMBER(3)` | Não | FK, UN | Vínculo 1:1 com a tabela `telefone`. |
 
 ---
 
-### 2.2. Tabela: VETERINARIO
-Armazena dados cadastrais dos médicos veterinários vinculados ao monitoramento e clínicas.
+### 2. Tabela: `TELEFONE`
+Contatos telefônicos associados aos usuários do sistema.
 
 | Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
-| :--- | :--- | :--- | :--- | :--- |
-| `id_veterinario` | `NUMBER(3)` | Não | PK | Identificador único do veterinário. |
-| `nome` | `VARCHAR2(100)` | Não | - | Nome completo do profissional. |
-| `email` | `VARCHAR2(50)` | Não | - | E-mail de login do veterinário. |
-| `senha` | `VARCHAR2(20)` | Não | - | Senha do veterinário. |
-| `telefone_id_telefone` | `NUMBER(3)` | Não | FK | Referência única para a tabela `telefone`. |
-| `clinica_id_clinica` | `NUMBER(3)` | Sim | FK | Referência para a tabela `clinica`. |
-
-* **Relacionamentos:**
-  * Um Veterinário possui um Telefone (1:1 com `telefone`).
-  * Um Veterinário pode atuar em uma Clínica (N:1 com `clinica`).
-  * Um Veterinário prescreve ou gerencia Tarefas e atende Pets (1:N com `tarefa` e `atendimento`).
-
----
-
-### 2.3. Tabela: TELEFONE
-Armazena números de telefone associados a usuários, veterinários ou clínicas.
-
-| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
-| :--- | :--- | :--- | :--- | :--- |
+| :--- | :--- | :---: | :---: | :--- |
 | `id_telefone` | `NUMBER(3)` | Não | PK | Identificador único do telefone. |
-| `num_ddd` | `VARCHAR2(2)` | Não | - | DDD do telefone (ex: "11"). |
-| `num_tel` | `VARCHAR2(9)` | Não | - | Número telefônico (ex: "999998888"). |
-
-* **Relacionamentos:**
-  * Um Telefone pode pertencer a um Usuário (1:1 com `usuario`).
-  * Um Telefone pode pertencer a um Veterinário (1:1 com `veterinario`).
-  * Um Telefone pode pertencer a uma Clínica Veterinária (1:1 com `clinica`).
+| `num_ddd` | `VARCHAR2(2)` | Não | - | DDD do telefone (ex: `'11'`). |
+| `num_tel` | `VARCHAR2(9)` | Não | - | Número do telefone com até 9 dígitos. |
 
 ---
 
-### 2.4. Tabela: ENDERECO
-Registra os logradouros físicos onde residem usuários ou onde clínicas veterinárias estão situadas.
+### 3. Tabela: `PET` (Entidade Nuclear)
+Armazena os animais gerenciados pela plataforma PetGuardian.
 
 | Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
-| :--- | :--- | :--- | :--- | :--- |
-| `id_endereco` | `NUMBER(3)` | Não | PK | Identificador único do endereço. |
-| `cep` | `VARCHAR2(8)` | Não | - | Código de Endereçamento Postal (somente números). |
-| `rua` | `VARCHAR2(150)` | Não | - | Nome do logradouro (rua, avenida, etc.). |
-| `numero` | `VARCHAR2(5)` | Não | - | Número do imóvel. |
-| `bairro_id_bairro` | `NUMBER(3)` | Não | FK | Referência para a tabela `bairro`. |
-
-* **Relacionamentos:**
-  * Um Endereço pertence a um Bairro (N:1 com `bairro`).
-  * Um Endereço está vinculado a um Usuário (N:M através de `usuario_endereco`).
-  * Um Endereço pode abrigar uma Clínica Veterinária (1:1 com `clinica`).
-
----
-
-### 2.5. Tabela: BAIRRO
-Armazena os bairros associados a uma cidade.
-
-| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
-| :--- | :--- | :--- | :--- | :--- |
-| `id_bairro` | `NUMBER(3)` | Não | PK | Identificador único do bairro. |
-| `nome_bairro` | `VARCHAR2(30)` | Não | - | Nome do bairro. |
-| `cidade_id_cidade` | `NUMBER(3)` | Não | FK | Referência para a tabela `cidade`. |
-
-* **Relacionamentos:**
-  * Um Bairro pertence a uma Cidade (N:1 com `cidade`).
-  * Um Bairro possui um ou mais Endereços (1:N com `endereco`).
-
----
-
-### 2.6. Tabela: CIDADE
-Armazena os municípios vinculados a um estado.
-
-| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
-| :--- | :--- | :--- | :--- | :--- |
-| `id_cidade` | `NUMBER(3)` | Não | PK | Identificador único da cidade. |
-| `nome_cidade` | `VARCHAR2(30)` | Não | - | Nome da cidade. |
-| `estado_id_estado` | `NUMBER(3)` | Não | FK | Referência para a tabela `estado`. |
-
-* **Relacionamentos:**
-  * Uma Cidade pertence a um Estado (N:1 com `estado`).
-  * Uma Cidade possui um ou mais Bairros (1:N com `bairro`).
-
----
-
-### 2.7. Tabela: ESTADO
-Armazena as unidades federativas (Estados) para compor a localização geográfica dos endereços.
-
-| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
-| :--- | :--- | :--- | :--- | :--- |
-| `id_estado` | `NUMBER(3)` | Não | PK | Identificador único do estado. |
-| `nome_estado` | `VARCHAR2(30)` | Não | - | Nome ou sigla representativa do estado (ex: "SP"). |
-
-* **Relacionamentos:**
-  * Um Estado possui uma ou mais Cidades (1:N com `cidade`).
-
----
-
-### 2.8. Tabela: USUARIO_ENDERECO (Tabela Intermediária)
-Tabela associativa para resolver o relacionamento de N:M entre Usuários e Endereços.
-
-| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
-| :--- | :--- | :--- | :--- | :--- |
-| `usuario_id_usuario` | `NUMBER(3)` | Não | PK, FK | Referência à tabela `usuario`. |
-| `endereco_id_endereco` | `NUMBER(3)` | Não | PK, FK | Referência à tabela `endereco`. |
-
-* **Relacionamentos:**
-  * Associa a entidade `usuario` com a entidade `endereco` (N:M).
-
----
-
-### 2.9. Tabela: CLINICA
-Representa os estabelecimentos parceiros ou onde os atendimentos ocorrem.
-
-| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
-| :--- | :--- | :--- | :--- | :--- |
-| `id_clinica` | `NUMBER(3)` | Não | PK | Identificador único da clínica. |
-| `nome` | `VARCHAR2(30)` | Não | - | Nome fantasia da clínica. |
-| `telefone_id_telefone` | `NUMBER(3)` | Não | FK | Referência única para a tabela `telefone`. |
-| `endereco_id_endereco` | `NUMBER(3)` | Não | FK | Referência única para a tabela `endereco`. |
-
-* **Relacionamentos:**
-  * Uma Clínica possui um Telefone (1:1 com `telefone`).
-  * Uma Clínica possui um Endereço (1:1 com `endereco`).
-  * Uma Clínica possui um ou mais Veterinários associados (1:N com `veterinario`).
-
----
-
-### 2.10. Tabela: PET
-Armazena os dados dos animais que recebem os cuidados e monitoramento pela plataforma.
-
-| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
-| :--- | :--- | :--- | :--- | :--- |
+| :--- | :--- | :---: | :---: | :--- |
 | `id_pet` | `NUMBER(3)` | Não | PK | Identificador único do pet. |
 | `nome` | `VARCHAR2(30)` | Não | - | Nome do pet. |
-| `idade` | `NUMBER(2)` | Não | - | Idade do pet em anos. |
-| `sexo` | `VARCHAR2(1)` | Não | - | Sexo do pet. Regra de validação: deve ser `'F'` ou `'M'`. |
-| `porte` | `VARCHAR2(10)` | Não | - | Porte físico do pet. Regra: `'GRANDE'`, `'MEDIO'` ou `'PEQUENO'`. |
-| `castrado` | `CHAR(1)` | Não | - | Indicador de castração. Deve ser `'S'` (Sim) ou `'N'` (Não). |
-| `raca_id_raca` | `NUMBER(3)` | Não | FK | Referência para a tabela `raca`. |
-
-* **Relacionamentos:**
-  * Um Pet pertence a uma Raça (N:1 com `raca`).
-  * Um Pet pertence a um ou mais Usuários (N:M com `usuario` via `usuario_pet`).
-  * Um Pet possui várias Tarefas e Atendimentos associados (1:N com `tarefa` e `atendimento`).
+| `data_nasc` | `DATE` | Não | - | Data de nascimento para cálculo dinâmico de idade. |
+| `sexo` | `VARCHAR2(1)` | Não | CK | Sexo do pet (`'F'` ou `'M'`). |
+| `porte` | `VARCHAR2(10)` | Não | CK | Porte do pet: `'GRANDE'`, `'MEDIO'` ou `'PEQUENO'`. |
+| `castrado` | `NUMBER` | Não | CK | Indicador binário de castração (`1` = Sim, `0` = Não). |
+| `raca_id_raca` | `NUMBER(3)` | Não | FK | Referência para a raça do pet. |
 
 ---
 
-### 2.11. Tabela: RACA
-Armazena a listagem de raças disponíveis para os pets cadastrados.
+### 4. Tabela: `USUARIO_PET` (Care Circle N:M)
+Tabela associativa que formaliza a rede de cotutela sobre cada animal.
 
 | Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
-| :--- | :--- | :--- | :--- | :--- |
+| :--- | :--- | :---: | :---: | :--- |
+| `usuario_id_usuario` | `NUMBER(3)` | Não | PK, FK | Referência ao usuário tutor. |
+| `pet_id_pet` | `NUMBER(3)` | Não | PK, FK | Referência ao pet cuidado. |
+| `respon_princ` | `NUMBER` | Não | CK | `1` se for o tutor principal, `0` se for co-cuidador. |
+
+---
+
+### 5. Tabela: `RACA`
+Catálogo de raças caninas e felinas cadastradas.
+
+| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
+| :--- | :--- | :---: | :---: | :--- |
 | `id_raca` | `NUMBER(3)` | Não | PK | Identificador único da raça. |
-| `nome_raca` | `VARCHAR2(30)` | Não | - | Nome da raça (ex: "Labrador", "Persa"). |
-
-* **Relacionamentos:**
-  * Uma Raça pode ser associada a um ou mais Pets (1:N com `pet`).
+| `nome_raca` | `VARCHAR2(30)` | Não | - | Nome descritivo da raça (ex: `'Golden Retriever'`). |
 
 ---
 
-### 2.12. Tabela: USUARIO_PET (Tabela Intermediária)
-Tabela associativa que resolve o relacionamento N:M entre Usuários e Pets, identificando os responsáveis por cada animal.
+### 6. Tabela: `TAREFA` (Tabela de Fatos da Rotina)
+Fatos transacionais de alimentação, medicação, passeios e cuidados de saúde.
 
 | Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
-| :--- | :--- | :--- | :--- | :--- |
-| `usuario_id_usuario` | `NUMBER(3)` | Não | PK, FK | Referência à tabela `usuario`. |
-| `pet_id_pet` | `NUMBER(3)` | Não | PK, FK | Referência à tabela `pet`. |
-| `respon_princ` | `CHAR(1)` | Não | - | Define se o usuário é o responsável principal (`'S'` ou `'N'`). |
-
-* **Relacionamentos:**
-  * Associa a entidade `usuario` com a entidade `pet` (N:M).
-
----
-
-### 2.13. Tabela: TAREFA
-Representa as tarefas, alarmes e rotinas de cuidados (medicação, alimentação, passeios) criadas para monitorar a saúde dos animais.
-
-| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
-| :--- | :--- | :--- | :--- | :--- |
+| :--- | :--- | :---: | :---: | :--- |
 | `id_tarefa` | `NUMBER(3)` | Não | PK | Identificador único da tarefa. |
-| `titulo` | `VARCHAR2(30)` | Não | - | Título curto da atividade. |
-| `pontos_tarefa` | `NUMBER(3)` | Não | - | Pontuação concedida ao responsável ao concluir a tarefa (gamificação). |
-| `descricao` | `VARCHAR2(200)` | Não | - | Detalhamento das instruções da tarefa. |
+| `titulo` | `VARCHAR2(30)` | Não | - | Título descritivo da tarefa. |
+| `pontos_tarefa` | `NUMBER(3)` | Não | - | Pontos de bem-estar creditados ao concluir a tarefa. |
+| `descricao` | `VARCHAR2(200)` | Não | - | Orientações detalhadas de execução. |
 | `criacao` | `TIMESTAMP` | Não | - | Data/hora de registro da tarefa. |
-| `prazo` | `TIMESTAMP` | Não | - | Data/hora limite para realização da tarefa. |
-| `conclusao` | `TIMESTAMP` | Sim | - | Data/hora em que a tarefa foi executada (preenchida na conclusão). |
-| `usuario_id_usuario` | `NUMBER(3)` | Sim | FK | Referência ao usuário que concluiu a tarefa (`usuario`). |
-| `pet_id_pet` | `NUMBER(3)` | Não | FK | Referência ao pet alvo da tarefa (`pet`). |
-| `status_id_status` | `NUMBER(3)` | Não | FK | Referência ao status atual da tarefa (`status`). |
-| `veterinario_id_veterinario` | `NUMBER(3)` | Não | FK | Referência ao veterinário que prescreveu a tarefa (`veterinario`). |
-
-* **Relacionamentos:**
-  * Uma Tarefa é prescrita por um Veterinário (N:1 com `veterinario`).
-  * Uma Tarefa é direcionada a um Pet (N:1 com `pet`).
-  * Uma Tarefa possui um Status de controle (N:1 com `status`).
-  * Uma Tarefa pode ser realizada/concluída por um Responsável (N:1 opcional com `usuario`).
+| `prazo` | `TIMESTAMP` | Não | - | Data/hora limite de execução. |
+| `conclusao` | `TIMESTAMP` | Sim | - | Data/hora efetiva em que a tarefa foi cumprida. |
+| `pet_id_pet` | `NUMBER(3)` | Não | FK | Pet beneficiado pela tarefa. |
+| `status_id_status` | `NUMBER(3)` | Não | FK | Status de controle (`PENDENTE`, `CONCLUIDO`, `EXPIRADO`). |
+| `usuario_id_usuario` | `NUMBER(3)` | Não | FK | Cuidador responsável pela criação/execução. |
 
 ---
 
-### 2.14. Tabela: ATENDIMENTO
-Armazena a ficha médica dos atendimentos executados pelos veterinários em pets.
+### 7. Tabela: `STATUS`
+Domínio de estados do ciclo de vida das tarefas.
 
 | Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
-| :--- | :--- | :--- | :--- | :--- |
-| `id_atendimento` | `NUMBER(3)` | Não | PK | Identificador único do atendimento. |
-| `data` | `TIMESTAMP` | Não | - | Data e hora em que o atendimento foi realizado. |
-| `anotacoes` | `VARCHAR2(300)` | Não | - | Notas clínicas, diagnósticos e indicações do veterinário. |
-| `valor` | `NUMBER(10,2)` | Não | - | Valor financeiro cobrado pelo atendimento (utilizado para sumarizações). |
-| `pet_id_pet` | `NUMBER(3)` | Não | FK | Referência ao pet atendido (`pet`). |
-| `status_id_status` | `NUMBER(3)` | Não | FK | Referência ao status do atendimento (`status`). |
-| `tipo_atend_id_tipo_atend` | `NUMBER(3)` | Não | FK | Referência ao tipo do atendimento (`tipo_atend`). |
-| `veterinario_id_veterinario` | `NUMBER(3)` | Não | FK | Referência ao veterinário que realizou o atendimento (`veterinario`). |
-
-* **Relacionamentos:**
-  * Um Atendimento é realizado por um Veterinário (N:1 com `veterinario`).
-  * Um Atendimento é direcionado a um Pet (N:1 com `pet`).
-  * Um Atendimento possui um Status clínico (N:1 com `status`).
-  * Um Atendimento possui um Tipo de Atendimento (N:1 com `tipo_atend`).
+| :--- | :--- | :---: | :---: | :--- |
+| `id_status` | `NUMBER(3)` | Não | PK | Identificador do status. |
+| `nome_status` | `VARCHAR2(15)` | Não | CK | Restrição: `'CONCLUIDO'`, `'EXPIRADO'` ou `'PENDENTE'`. |
 
 ---
 
-### 2.15. Tabela: STATUS
-Tabela de referência para armazenar os estados possíveis de tarefas e atendimentos.
+### 8. Tabela: `TRILHA`
+Trilhas temáticas de educação, adestramento e enriquecimento ambiental.
 
 | Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
-| :--- | :--- | :--- | :--- | :--- |
-| `id_status` | `NUMBER(3)` | Não | PK | Identificador único do status. |
-| `nome_status` | `VARCHAR2(15)` | Não | - | Valor descritivo do status. Regra: `'CONCLUIDO'`, `'EXPIRADO'`, ou `'PENDENTE'`. |
-
-* **Relacionamentos:**
-  * Um Status pode classificar várias Tarefas ou Atendimentos (1:N com `tarefa` e `atendimento`).
+| :--- | :--- | :---: | :---: | :--- |
+| `id_trilha` | `NUMBER(5)` | Não | PK | Identificador único da trilha. |
+| `nome` | `VARCHAR2(30)` | Não | - | Nome da trilha temática. |
+| `descricao` | `VARCHAR2(200)` | Não | - | Detalhamento dos objetivos pedagógicos. |
+| `pet_id_pet` | `NUMBER(3)` | Não | FK | Pet associado ao plano de desenvolvimento. |
 
 ---
 
-### 2.16. Tabela: TIPO_ATEND
-Tabela de referência para a tipificação de consultas e atendimentos veterinários.
+### 9. Tabela: `MODULO`
+Módulos que segmentam o conteúdo programático de uma trilha.
 
 | Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
-| :--- | :--- | :--- | :--- | :--- |
-| `id_tipo_atend` | `NUMBER(3)` | Não | PK | Identificador do tipo de atendimento. |
-| `tipo` | `VARCHAR2(30)` | Não | - | Nome do tipo de atendimento (ex: `'CONSULTA'`, `'VACINACAO'`, etc.). |
-
-* **Relacionamentos:**
-  * Um Tipo de Atendimento pode ser associado a múltiplos Atendimentos (1:N com `atendimento`).
+| :--- | :--- | :---: | :---: | :--- |
+| `id_modulo` | `NUMBER(5)` | Não | PK | Identificador único do módulo. |
+| `nome` | `VARCHAR2(50)` | Não | - | Título do módulo. |
+| `tempo_conclusao` | `VARCHAR2(10)` | Não | - | Estimativa de tempo de conclusão (ex: `'45 min'`). |
+| `descricao` | `VARCHAR2(100)` | Não | - | Resumo do conteúdo trabalhado no módulo. |
+| `trilha_id_trilha` | `NUMBER(5)` | Não | FK | Referência para a trilha pai. |
 
 ---
 
-### 2.17. Tabela: LOG_ERROS (Infraestrutura de Auditoria)
-Tabela criada especificamente para registrar exceções disparadas dentro de procedures PL/SQL ou blocos anônimos.
+### 10. Tabela: `AULA`
+Aulas práticas com pontuação educativa e acompanhamento de progresso.
 
 | Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
-| :--- | :--- | :--- | :--- | :--- |
-| `id_log` | `NUMBER(12)` | Não | PK | Identificador único do log (alimentado pela trigger `trg_log_erros_bi` e sequence `log_erros_seq`). |
-| `nome_procedure` | `VARCHAR2(100)` | Não | - | Nome da procedure ou bloco anônimo onde o erro aconteceu. |
-| `usuario` | `VARCHAR2(100)` | Não | - | Nome do usuário de banco conectado no momento do erro. |
-| `data_erro` | `TIMESTAMP` | Não | - | Data e hora exata da ocorrência do erro (Default: `SYSTIMESTAMP`). |
-| `codigo_erro` | `NUMBER` | Sim | - | Código numérico interno da exceção (retornado por `SQLCODE`). |
-| `mensagem_erro` | `VARCHAR2(4000)` | Sim | - | Detalhamento descritivo da exceção (retornado por `SQLERRM`). |
-
-* **Relacionamentos:**
-  * Tabela de logs de auditoria interna do banco de dados (sem relacionamentos de chave estrangeira externos para evitar dependências circulares em caso de falhas).
-
----
-
-### 3. Considerações de Normalização (3FN)
-Toda a estrutura de dados foi normalizada até a **Terceira Forma Normal (3FN)**:
-1. **Primeira Forma Normal (1FN):** Todos os atributos são atômicos (valores indivisíveis) e não existem grupos de repetição (por exemplo, telefones e endereços foram extraídos para tabelas específicas).
-2. **Segunda Forma Normal (2FN):** A base atende à 1FN e todas as colunas não-chave dependem totalmente da chave primária inteira (não existindo dependência parcial de chaves compostas em tabelas associativas como `usuario_pet` e `usuario_endereco`).
-3. **Terceira Forma Normal (3FN):** A base atende à 2FN e não possui dependências transitivas. Atributos que dependiam de outros campos não-chave (como o bairro, cidade e estado que dependiam transitivamente do endereço) foram desmembrados nas tabelas de suporte `bairro`, `cidade` e `estado`.
+| :--- | :--- | :---: | :---: | :--- |
+| `id_aula` | `NUMBER(5)` | Não | PK | Identificador único da aula. |
+| `nome` | `VARCHAR2(50)` | Não | - | Título da lição. |
+| `descricao` | `VARCHAR2(100)` | Não | - | Descrição curta da prática. |
+| `pontos_aula` | `NUMBER(5)` | Não | - | Pontuação concedida ao pet/tutor ao concluir. |
+| `dificuldade` | `VARCHAR2(20)` | Não | - | Nível de dificuldade (`INICIANTE`, `INTERMEDIARIO`, etc.). |
+| `conteudo` | `VARCHAR2(1000)` | Não | - | Texto instrutivo ou instruções práticas. |
+| `concluida` | `NUMBER` | Não | CK | `1` se concluída, `0` se pendente. |
+| `modulo_id_modulo` | `NUMBER(5)` | Não | FK | Referência para o módulo pai. |
 
 ---
 
-### 4. Regras de Negócio e Restrições PL/SQL
-Além das restrições de integridade física declaradas no DDL (PK, FK, Check Constraints), o sistema implementa validações dinâmicas de regras de negócio através de procedures PL/SQL:
+### 11. Tabela: `HISTORICO`
+Prontuário de eventos de saúde e intervenções preventivas do animal.
 
-1. **Regra de Conclusão Única de Tarefa (`PRC_CONCLUIR_TAREFA`)**:
-   - Uma tarefa de cuidados com o pet (`tarefa`) pode ter no máximo um executor/concluinte.
-   - Quando um responsável conclui uma tarefa, o ID do responsável (`usuario_id_usuario`) e o timestamp de conclusão (`conclusao`) são preenchidos, e o status é atualizado para `CONCLUIDO`.
-   - Se houver tentativa de concluir uma tarefa que já possui um responsável executor associado, a procedure aborta a execução impedindo a duplicidade e registra a ocorrência na tabela `LOG_ERROS`.
+| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
+| :--- | :--- | :---: | :---: | :--- |
+| `id_hist` | `NUMBER(3)` | Não | PK | Identificador do evento histórico. |
+| `tipo_hist` | `VARCHAR2(30)` | Não | - | Categoria do evento (Vacina, Check-up, Cirurgia). |
+| `data_hist` | `TIMESTAMP` | Não | - | Data e hora exata do evento de saúde. |
+| `pet_id_pet` | `NUMBER(3)` | Não | FK | Pet vinculado ao histórico. |
 
-2. **Hierarquia de Responsabilidade de Pets (`USUARIO_PET`)**:
-   - Múltiplos responsáveis podem estar associados e cuidar de um mesmo pet (relacionamento N:M).
-   - A modelagem e as regras de negócio garantem que cada pet possua apenas um responsável designado como responsável principal (`respon_princ = 'S'`) para fins de tomada de decisões clínicas.
+---
 
-3. **Flexibilidade de Vínculo Profissional (`VETERINARIO`)**:
-   - Um médico veterinário pode estar formalmente vinculado a uma clínica cadastrada (`clinica_id_clinica` preenchido).
-   - É permitida a atuação do profissional de forma autônoma/independente, deixando o campo `clinica_id_clinica` com valor `NULL`.
+### 12. Tabela: `ENDERECO`
+Logradouros físicos normalizados vinculados aos usuários.
+
+| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
+| :--- | :--- | :---: | :---: | :--- |
+| `id_endereco` | `NUMBER(3)` | Não | PK | Identificador único do endereço. |
+| `cep` | `VARCHAR2(8)` | Não | - | Código postal numérico de 8 posições. |
+| `rua` | `VARCHAR2(150)` | Não | - | Logradouro (rua, avenida, travessa). |
+| `numero` | `VARCHAR2(5)` | Não | - | Número predial. |
+| `bairro_id_bairro` | `NUMBER(3)` | Não | FK | Referência para a tabela `bairro`. |
+
+---
+
+### 13. Tabela: `USUARIO_ENDERECO` (N:M)
+Associação flexível de múltiplos endereços por usuário.
+
+| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
+| :--- | :--- | :---: | :---: | :--- |
+| `usuario_id_usuario` | `NUMBER(3)` | Não | PK, FK | Referência ao usuário. |
+| `endereco_id_endereco` | `NUMBER(3)` | Não | PK, FK | Referência ao endereço cadastrado. |
+
+---
+
+### 14. Tabela: `BAIRRO`
+Divisão territorial urbana normalizada (3FN).
+
+| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
+| :--- | :--- | :---: | :---: | :--- |
+| `id_bairro` | `NUMBER(3)` | Não | PK | Identificador único do bairro. |
+| `nome_bairro` | `VARCHAR2(30)` | Não | - | Nome descritivo do bairro. |
+| `cidade_id_cidade` | `NUMBER(3)` | Não | FK | Referência para a tabela `cidade`. |
+
+---
+
+### 15. Tabela: `CIDADE`
+Municípios cadastrados (3FN).
+
+| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
+| :--- | :--- | :---: | :---: | :--- |
+| `id_cidade` | `NUMBER(3)` | Não | PK | Identificador único da cidade. |
+| `nome_cidade` | `VARCHAR2(30)` | Não | - | Nome do município. |
+| `estado_id_estado` | `NUMBER(3)` | Não | FK | Referência para a tabela `estado`. |
+
+---
+
+### 16. Tabela: `ESTADO`
+Unidades Federativas brasileiras (3FN).
+
+| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
+| :--- | :--- | :---: | :---: | :--- |
+| `id_estado` | `NUMBER(3)` | Não | PK | Identificador único do estado. |
+| `nome_estado` | `VARCHAR2(30)` | Não | - | Nome por extenso da Unidade Federativa. |
+
+---
+
+### 17. Tabela: `AUDITORIA_DML_TAREFA` (Requisito Estrito da Pág. 28 do Manual)
+Estrutura dedicada à rastreabilidade transacional da tabela de fatos `TAREFA`.
+
+| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra Oficial |
+| :--- | :--- | :---: | :---: | :--- |
+| `id_auditoria` | `NUMBER` | Não | PK | Identificador autoincremental (`IDENTITY`). |
+| `nome_usuario` | `VARCHAR2(50)` | Não | - | Nome do usuário de banco conectado (`USER`). |
+| `tipo_operacao` | `VARCHAR2(10)` | Não | - | Operação disparada: `'INSERT'`, `'UPDATE'` ou `'DELETE'`. |
+| `data_hora_operacao` | `TIMESTAMP` | Não | - | Timestamp da transação (`SYSTIMESTAMP`). |
+| `valores_anteriores` | `VARCHAR2(4000)` | Sim | - | Estado completo dos campos `:OLD` da linha. |
+| `valores_novos` | `VARCHAR2(4000)` | Sim | - | Estado completo dos campos `:NEW` da linha. |
+
+---
+
+## Especificação das Funções, Procedimentos e Gatilho (Sprint 3)
+
+### 1. Função 1: `fn_tarefa_json`
+* **Objetivo:** Receber o identificador de uma tarefa (`p_id_tarefa`), realizar JOIN relacional com `pet`, `status` e `usuario`, e retornar uma string formatada em JSON com a ficha da atividade.
+* **Regra Anti-Penalidade:** **ZERO USO de funções built-in do Oracle** (`TO_JSON`, `JSON_OBJECT`, `JSON_VALUE`, etc.), cuja infração desconta -10 pontos por ocorrência. A concatenação e tratamento de caracteres de escape (`\` e `"`) é 100% manual em PL/SQL.
+* **Tratamento de Exceções (Mínimo 3 distintas):**
+  1. `e_id_nulo_invalido`: Disparada quando o ID é nulo ou `<= 0` (ORA-20001).
+  2. `NO_DATA_FOUND`: Disparada quando a tarefa não existe na base (ORA-20002).
+  3. `e_json_excedente`: Disparada caso a string gerada exceda 3800 bytes (ORA-20003).
+  4. `WHEN OTHERS`: Tratamento genérico com captura de `SQLERRM` (ORA-20004).
+
+---
+
+### 2. Procedimento 1: `pr_listar_tarefas_json`
+* **Objetivo:** Executar consulta multitabelas com JOIN explícito entre `tarefa`, `pet`, `status` e `usuario`, consumindo a **Função 1** para cada linha processada e exibindo a coleção serializada via `DBMS_OUTPUT`.
+* **Tratamento de Exceções (Mínimo 3 distintas):**
+  1. `e_status_inexistente`: Validação prévia de existência do ID de status fornecido (ORA-20005).
+  2. `e_sem_registros`: Disparada quando nenhuma tarefa é localizada para o filtro (ORA-20006).
+  3. `CURSOR_ALREADY_OPEN`: Proteção contra tentativa de abertura duplicada de cursor (ORA-20007).
+  4. `WHEN OTHERS`: Fechamento seguro de cursor e reporte de erro (ORA-20008).
+
+---
+
+### 3. Função 2: `fn_classificar_pontos`
+* **Objetivo:** Processo lógico corporativo de gamificação que recebe uma quantidade numérica de pontos e retorna a faixa hierárquica correspondente:
+  * `<= 20`: `BRONZE (BÁSICO)`
+  * `<= 45`: `PRATA (INTERMEDIÁRIO)`
+  * `<= 75`: `OURO (AVANÇADO)`
+  * `> 75`: `DIAMANTE (MASTER)`
+* **Tratamento de Exceções (Mínimo 3 distintas):**
+  1. `e_pontos_nulo`: Parâmetro nulo não permitido (ORA-20009).
+  2. `e_pontos_negativo`: Valores negativos são inválidos no domínio (ORA-20010).
+  3. `e_pontos_excesso`: Pontuação acima do teto regulamentar de 1000 pontos (ORA-20011).
+  4. `WHEN OTHERS`: Falha imprevista de execução (ORA-20012).
+
+---
+
+### 4. Procedimento 2: `pr_resumo_pontos_tarefas`
+* **Objetivo:** Processar a tabela de fatos `TAREFA` agregando duas colunas categóricas (`PET` como Categoria 1 e `STATUS` como Categoria 2) e a coluna numérica `PONTOS_TAREFA`.
+* **Regras Mandatórias do Professor:**
+  1. **PROIBIDO o uso de `ROLLUP`, `CUBE`, `GROUPING SETS`, `GROUPING` ou similares** (Penalidade gravíssima de nota).
+  2. Somatório 100% manual implementado por variáveis acumuladoras dentro do laço PL/SQL.
+  3. Apresentação visual rigorosamente idêntica ao layout da página 26, mantendo o subtotal alinhado na mesma coluna da métrica com as colunas de agrupamento vazias:
+```text
+Pet (Cat 1)        Status (Cat 2)         Pontos
+------------------ ---------------- ------------
+1 - Thor           1 - PENDENTE            50.00
+1 - Thor           2 - CONCLUIDO           25.00
+1 - Thor           3 - EXPIRADO            15.00
+Sub Total                                  90.00
+2 - Mel            1 - PENDENTE            20.00
+2 - Mel            2 - CONCLUIDO           60.00
+Sub Total                                  80.00
+Total Geral                               170.00
+```
+* **Tratamento de Exceções (Mínimo 3 distintas):**
+  1. `e_sem_fatos_cadastrados`: Tabela vazia sem registros para agregação (ORA-20013).
+  2. `VALUE_ERROR`: Erro de conversão numérica ou estouro aritmético (ORA-20014).
+  3. `WHEN OTHERS`: Captura resiliente com garantia de liberação de cursor (ORA-20015).
+
+---
+
+### 5. Trigger de Auditoria DML: `trg_audit_tarefa`
+* **Objetivo:** Auditoria transacional completa disparada em modo `AFTER INSERT OR UPDATE OR DELETE ON tarefa FOR EACH ROW`.
+* **Persistência na Tabela `AUDITORIA_DML_TAREFA`:**
+  * Nome do usuário de banco (`USER`).
+  * Tipo de operação realizada (`'INSERT'`, `'UPDATE'`, `'DELETE'`).
+  * Data e hora com precisão de frações de segundo (`SYSTIMESTAMP`).
+  * Valores anteriores (`:OLD`) serializados em texto identificando coluna e valor.
+  * Valores novos (`:NEW`) serializados em texto identificando coluna e valor.
