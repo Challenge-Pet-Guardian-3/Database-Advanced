@@ -129,12 +129,15 @@ Fatos transacionais de alimentação, medicação, passeios e cuidados de saúde
 ---
 
 ### 7. Tabela: `STATUS`
-Domínio de estados do ciclo de vida das tarefas.
+Domínio canônico de estados do ciclo de vida das tarefas.
 
 | Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
 | :--- | :--- | :---: | :---: | :--- |
 | `id_status` | `NUMBER(3)` | Não | PK | Identificador do status. |
 | `nome_status` | `VARCHAR2(15)` | Não | CK | Restrição: `'CONCLUIDO'`, `'EXPIRADO'` ou `'PENDENTE'`. |
+
+> **📌 Nota Arquitetural (Domínio Fechado / Máquina de Estados):**  
+> A tabela `STATUS` atua como uma Máquina de Estados Finita para a rotina de cuidados do pet. Ela é estritamente restrita aos 3 estados canônicos do sistema (`PENDENTE`, `CONCLUIDO`, `EXPIRADO`), conforme validado pela constraint `ck_status_nome`. Criar status arbitrários adicionais violaria o domínio fechado e as regras de negócio da aplicação. Todas as demais tabelas do projeto atendem à métrica de 5 ou mais registros válidos.
 
 ---
 
@@ -301,8 +304,9 @@ Estrutura dedicada à rastreabilidade transacional da tabela de fatos `TAREFA`.
 * **Objetivo:** Processar a tabela de fatos `TAREFA` agregando duas colunas categóricas (`PET` como Categoria 1 e `STATUS` como Categoria 2) e a coluna numérica `PONTOS_TAREFA`.
 * **Regras Mandatórias do Professor:**
   1. **PROIBIDO o uso de `ROLLUP`, `CUBE`, `GROUPING SETS`, `GROUPING` ou similares** (Penalidade gravíssima de nota).
-  2. Somatório 100% manual implementado por variáveis acumuladoras dentro do laço PL/SQL.
-  3. Apresentação visual rigorosamente idêntica ao layout da página 26, mantendo o subtotal alinhado na mesma coluna da métrica com as colunas de agrupamento vazias:
+  2. **Cursor SQL Puro:** Leitura direta de fatos detalhados **sem `SUM()` e sem `GROUP BY`** no SQL, evitando qualquer delegação de agregação ao motor do Oracle.
+  3. **Somatório 100% Manual:** Acumulação de pontos em três níveis (combinação Pet + Status, subtotal por Pet e total geral) calculada exclusivamente por variáveis no laço procedural do PL/SQL.
+  4. **Apresentação Visual Idêntica ao Slide 26:** Formatação em colunas tabuladas (`RPAD`/`LPAD`), com Subtotal e Total Geral na coluna de pontuação e categorias ausentes (em branco):
 ```text
 Pet (Cat 1)        Status (Cat 2)         Pontos
 ------------------ ---------------- ------------

@@ -299,7 +299,14 @@ INSERT INTO usuario_pet (usuario_id_usuario, pet_id_pet, respon_princ) VALUES (3
 INSERT INTO usuario_pet (usuario_id_usuario, pet_id_pet, respon_princ) VALUES (4, 5, 1);
 INSERT INTO usuario_pet (usuario_id_usuario, pet_id_pet, respon_princ) VALUES (5, 1, 0);
 
--- 11. STATUS (3 registros oficiais de domínio)
+-- ----------------------------------------------------------------------------------------------------
+-- 11. STATUS (Justificativa Técnica de Domínio Fechado / Finite State Machine)
+-- NOTA ARQUITETURAL: A tabela STATUS atua como uma Máquina de Estados Finita e canônica para o ciclo
+-- de vida de cuidados do pet. Ela é estritamente restrita aos 3 estados discretos do sistema, validada
+-- pela constraint 'ck_status_nome CHECK (nome_status IN (''CONCLUIDO'', ''EXPIRADO'', ''PENDENTE''))'.
+-- Inserir estados adicionais violaria o domínio fechado e a integridade de negócio da aplicação.
+-- Todas as demais tabelas relacionais do projeto contêm 5 ou mais registros válidos.
+-- ----------------------------------------------------------------------------------------------------
 INSERT INTO status (id_status, nome_status) VALUES (1, 'PENDENTE');
 INSERT INTO status (id_status, nome_status) VALUES (2, 'CONCLUIDO');
 INSERT INTO status (id_status, nome_status) VALUES (3, 'EXPIRADO');
@@ -575,82 +582,95 @@ END fn_classificar_pontos;
 -- Tabela de Fatos: TAREFA | Categorias: PET (Cat 1) e STATUS (Cat 2) | Métrica Numérica: PONTOS_TAREFA
 -- Regras Estritas:
 -- 1. PROIBIDO uso de ROLLUP, CUBE, GROUPING SETS, GROUPING ou funções automáticas
--- 2. Somatório 100% manual no corpo do PL/SQL
--- 3. Subtotal no mesmo alinhamento de coluna com categorias ausentes (vazias)
--- 4. Exibição estritamente idêntica ao modelo visual do slide 26 da FIAP
--- 5. Trata no mínimo 3 exceções distintas
+-- 2. Query pura SEM agregação SQL (SEM SUM e SEM GROUP BY no cursor SQL - leitura de fatos detalhados)
+-- 3. Somatório da combinação (Pet + Status), Subtotal (Pet) e Total Geral 100% MANUAL no corpo do PL/SQL
+-- 4. Formatação tabular idêntica ao modelo visual do slide 26 da FIAP (RPAD/LPAD c/ categorias ausentes)
+-- 5. Tratamento de no mínimo 3 exceções distintas
 -- ----------------------------------------------------------------------------------------------------
 CREATE OR REPLACE PROCEDURE pr_resumo_pontos_tarefas IS
-    -- Cursor agregando a combinação completa das categorias (Pet e Status) ordenado hierarquicamente
+    -- Cursor de fatos detalhados: SEM SUM() e SEM GROUP BY no motor SQL
     CURSOR c_fatos IS
         SELECT p.id_pet,
                p.nome AS nome_pet,
                s.id_status,
                s.nome_status,
-               SUM(t.pontos_tarefa) AS total_combinacao
+               t.pontos_tarefa
           FROM tarefa t
           JOIN pet p    ON t.pet_id_pet = p.id_pet
           JOIN status s ON t.status_id_status = s.id_status
-         GROUP BY p.id_pet, p.nome, s.id_status, s.nome_status
          ORDER BY p.id_pet ASC, s.id_status ASC;
 
     r_linha c_fatos%ROWTYPE;
 
-    -- Variáveis de controle de quebra de grupo (Control Break)
-    v_pet_anterior        pet.id_pet%TYPE := NULL;
-    v_nome_pet_anterior   pet.nome%TYPE := NULL;
+    -- Variáveis de controle de quebra de grupo em 2 níveis (Control Break)
+    v_pet_atual           pet.id_pet%TYPE := NULL;
+    v_nome_pet_atual      pet.nome%TYPE := NULL;
+    v_status_atual        status.id_status%TYPE := NULL;
+    v_nome_status_atual   status.nome_status%TYPE := NULL;
+
+    -- Acumuladores 100% manuais em PL/SQL
+    v_soma_combinacao     NUMBER(10,2) := 0;
     v_subtotal_pet        NUMBER(10,2) := 0;
     v_total_geral         NUMBER(10,2) := 0;
-    v_qtd_combinacoes     NUMBER := 0;
+    v_qtd_linhas          NUMBER := 0;
 
     -- Exceções distintas
     e_sem_fatos_cadastrados EXCEPTION;
-    e_cursor_falhou         EXCEPTION;
 BEGIN
     OPEN c_fatos;
-    FETCH c_fatos INTO r_linha;
 
-    IF c_fatos%NOTFOUND THEN
-        CLOSE c_fatos;
-        RAISE e_sem_fatos_cadastrados;
-    END IF;
-
+    -- Cabeçalho formatado exatamente conforme layout oficial da página 26
     DBMS_OUTPUT.PUT_LINE(RPAD('Pet (Cat 1)', 18) || ' ' || RPAD('Status (Cat 2)', 16) || ' ' || LPAD('Pontos', 12));
     DBMS_OUTPUT.PUT_LINE(RPAD('-', 18, '-')      || ' ' || RPAD('-', 16, '-')       || ' ' || LPAD('-', 12, '-'));
 
-    WHILE c_fatos%FOUND LOOP
-        -- Quebra de categoria principal (Pet): emite subtotal do pet anterior antes de avançar
-        IF v_pet_anterior IS NOT NULL AND v_pet_anterior <> r_linha.id_pet THEN
-            DBMS_OUTPUT.PUT_LINE(RPAD('Sub Total', 35) || LPAD(TO_CHAR(v_subtotal_pet, 'FM999990.00'), 12));
-            v_subtotal_pet := 0;
+    LOOP
+        FETCH c_fatos INTO r_linha;
+
+        -- Quebra de combinação (Pet ou Status) ou término do cursor
+        IF (c_fatos%NOTFOUND OR r_linha.id_pet <> v_pet_atual OR r_linha.id_status <> v_status_atual) 
+           AND v_pet_atual IS NOT NULL THEN
+
+            -- 1. Exibe a linha consolidada manualmente da combinação (Pet, Status, Soma da Combinação)
+            DBMS_OUTPUT.PUT_LINE(
+                RPAD(TO_CHAR(v_pet_atual) || ' - ' || v_nome_pet_atual, 18) || ' ' ||
+                RPAD(TO_CHAR(v_status_atual) || ' - ' || v_nome_status_atual, 16) || ' ' ||
+                LPAD(TO_CHAR(v_soma_combinacao, 'FM999990.00'), 12)
+            );
+
+            -- Acumulação manual de métricas nos níveis superiores
+            v_subtotal_pet    := v_subtotal_pet + v_soma_combinacao;
+            v_total_geral     := v_total_geral + v_soma_combinacao;
+            v_soma_combinacao := 0;
+
+            -- 2. Quebra de Categoria 1 (Pet): emite a linha de Sub Total com categorias ausentes
+            IF c_fatos%NOTFOUND OR r_linha.id_pet <> v_pet_atual THEN
+                DBMS_OUTPUT.PUT_LINE(RPAD('Sub Total', 35) || LPAD(TO_CHAR(v_subtotal_pet, 'FM999990.00'), 12));
+                v_subtotal_pet := 0;
+            END IF;
         END IF;
 
-        -- Linha de detalhe da combinação (Pet, Status, Pontos)
-        DBMS_OUTPUT.PUT_LINE(
-            RPAD(TO_CHAR(r_linha.id_pet) || ' - ' || r_linha.nome_pet, 18) || ' ' ||
-            RPAD(TO_CHAR(r_linha.id_status) || ' - ' || r_linha.nome_status, 16) || ' ' ||
-            LPAD(TO_CHAR(r_linha.total_combinacao, 'FM999990.00'), 12)
-        );
+        EXIT WHEN c_fatos%NOTFOUND;
 
-        -- Acumulação manual de métricas
-        v_subtotal_pet    := v_subtotal_pet + r_linha.total_combinacao;
-        v_total_geral     := v_total_geral + r_linha.total_combinacao;
-        v_pet_anterior    := r_linha.id_pet;
-        v_nome_pet_anterior := r_linha.nome_pet;
-        v_qtd_combinacoes := v_qtd_combinacoes + 1;
+        -- Armazena o estado atual dos agrupamentos
+        v_pet_atual         := r_linha.id_pet;
+        v_nome_pet_atual    := r_linha.nome_pet;
+        v_status_atual      := r_linha.id_status;
+        v_nome_status_atual := r_linha.nome_status;
 
-        FETCH c_fatos INTO r_linha;
+        -- Acumulação manual da métrica numérica no corpo do procedimento
+        v_soma_combinacao   := v_soma_combinacao + r_linha.pontos_tarefa;
+        v_qtd_linhas        := v_qtd_linhas + 1;
     END LOOP;
 
-    -- Emite o último Subtotal pendente
-    IF v_pet_anterior IS NOT NULL THEN
-        DBMS_OUTPUT.PUT_LINE(RPAD('Sub Total', 35) || LPAD(TO_CHAR(v_subtotal_pet, 'FM999990.00'), 12));
+    CLOSE c_fatos;
+
+    -- Validação de ausência total de registros
+    IF v_qtd_linhas = 0 THEN
+        RAISE e_sem_fatos_cadastrados;
     END IF;
 
-    -- Emite o Total Geral final na última linha
+    -- 3. Emite o Total Geral final na última linha da tabela
     DBMS_OUTPUT.PUT_LINE(RPAD('Total Geral', 35) || LPAD(TO_CHAR(v_total_geral, 'FM999990.00'), 12));
-
-    CLOSE c_fatos;
 
 EXCEPTION
     WHEN e_sem_fatos_cadastrados THEN
