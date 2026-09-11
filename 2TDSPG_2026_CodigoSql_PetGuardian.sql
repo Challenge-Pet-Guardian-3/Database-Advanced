@@ -311,7 +311,7 @@ INSERT INTO status (id_status, nome_status) VALUES (1, 'PENDENTE');
 INSERT INTO status (id_status, nome_status) VALUES (2, 'CONCLUIDO');
 INSERT INTO status (id_status, nome_status) VALUES (3, 'EXPIRADO');
 
--- 12. TAREFA (Mínimo 8 registros detalhados com variação de Pet e Status)
+-- 12. TAREFA (8 registros com variação de Pet e Status)
 INSERT INTO tarefa (id_tarefa, titulo, pontos_tarefa, descricao, criacao, prazo, conclusao, pet_id_pet, status_id_status, usuario_id_usuario)
 VALUES (1, 'Passeio Matinal', 25, 'Caminhada de 40 minutos no parque', SYSTIMESTAMP - INTERVAL '2' DAY, SYSTIMESTAMP - INTERVAL '1' DAY, SYSTIMESTAMP - INTERVAL '1' DAY, 1, 2, 1);
 
@@ -381,9 +381,9 @@ COMMIT;
 
 
 -- ----------------------------------------------------------------------------------------------------
--- FUNÇÃO 1: CONVERSÃO RELACIONAL PARA JSON 100% MANUAL (SEM FUNÇÕES BUILT-IN DO ORACLE)
--- Regra Estrita: PROIBIDO uso de TO_JSON, JSON_OBJECT, JSON_VALUE, JSON_QUERY, etc.
--- Trata: 3+ Exceções distintas (e_id_nulo_invalido, NO_DATA_FOUND, e_json_excedente, OTHERS)
+-- FUNÇÃO 1: CONVERSÃO RELACIONAL PARA JSON
+-- Sem uso de funções built-in Oracle para JSON (TO_JSON, JSON_OBJECT, JSON_VALUE, JSON_QUERY, etc.)
+-- Exceções: e_id_nulo_invalido, NO_DATA_FOUND, e_json_excedente, OTHERS
 -- ----------------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION fn_tarefa_json (
     p_id_tarefa IN NUMBER
@@ -456,7 +456,7 @@ END fn_tarefa_json;
 
 -- ----------------------------------------------------------------------------------------------------
 -- PROCEDIMENTO 1: CONSULTA MULTITABELAS (JOIN) E EXPORTAÇÃO JSON
--- Regra: Realizar JOIN entre 2+ tabelas relacionais, exibir em JSON string via Função 1, tratar 3+ exceções.
+-- Consulta com JOIN entre Tarefa, Pet, Status e Usuario; serializa cada linha via Função 1.
 -- ----------------------------------------------------------------------------------------------------
 CREATE OR REPLACE PROCEDURE pr_listar_tarefas_json (
     p_status_id IN NUMBER DEFAULT NULL
@@ -481,7 +481,7 @@ CREATE OR REPLACE PROCEDURE pr_listar_tarefas_json (
     v_json_gerado   VARCHAR2(4000);
     v_total_linhas  NUMBER := 0;
 
-    -- Exceções personalizadas para garantir o cumprimento estrito de 3+ exceções distintas
+    -- Exceções personalizadas
     e_status_inexistente EXCEPTION;
     e_sem_registros      EXCEPTION;
     v_check_status       NUMBER;
@@ -503,7 +503,7 @@ BEGIN
         FETCH c_tarefas_join INTO v_id_tarefa, v_titulo, v_nome_pet, v_nome_status;
         EXIT WHEN c_tarefas_join%NOTFOUND;
 
-        -- Convocação obrigatória da Função 1 para geração da string JSON manual
+        -- Delega serialização à Função 1
         v_json_gerado := fn_tarefa_json(v_id_tarefa);
         DBMS_OUTPUT.PUT_LINE(v_json_gerado);
         v_total_linhas := v_total_linhas + 1;
@@ -535,7 +535,7 @@ END pr_listar_tarefas_json;
 
 -- ----------------------------------------------------------------------------------------------------
 -- FUNÇÃO 2: PROCESSO LÓGICO DE NEGÓCIO - CLASSIFICAÇÃO DE SCORE DE BEM-ESTAR
--- Regra: Substitui regra de negócio de gamificação, tratando no mínimo 3 exceções distintas.
+-- Substitui regra de negócio de gamificação com tratamento de exceções distintas.
 -- ----------------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION fn_classificar_pontos (
     p_pontos IN NUMBER
@@ -578,17 +578,16 @@ END fn_classificar_pontos;
 /
 
 -- ----------------------------------------------------------------------------------------------------
--- PROCEDIMENTO 2: RELATÓRIO ANALÍTICO TABULAR COM SUBTOTAL E TOTAL GERAL 100% MANUAL
--- Tabela de Fatos: TAREFA | Categorias: PET (Cat 1) e STATUS (Cat 2) | Métrica Numérica: PONTOS_TAREFA
--- Regras Estritas:
--- 1. PROIBIDO uso de ROLLUP, CUBE, GROUPING SETS, GROUPING ou funções automáticas
--- 2. Query pura SEM agregação SQL (SEM SUM e SEM GROUP BY no cursor SQL - leitura de fatos detalhados)
--- 3. Somatório da combinação (Pet + Status), Subtotal (Pet) e Total Geral 100% MANUAL no corpo do PL/SQL
--- 4. Formatação tabular idêntica ao modelo visual do slide 26 da FIAP (RPAD/LPAD c/ categorias ausentes)
--- 5. Tratamento de no mínimo 3 exceções distintas
+-- PROCEDIMENTO 2: RELATÓRIO ANALÍTICO TABULAR COM SUBTOTAL E TOTAL GERAL
+-- Tabela de Fatos: TAREFA | Categorias: PET (Cat 1) e STATUS (Cat 2) | Métrica: PONTOS_TAREFA
+-- 1. Sem uso de ROLLUP, CUBE, GROUPING SETS ou funções de agrupamento automático
+-- 2. Cursor lê fatos detalhados sem agregação no nível SQL
+-- 3. Somatório da combinação (Pet + Status), Subtotal (Pet) e Total Geral no corpo do PL/SQL
+-- 4. Formatação tabular com RPAD/LPAD preservando colunas de categorias ausentes
+-- 5. Tratamento de exceções distintas
 -- ----------------------------------------------------------------------------------------------------
 CREATE OR REPLACE PROCEDURE pr_resumo_pontos_tarefas IS
-    -- Cursor de fatos detalhados: SEM SUM() e SEM GROUP BY no motor SQL
+    -- Cursor de fatos detalhados sem agregação no motor SQL
     CURSOR c_fatos IS
         SELECT p.id_pet,
                p.nome AS nome_pet,
@@ -608,7 +607,7 @@ CREATE OR REPLACE PROCEDURE pr_resumo_pontos_tarefas IS
     v_status_atual        status.id_status%TYPE := NULL;
     v_nome_status_atual   status.nome_status%TYPE := NULL;
 
-    -- Acumuladores 100% manuais em PL/SQL
+    -- Acumuladores em PL/SQL
     v_soma_combinacao     NUMBER(10,2) := 0;
     v_subtotal_pet        NUMBER(10,2) := 0;
     v_total_geral         NUMBER(10,2) := 0;
@@ -619,7 +618,7 @@ CREATE OR REPLACE PROCEDURE pr_resumo_pontos_tarefas IS
 BEGIN
     OPEN c_fatos;
 
-    -- Cabeçalho formatado exatamente conforme layout oficial da página 26
+    -- Cabeçalho com colunas: Pet (Cat 1), Status (Cat 2) e Pontos
     DBMS_OUTPUT.PUT_LINE(RPAD('Pet (Cat 1)', 18) || ' ' || RPAD('Status (Cat 2)', 16) || ' ' || LPAD('Pontos', 12));
     DBMS_OUTPUT.PUT_LINE(RPAD('-', 18, '-')      || ' ' || RPAD('-', 16, '-')       || ' ' || LPAD('-', 12, '-'));
 
@@ -630,19 +629,19 @@ BEGIN
         IF (c_fatos%NOTFOUND OR r_linha.id_pet <> v_pet_atual OR r_linha.id_status <> v_status_atual) 
            AND v_pet_atual IS NOT NULL THEN
 
-            -- 1. Exibe a linha consolidada manualmente da combinação (Pet, Status, Soma da Combinação)
+            -- Exibe linha consolidada da combinação (Pet, Status, Soma)
             DBMS_OUTPUT.PUT_LINE(
                 RPAD(TO_CHAR(v_pet_atual) || ' - ' || v_nome_pet_atual, 18) || ' ' ||
                 RPAD(TO_CHAR(v_status_atual) || ' - ' || v_nome_status_atual, 16) || ' ' ||
                 LPAD(TO_CHAR(v_soma_combinacao, 'FM999990.00'), 12)
             );
 
-            -- Acumulação manual de métricas nos níveis superiores
+            -- Propaga acumuladores para subtotal e total geral
             v_subtotal_pet    := v_subtotal_pet + v_soma_combinacao;
             v_total_geral     := v_total_geral + v_soma_combinacao;
             v_soma_combinacao := 0;
 
-            -- 2. Quebra de Categoria 1 (Pet): emite a linha de Sub Total com categorias ausentes
+            -- Quebra de Pet: emite Sub Total
             IF c_fatos%NOTFOUND OR r_linha.id_pet <> v_pet_atual THEN
                 DBMS_OUTPUT.PUT_LINE(RPAD('Sub Total', 35) || LPAD(TO_CHAR(v_subtotal_pet, 'FM999990.00'), 12));
                 v_subtotal_pet := 0;
@@ -657,7 +656,7 @@ BEGIN
         v_status_atual      := r_linha.id_status;
         v_nome_status_atual := r_linha.nome_status;
 
-        -- Acumulação manual da métrica numérica no corpo do procedimento
+        -- Acumula pontos da linha atual
         v_soma_combinacao   := v_soma_combinacao + r_linha.pontos_tarefa;
         v_qtd_linhas        := v_qtd_linhas + 1;
     END LOOP;
