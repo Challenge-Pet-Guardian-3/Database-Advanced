@@ -136,8 +136,8 @@ Domínio canônico de estados do ciclo de vida das tarefas.
 | `id_status` | `NUMBER(3)` | Não | PK | Identificador do status. |
 | `nome_status` | `VARCHAR2(15)` | Não | CK | Restrição: `'CONCLUIDO'`, `'EXPIRADO'` ou `'PENDENTE'`. |
 
-> **📌 Nota Arquitetural (Domínio Fechado / Máquina de Estados):**  
-> A tabela `STATUS` atua como uma Máquina de Estados Finita para a rotina de cuidados do pet. Ela é estritamente restrita aos 3 estados canônicos do sistema (`PENDENTE`, `CONCLUIDO`, `EXPIRADO`), conforme validado pela constraint `ck_status_nome`. Criar status arbitrários adicionais violaria o domínio fechado e as regras de negócio da aplicação. Todas as demais tabelas do projeto atendem à métrica de 5 ou mais registros válidos.
+> **📌 Nota Arquitetural (Domínio Fechado):**  
+> A tabela `STATUS` é restrita aos 3 estados canônicos do sistema (`PENDENTE`, `CONCLUIDO`, `EXPIRADO`), validados pela constraint `ck_status_nome`. Estados adicionais violariam o domínio fechado da aplicação.
 
 ---
 
@@ -249,10 +249,10 @@ Unidades Federativas brasileiras (3FN).
 
 ---
 
-### 17. Tabela: `AUDITORIA_DML_TAREFA` (Requisito Estrito da Pág. 28 do Manual)
+### 17. Tabela: `AUDITORIA_DML_TAREFA`
 Estrutura dedicada à rastreabilidade transacional da tabela de fatos `TAREFA`.
 
-| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra Oficial |
+| Coluna | Tipo de Dados | Nulo? | Chave | Descrição / Regra |
 | :--- | :--- | :---: | :---: | :--- |
 | `id_auditoria` | `NUMBER` | Não | PK | Identificador autoincremental (`IDENTITY`). |
 | `nome_usuario` | `VARCHAR2(50)` | Não | - | Nome do usuário de banco conectado (`USER`). |
@@ -267,8 +267,8 @@ Estrutura dedicada à rastreabilidade transacional da tabela de fatos `TAREFA`.
 
 ### 1. Função 1: `fn_tarefa_json`
 * **Objetivo:** Receber o identificador de uma tarefa (`p_id_tarefa`), realizar JOIN relacional com `pet`, `status` e `usuario`, e retornar uma string formatada em JSON com a ficha da atividade.
-* **Regra Anti-Penalidade:** **ZERO USO de funções built-in do Oracle** (`TO_JSON`, `JSON_OBJECT`, `JSON_VALUE`, etc.), cuja infração desconta -10 pontos por ocorrência. A concatenação e tratamento de caracteres de escape (`\` e `"`) é 100% manual em PL/SQL.
-* **Tratamento de Exceções (Mínimo 3 distintas):**
+* **Serialização JSON:** Concatenação direta sem uso de funções built-in do Oracle (`TO_JSON`, `JSON_OBJECT`, `JSON_VALUE`, etc.). Tratamento de caracteres de escape (`\\` e `\"`) feito em PL/SQL.
+* **Tratamento de Exceções:**
   1. `e_id_nulo_invalido`: Disparada quando o ID é nulo ou `<= 0` (ORA-20001).
   2. `NO_DATA_FOUND`: Disparada quando a tarefa não existe na base (ORA-20002).
   3. `e_json_excedente`: Disparada caso a string gerada exceda 3800 bytes (ORA-20003).
@@ -278,7 +278,7 @@ Estrutura dedicada à rastreabilidade transacional da tabela de fatos `TAREFA`.
 
 ### 2. Procedimento 1: `pr_listar_tarefas_json`
 * **Objetivo:** Executar consulta multitabelas com JOIN explícito entre `tarefa`, `pet`, `status` e `usuario`, consumindo a **Função 1** para cada linha processada e exibindo a coleção serializada via `DBMS_OUTPUT`.
-* **Tratamento de Exceções (Mínimo 3 distintas):**
+* **Tratamento de Exceções:**
   1. `e_status_inexistente`: Validação prévia de existência do ID de status fornecido (ORA-20005).
   2. `e_sem_registros`: Disparada quando nenhuma tarefa é localizada para o filtro (ORA-20006).
   3. `CURSOR_ALREADY_OPEN`: Proteção contra tentativa de abertura duplicada de cursor (ORA-20007).
@@ -292,7 +292,7 @@ Estrutura dedicada à rastreabilidade transacional da tabela de fatos `TAREFA`.
   * `<= 45`: `PRATA (INTERMEDIÁRIO)`
   * `<= 75`: `OURO (AVANÇADO)`
   * `> 75`: `DIAMANTE (MASTER)`
-* **Tratamento de Exceções (Mínimo 3 distintas):**
+* **Tratamento de Exceções:**
   1. `e_pontos_nulo`: Parâmetro nulo não permitido (ORA-20009).
   2. `e_pontos_negativo`: Valores negativos são inválidos no domínio (ORA-20010).
   3. `e_pontos_excesso`: Pontuação acima do teto regulamentar de 1000 pontos (ORA-20011).
@@ -302,11 +302,11 @@ Estrutura dedicada à rastreabilidade transacional da tabela de fatos `TAREFA`.
 
 ### 4. Procedimento 2: `pr_resumo_pontos_tarefas`
 * **Objetivo:** Processar a tabela de fatos `TAREFA` agregando duas colunas categóricas (`PET` como Categoria 1 e `STATUS` como Categoria 2) e a coluna numérica `PONTOS_TAREFA`.
-* **Regras Mandatórias do Professor:**
-  1. **PROIBIDO o uso de `ROLLUP`, `CUBE`, `GROUPING SETS`, `GROUPING` ou similares** (Penalidade gravíssima de nota).
-  2. **Cursor SQL Puro:** Leitura direta de fatos detalhados **sem `SUM()` e sem `GROUP BY`** no SQL, evitando qualquer delegação de agregação ao motor do Oracle.
-  3. **Somatório 100% Manual:** Acumulação de pontos em três níveis (combinação Pet + Status, subtotal por Pet e total geral) calculada exclusivamente por variáveis no laço procedural do PL/SQL.
-  4. **Apresentação Visual Idêntica ao Slide 26:** Formatação em colunas tabuladas (`RPAD`/`LPAD`), com Subtotal e Total Geral na coluna de pontuação e categorias ausentes (em branco):
+* **Implementação:**
+  1. Sem uso de `ROLLUP`, `CUBE`, `GROUPING SETS` ou funções de agrupamento automático.
+  2. **Cursor SQL:** Leitura direta de fatos detalhados sem `SUM()` e sem `GROUP BY`.
+  3. **Somatório:** Acumulação de pontos em três níveis (combinação Pet + Status, subtotal por Pet e total geral) via variáveis no laço PL/SQL.
+  4. **Formatação tabular** com `RPAD`/`LPAD`, Subtotal e Total Geral na coluna de pontuação:
 ```text
 Pet (Cat 1)        Status (Cat 2)         Pontos
 ------------------ ---------------- ------------
@@ -319,7 +319,7 @@ Sub Total                                  90.00
 Sub Total                                  80.00
 Total Geral                               170.00
 ```
-* **Tratamento de Exceções (Mínimo 3 distintas):**
+* **Tratamento de Exceções:**
   1. `e_sem_fatos_cadastrados`: Tabela vazia sem registros para agregação (ORA-20013).
   2. `VALUE_ERROR`: Erro de conversão numérica ou estouro aritmético (ORA-20014).
   3. `WHEN OTHERS`: Captura resiliente com garantia de liberação de cursor (ORA-20015).
