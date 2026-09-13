@@ -386,53 +386,40 @@ COMMIT;
 -- Exceções: e_id_nulo_invalido, NO_DATA_FOUND, e_json_excedente, OTHERS
 -- ----------------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION fn_tarefa_json (
-    p_id_tarefa IN NUMBER
+    p_id_tarefa     IN NUMBER,
+    p_titulo        IN VARCHAR2,
+    p_pontos        IN NUMBER,
+    p_descricao     IN VARCHAR2,
+    p_nome_pet      IN VARCHAR2,
+    p_nome_status   IN VARCHAR2,
+    p_nome_usuario  IN VARCHAR2
 ) RETURN VARCHAR2 IS
-    v_titulo       tarefa.titulo%TYPE;
-    v_pontos       tarefa.pontos_tarefa%TYPE;
-    v_descricao    tarefa.descricao%TYPE;
-    v_nome_pet     pet.nome%TYPE;
-    v_nome_status  status.nome_status%TYPE;
-    v_nome_usuario usuario.nome%TYPE;
-    v_json         VARCHAR2(4000);
+    v_json             VARCHAR2(4000);
     
     -- Declaração de exceções personalizadas de regra de negócio
-    e_id_nulo_invalido EXCEPTION;
+    e_id_invalido      EXCEPTION;
+    e_dados_incompletos EXCEPTION;
     e_json_excedente   EXCEPTION;
 BEGIN
-    -- Validação de entrada
+    -- Validação de ID
     IF p_id_tarefa IS NULL OR p_id_tarefa <= 0 THEN
-        RAISE e_id_nulo_invalido;
+        RAISE e_id_invalido;
     END IF;
 
-    -- Extração dos dados relacionais utilizando JOINs entre 4 tabelas
-    SELECT t.titulo,
-           t.pontos_tarefa,
-           t.descricao,
-           p.nome,
-           s.nome_status,
-           u.nome
-      INTO v_titulo,
-           v_pontos,
-           v_descricao,
-           v_nome_pet,
-           v_nome_status,
-           v_nome_usuario
-      FROM tarefa t
-      JOIN pet p     ON t.pet_id_pet = p.id_pet
-      JOIN status s  ON t.status_id_status = s.id_status
-      JOIN usuario u ON t.usuario_id_usuario = u.id_usuario
-     WHERE t.id_tarefa = p_id_tarefa;
+    -- Validação de consistência dos dados relacionais obrigatórios
+    IF p_titulo IS NULL OR p_nome_pet IS NULL OR p_nome_status IS NULL OR p_nome_usuario IS NULL THEN
+        RAISE e_dados_incompletos;
+    END IF;
 
     -- Construção manual e determinística do documento JSON (sem qualquer função built-in)
     v_json := '{' ||
               '"id_tarefa":' || p_id_tarefa || ',' ||
-              '"titulo":"' || REPLACE(REPLACE(v_titulo, '\', '\\'), '"', '\"') || '",' ||
-              '"pontos":' || v_pontos || ',' ||
-              '"descricao":"' || REPLACE(REPLACE(NVL(v_descricao, ''), '\', '\\'), '"', '\"') || '",' ||
-              '"pet":"' || REPLACE(REPLACE(v_nome_pet, '\', '\\'), '"', '\"') || '",' ||
-              '"status":"' || v_nome_status || '",' ||
-              '"cuidador_responsavel":"' || REPLACE(REPLACE(v_nome_usuario, '\', '\\'), '"', '\"') || '"' ||
+              '"titulo":"' || REPLACE(REPLACE(p_titulo, '\', '\\'), '"', '\"') || '",' ||
+              '"pontos":' || NVL(p_pontos, 0) || ',' ||
+              '"descricao":"' || REPLACE(REPLACE(NVL(p_descricao, ''), '\', '\\'), '"', '\"') || '",' ||
+              '"pet":"' || REPLACE(REPLACE(p_nome_pet, '\', '\\'), '"', '\"') || '",' ||
+              '"status":"' || p_nome_status || '",' ||
+              '"cuidador_responsavel":"' || REPLACE(REPLACE(p_nome_usuario, '\', '\\'), '"', '\"') || '"' ||
               '}';
 
     -- Validação de estouro de buffer seguro de saída
@@ -443,10 +430,10 @@ BEGIN
     RETURN v_json;
 
 EXCEPTION
-    WHEN e_id_nulo_invalido THEN
+    WHEN e_id_invalido THEN
         RAISE_APPLICATION_ERROR(-20001, 'ID da tarefa fornecido é nulo ou inválido (deve ser > 0).');
-    WHEN NO_DATA_FOUND THEN
-        RAISE_APPLICATION_ERROR(-20002, 'Nenhuma tarefa localizada com o ID informado: ' || p_id_tarefa);
+    WHEN e_dados_incompletos THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Atributos relacionais obrigatórios da tarefa não podem ser nulos.');
     WHEN e_json_excedente THEN
         RAISE_APPLICATION_ERROR(-20003, 'Estrutura JSON manual excedeu o limite máximo seguro de 3800 bytes.');
     WHEN OTHERS THEN
@@ -465,8 +452,11 @@ CREATE OR REPLACE PROCEDURE pr_listar_tarefas_json (
     CURSOR c_tarefas_join IS
         SELECT t.id_tarefa,
                t.titulo,
+               t.pontos_tarefa,
+               t.descricao,
                p.nome AS nome_pet,
-               s.nome_status
+               s.nome_status,
+               u.nome AS nome_usuario
           FROM tarefa t
           JOIN pet p     ON t.pet_id_pet = p.id_pet
           JOIN status s  ON t.status_id_status = s.id_status
@@ -474,10 +464,7 @@ CREATE OR REPLACE PROCEDURE pr_listar_tarefas_json (
          WHERE p_status_id IS NULL OR t.status_id_status = p_status_id
          ORDER BY t.id_tarefa;
 
-    v_id_tarefa     tarefa.id_tarefa%TYPE;
-    v_titulo        tarefa.titulo%TYPE;
-    v_nome_pet      pet.nome%TYPE;
-    v_nome_status   status.nome_status%TYPE;
+    r_tarefa        c_tarefas_join%ROWTYPE;
     v_json_gerado   VARCHAR2(4000);
     v_total_linhas  NUMBER := 0;
 
@@ -500,11 +487,19 @@ BEGIN
 
     OPEN c_tarefas_join;
     LOOP
-        FETCH c_tarefas_join INTO v_id_tarefa, v_titulo, v_nome_pet, v_nome_status;
+        FETCH c_tarefas_join INTO r_tarefa;
         EXIT WHEN c_tarefas_join%NOTFOUND;
 
-        -- Delega serialização à Função 1
-        v_json_gerado := fn_tarefa_json(v_id_tarefa);
+        -- Delega serialização à Função 1 passando os dados relacionais extraídos pelo JOIN
+        v_json_gerado := fn_tarefa_json(
+            r_tarefa.id_tarefa,
+            r_tarefa.titulo,
+            r_tarefa.pontos_tarefa,
+            r_tarefa.descricao,
+            r_tarefa.nome_pet,
+            r_tarefa.nome_status,
+            r_tarefa.nome_usuario
+        );
         DBMS_OUTPUT.PUT_LINE(v_json_gerado);
         v_total_linhas := v_total_linhas + 1;
     END LOOP;
@@ -676,6 +671,8 @@ EXCEPTION
         RAISE_APPLICATION_ERROR(-20013, 'Nenhum registro de tarefa/fato localizado para sumarização.');
     WHEN VALUE_ERROR THEN
         RAISE_APPLICATION_ERROR(-20014, 'Estouro de capacidade ou erro de conversão numérica durante o somatório manual.');
+    WHEN CURSOR_ALREADY_OPEN THEN
+        RAISE_APPLICATION_ERROR(-20017, 'O cursor analítico de fatos já se encontra aberto nesta sessão.');
     WHEN OTHERS THEN
         IF c_fatos%ISOPEN THEN
             CLOSE c_fatos;
@@ -746,19 +743,27 @@ END trg_audit_tarefa;
 
 -- PARTE 4: BATERIA DE TESTES E EVIDÊNCIAS DE EXECUÇÃO E EXCEÇÕES
 
--- 4.1 TESTE DA FUNÇÃO 1 (Serialização JSON Manual)
+-- 4.1 TESTE DA FUNÇÃO 1 (Serialização JSON Manual a partir de Dados Relacionais)
 PROMPT === TESTE FUNCAO 1: Caso de Sucesso ===;
 DECLARE
     v_resultado VARCHAR2(4000);
 BEGIN
-    v_resultado := fn_tarefa_json(1);
+    v_resultado := fn_tarefa_json(
+        p_id_tarefa    => 1,
+        p_titulo       => 'Passeio Matinal',
+        p_pontos       => 25,
+        p_descricao    => 'Caminhada de 40 minutos no parque',
+        p_nome_pet     => 'Thor',
+        p_nome_status  => 'CONCLUIDO',
+        p_nome_usuario => 'Carlos Silva'
+    );
     DBMS_OUTPUT.PUT_LINE('JSON Gerado: ' || v_resultado);
 END;
 /
 
-PROMPT === TESTE FUNCAO 1: Caso de Exceção Tratada (ID Inexistente) ===;
+PROMPT === TESTE FUNCAO 1: Caso de Exceção Tratada (ID Inválido) ===;
 BEGIN
-    DBMS_OUTPUT.PUT_LINE(fn_tarefa_json(999));
+    DBMS_OUTPUT.PUT_LINE(fn_tarefa_json(-1, 'Teste', 10, 'Desc', 'Pet', 'STATUS', 'User'));
 EXCEPTION
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Exceção capturada com sucesso: ' || SQLERRM);
@@ -804,6 +809,20 @@ END;
 PROMPT === TESTE PROCEDIMENTO 2: Execução com Subtotais Manuais e Total Geral ===;
 BEGIN
     pr_resumo_pontos_tarefas;
+END;
+/
+
+PROMPT === TESTE PROCEDIMENTO 2: Caso de Exceção Tratada (Sem Fatos Cadastrados) ===;
+BEGIN
+    SAVEPOINT sp_teste_proc2;
+    -- Limpa temporariamente a tabela de fatos na sessão para induzir e_sem_fatos_cadastrados
+    DELETE FROM tarefa;
+    pr_resumo_pontos_tarefas;
+    ROLLBACK TO sp_teste_proc2;
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK TO sp_teste_proc2;
+        DBMS_OUTPUT.PUT_LINE('Exceção capturada com sucesso: ' || SQLERRM);
 END;
 /
 

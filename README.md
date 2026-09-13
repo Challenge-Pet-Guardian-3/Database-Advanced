@@ -136,8 +136,8 @@ Domínio canônico de estados do ciclo de vida das tarefas.
 | `id_status` | `NUMBER(3)` | Não | PK | Identificador do status. |
 | `nome_status` | `VARCHAR2(15)` | Não | CK | Restrição: `'CONCLUIDO'`, `'EXPIRADO'` ou `'PENDENTE'`. |
 
-> **📌 Nota Arquitetural (Domínio Fechado):**  
-> A tabela `STATUS` é restrita aos 3 estados canônicos do sistema (`PENDENTE`, `CONCLUIDO`, `EXPIRADO`), validados pela constraint `ck_status_nome`. Estados adicionais violariam o domínio fechado da aplicação.
+> **📌 Nota Arquitetural (Domínio Fechado / Finite State Machine):**  
+> A tabela `STATUS` é restrita aos 3 estados canônicos do sistema (`PENDENTE`, `CONCLUIDO`, `EXPIRADO`), validados pela constraint `ck_status_nome`. Estados adicionais violariam o domínio fechado da aplicação. Todas as demais tabelas contêm 5 ou mais registros válidos.
 
 ---
 
@@ -266,18 +266,18 @@ Estrutura dedicada à rastreabilidade transacional da tabela de fatos `TAREFA`.
 ## Especificação das Funções, Procedimentos e Gatilho (Sprint 3)
 
 ### 1. Função 1: `fn_tarefa_json`
-* **Objetivo:** Receber o identificador de uma tarefa (`p_id_tarefa`), realizar JOIN relacional com `pet`, `status` e `usuario`, e retornar uma string formatada em JSON com a ficha da atividade.
-* **Serialização JSON:** Concatenação direta sem uso de funções built-in do Oracle (`TO_JSON`, `JSON_OBJECT`, `JSON_VALUE`, etc.). Tratamento de caracteres de escape (`\\` e `\"`) feito em PL/SQL.
+* **Objetivo:** Receber dados relacionais da tarefa (`p_id_tarefa`, `p_titulo`, `p_pontos`, `p_descricao`, `p_nome_pet`, `p_nome_status`, `p_nome_usuario`) e serializá-los diretamente em uma string JSON formatada.
+* **Serialização JSON:** Concatenação direta sem uso de funções built-in do Oracle (`TO_JSON`, `JSON_OBJECT`, `JSON_VALUE`, etc.). Tratamento de caracteres de escape (`\\` e `\"`) feito em PL/SQL com validação de limites de buffer.
 * **Tratamento de Exceções:**
-  1. `e_id_nulo_invalido`: Disparada quando o ID é nulo ou `<= 0` (ORA-20001).
-  2. `NO_DATA_FOUND`: Disparada quando a tarefa não existe na base (ORA-20002).
+  1. `e_id_invalido`: Disparada quando o ID da tarefa é nulo ou `<= 0` (ORA-20001).
+  2. `e_dados_incompletos`: Disparada quando campos relacionais obrigatórios são nulos (ORA-20002).
   3. `e_json_excedente`: Disparada caso a string gerada exceda 3800 bytes (ORA-20003).
   4. `WHEN OTHERS`: Tratamento genérico com captura de `SQLERRM` (ORA-20004).
 
 ---
 
 ### 2. Procedimento 1: `pr_listar_tarefas_json`
-* **Objetivo:** Executar consulta multitabelas com JOIN explícito entre `tarefa`, `pet`, `status` e `usuario`, consumindo a **Função 1** para cada linha processada e exibindo a coleção serializada via `DBMS_OUTPUT`.
+* **Objetivo:** Executar consulta analítica multitabelas com JOIN explícito entre `tarefa`, `pet`, `status` e `usuario`, delegando a serialização de cada linha relacional para a **Função 1** e exibindo o resultado via `DBMS_OUTPUT` (sem N+1 queries).
 * **Tratamento de Exceções:**
   1. `e_status_inexistente`: Validação prévia de existência do ID de status fornecido (ORA-20005).
   2. `e_sem_registros`: Disparada quando nenhuma tarefa é localizada para o filtro (ORA-20006).
@@ -322,7 +322,8 @@ Total Geral                               170.00
 * **Tratamento de Exceções:**
   1. `e_sem_fatos_cadastrados`: Tabela vazia sem registros para agregação (ORA-20013).
   2. `VALUE_ERROR`: Erro de conversão numérica ou estouro aritmético (ORA-20014).
-  3. `WHEN OTHERS`: Captura resiliente com garantia de liberação de cursor (ORA-20015).
+  3. `CURSOR_ALREADY_OPEN`: Proteção contra tentativa de abertura concorrente do cursor (ORA-20017).
+  4. `WHEN OTHERS`: Captura resiliente com garantia de liberação de cursor (ORA-20015).
 
 ---
 
